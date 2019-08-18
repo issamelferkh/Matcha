@@ -18,7 +18,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 	isset($_GET["age_min"]) && !empty($_GET["age_min"]) ? $age_min = htmlspecialchars(trim($_GET["age_min"])) : $age_min = 0; 
 	isset($_GET["age_max"]) && !empty($_GET["age_max"]) ? $age_max = htmlspecialchars(trim($_GET["age_max"])) : $age_max = 999; 
 	isset($_GET["distance_min"]) && !empty($_GET["distance_min"]) ? $distance_min = htmlspecialchars(trim($_GET["distance_min"])) : $distance_min = 0; 
-	isset($_GET["distance_max"]) && !empty($_GET["distance_max"]) ? $distance_max = htmlspecialchars(trim($_GET["distance_max"])) : $distance_min = 99999; 
+	isset($_GET["distance_max"]) && !empty($_GET["distance_max"]) ? $distance_max = htmlspecialchars(trim($_GET["distance_max"])) : $distance_max = 99999; 
 	isset($_GET["popularity_min"]) && !empty($_GET["popularity_min"]) ? $popularity_min = htmlspecialchars(trim($_GET["popularity_min"])) : $popularity_min = 0; 
 	isset($_GET["popularity_max"]) && !empty($_GET["popularity_max"]) ? $popularity_max = htmlspecialchars(trim($_GET["popularity_max"])) : $popularity_max = 100; 
 	isset($_GET["tag1"]) && !empty($_GET["tag1"]) ? $tag1 = htmlspecialchars(trim($_GET["tag1"])) : $tag1 = "%"; 
@@ -206,37 +206,57 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 				         ?>
 				        &nbsp;&nbsp;&nbsp;&nbsp;
 				        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-				            <strong class="d-block text-gray-dark">@<?php echo $la_case1[$i]['fname']." ".$la_case1[$i]['lname']; ?></strong>
+				            <strong class="d-block text-gray-dark">@<?= $la_case1[$i]['fname']." ".$la_case1[$i]['lname']; ?></strong>
 				        </p>
 			        </div>
 			        <div class="media text-muted pt-3">
 				        <i class="fas fa-book-reader" title="Biography"></i>&nbsp;&nbsp;&nbsp;
 				        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-				            <strong class="d-block text-gray-dark">@Biography</strong><?php echo $la_case1[$i]['bio']; ?>
+				            <strong class="d-block text-gray-dark">@Biography</strong><?= $la_case1[$i]['bio']; ?>
 				        </p>
 			        </div>
 					<!-- online => id = user_login_status -->
 			        <div class="media text-muted pt-3" id="user_login_status"></div>
 			        <small class="d-block text-right mt-3">
-				        <a href="<?php echo $url; ?>/user/profile.php">All Profile</a>
+				        <a href="<?= $url; ?>/user/profile.php">All Profile</a>
 			        </small>
 			        <div class="d-flex justify-content-center">
-<a href="<?php echo $url; ?>/user/browsing_out.php?
-	i=<?php echo $i+1;?>&
-	user_p=<?php echo $_SESSION['user_id'];?>&
-	user_o=<?php echo $la_case1[$i]['user_id'];?>&
+<a href="<?= $url; ?>/user/browsing_out.php?
+	i=<?= $i+1;?>&
+	user_p=<?= $_SESSION['user_id'];?>&
+	user_o=<?= $la_case1[$i]['user_id'];?>&
 	liked=0&
 	noped=1&
-	token=<?php echo $_SESSION['token'];?>
+	sort=<?= $sort;?>&
+	distance_min=<?= $distance_min;?>& 
+	distance_max=<?= $distance_max;?>&
+	age_min=<?= $age_min;?>&
+	age_max=<?= $age_max;?>&
+	popularity_min=<?= $popularity_min;?>&
+	popularity_max=<?= $popularity_max;?>&
+	tag1=<?= $tag1;?>&
+	tag2=<?= $tag2;?>&
+	tag3=<?= $tag3;?>&
+	token=<?= $_SESSION['token'];?>
 	" class="btn btn-danger" role="button">Nope</a>
 	&nbsp;&nbsp;&nbsp;
-<a href="<?php echo $url; ?>/user/browsing_out.php?
-	i=<?php echo $i+1;?>&
-	user_p=<?php echo $_SESSION['user_id'];?>&
-	user_o=<?php echo $la_case1[$i]['user_id'];?>&
+<a href="<?= $url; ?>/user/browsing_out.php?
+	i=<?= $i+1;?>&
+	user_p=<?= $_SESSION['user_id'];?>&
+	user_o=<?= $la_case1[$i]['user_id'];?>&
 	liked=1&
-	noped=&
-	token=<?php echo $_SESSION['token'];?>
+	noped=0&
+	sort=<?= $sort;?>&
+	distance_min=<?= $distance_min;?>&
+	distance_max=<?= $distance_max;?>&
+	age_min=<?= $age_min;?>&
+	age_max=<?= $age_max;?>&
+	popularity_min=<?= $popularity_min;?>&
+	popularity_max=<?= $popularity_max;?>&
+	tag1=<?= $tag1;?>&
+	tag2=<?= $tag2;?>&
+	tag3=<?= $tag3;?>&
+	token=<?= $_SESSION['token'];?>
 	" class="btn btn-success" role="button">Like</a>
 					</div>
 			    </div>
@@ -277,7 +297,7 @@ $(document).ready(function(){
 	// fetch user online
 	function fetch_user_login_data() {
 		var action = "fetch_data";
-		var user_o = "<?php echo $la_case1[$i]['user_id']; ?>";
+		var user_o = "<?= $la_case1[$i]['user_id']; ?>";
 		$.ajax({
 			url:"online.php",
 			method:"GET",

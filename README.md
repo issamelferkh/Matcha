@@ -130,3 +130,8 @@ https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
 
 - Log-out -> with 1 click from any pages on the site.
 > - after login
+
+
+
+- user template -> navbar+home+...
+- prob scrol profiles in one page with php ???

@@ -5,16 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+        <link rel="icon" href="<?php echo $url; ?>/favicon.ico">
 
         <title>Matcha</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/offcanvas/">
 
         <!-- Bootstrap core CSS -->
-        <link href="assets/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo $url; ?>/assets/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link href="assets/css/bootstrap/offcanvas.css" rel="stylesheet">
+        <link href="<?php echo $url; ?>/assets/css/bootstrap/offcanvas.css" rel="stylesheet">
     </head>
     <body class="bg-light">

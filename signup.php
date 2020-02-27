@@ -81,7 +81,7 @@ if(isset($_POST["signup"])) {
 
 <?php include 'include/header.php'; ?>
 
-<?php include 'include/nav.php'; ?>
+<?php include 'include/navbar.php'; ?>
 
 <!-- start container -->
 <main role="main" class="container">

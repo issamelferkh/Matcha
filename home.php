@@ -1,7 +1,9 @@
+<!-- connection -->
+<?php require_once("config/connection.php"); ?>
 <!-- header -->
 <?php include("include/header.php"); ?>   
 <!-- nav -->
-<?php include("include/nav.php"); ?>
+<?php include("include/navbar.php"); ?>
 <!-- sub nav -->
 <?php //include("include/nav_sub.php"); ?>   
 

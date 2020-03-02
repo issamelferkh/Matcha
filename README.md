@@ -110,28 +110,43 @@ https://cdn.intra.42.fr/pdf/pdf/4832/matcha.en.pdf
 https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
 
 
-## To do
-### Registration and Signing-in 
+## To do - Plan
+
+### Lun 02/03: Registration and Signing-in 
 - Sign-up -> asking at least: email + username + last name + first name + password (soit peu sécurisé).
 - Sign-up -> activation: by send an e-mail with an unique link.
 - [x] Sign-in -> with username and password.
 - Forget-pwd -> receive an email to re-initialize the pwd
 - Log-out -> with 1 click from any pages on the site.
 ========================================================
+> - change name of all $message to $get_msg, $danger_msg, $warning_msg, $dark_msg ...
+
 - Sign-up -> asking at least: email + username + last name + first name + password (soit peu sécurisé).
-> - front end OK
-> - back end: OK
-> - optimise: verif all code and delete li zayda !!!
-
-- Sign-up -> activation: by send an e-mail with an unique link.
-
+> - CSRF in sign up ?!
+- Sign-up -> activation: by send an e-mail with an unique link. + test
 - Forget-pwd -> receive an email to re-initialize the pwd
-
-
-- Log-out -> with 1 click from any pages on the site.
-> - after login
 
 
 
 - user template -> navbar+home+...
+- Log-out -> with 1 click from any pages on the site.
+> - after login
 - prob scrol profiles in one page with php ???
+
+### Mar 03/03: User profile ##########
+
+### Mer 04/03: Browsing ##########
+
+### Jeu 05/03: Research ##########
+
+### Ven 06/03: Profile of other users
+
+### Lun 09/03: Chat ##########
+
+### Mar 10/03: Notifications ##########
+
+### Mer 11/03: Security
+
+### Jeu 12/03: Consignes générales
+
+### Ven 13/03: correction 

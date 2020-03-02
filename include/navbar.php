@@ -1,6 +1,3 @@
-<!-- connection -->
-<?php require_once("config/connection.php"); ?>
-
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
     <a class="navbar-brand" href="<?php echo $url; ?>/index.php">Matcha</a>
     <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">

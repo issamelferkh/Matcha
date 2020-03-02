@@ -4,22 +4,22 @@ require_once("config/connection.php");
 
 function ft_send_email($username,$email,$hash){
 
-    $to      = $email; // Send email to our user
-    $subject = 'Matcha | Signup - Verification'; // Give the email a subject 
+    $to      = $email; // email of user
+    $subject = 'Matcha | Signup - Verification'; // give the email a subject 
     $message = '
      
     Hi "'.$username.'",
 
     Your account has been created, you can login with the following username and password after you have activated your account by pressing the url below.
 
-    Please click this link to activate your account:
-    https://10.12.100.163/Matcha/active_user.php?email='.$email.'&hash='.$hash.'
+    Please click to this link to activate your account:
+    '.$url.'/active_user.php?email='.$email.'&hash='.$hash.'
      
     Thanks for using Matcha!
-    '; // Our message above including the link
+    '; // message above including the link
                          
-    $headers = 'From:no-reply@matcha.com' . "\r\n"; // Set from headers
-    mail($to, $subject, $message, $headers); // Send our email
+    $headers = 'From:no-reply@matcha.com' . "\r\n"; // set from headers
+    mail($to, $subject, $message, $headers); // send email
 }
 
 if(isset($_POST["signup"])) {
@@ -71,8 +71,8 @@ if(isset($_POST["signup"])) {
                 $query = $db->prepare($query);
                 $query->execute([$username,$email,$password,$hash,$notification]);
                 ft_send_email($username, $email, $hash);
-                $msg = 'Please active your account by clicking the activation link that has been send to your email.';
-                header("location:signin.php?msg=".$msg."");
+                $get_msg = 'Please active your account by clicking the activation link that has been send to your email.';
+                header("location:signin.php?get_msg=".$get_msg."");
             }
         } 
     }

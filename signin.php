@@ -2,7 +2,6 @@
 session_start();
 require_once("config/connection.php");
 
-
 if(isset($_POST["signin"])) {
     if(empty($_POST["username"]) || empty($_POST["password"])) {
         $message3 = 'All fields are required!';
@@ -25,7 +24,6 @@ if(isset($_POST["signin"])) {
             } else {
                 $message2 = 'Your account is not activated yet!';
             }
-            
         } else {
             $message1 = 'Incorrect Username or Password!';
         }
@@ -52,7 +50,7 @@ if(isset($_POST["signin"])) {
         <?php if(isset($message1)) {echo '<div class="alert alert-danger" role="alert">'.htmlspecialchars($message1).'</div>';}?>
         <?php if(isset($message2)) {echo '<div class="alert alert-warning" role="alert">'.htmlspecialchars($message2).'</div>';}?>
         <?php if(isset($message3)) {echo '<div class="alert alert-dark" role="alert">'.htmlspecialchars($message3).'</div>';}?>
-        <?php if(isset($_GET['msg'])) {echo '<div class="alert alert-primary" role="alert">'.htmlspecialchars($_GET['msg']).'</div>';}?>
+        <?php if(isset($_GET['get_msg'])) {echo '<div class="alert alert-primary" role="alert">'.htmlspecialchars($_GET['get_msg']).'</div>';}?>
         
         <form method="post" action="signin.php">
             <div class="form-row">

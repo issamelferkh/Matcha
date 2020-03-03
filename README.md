@@ -33,11 +33,10 @@
 
 ## Partie obligatoire
 ### Registration and Signing-in 
-- Sign-up -> asking at least: email + username + last name + first name + password (soit peu sécurisé).
-- Sign-up -> activation: by send an e-mail with an unique link.
-- Sign-in -> with username and password.
-- Forget-pwd -> receive an email to re-initialize the pwd
-- Log-out -> with 1 click from any pages on the site.
+- [x] Sign-up -> asking at least: email + username + last name + first name + password (soit peu sécurisé).
+- [x] Sign-up -> activation: by send an e-mail with an unique link.
+- [x] Sign-in -> with username and password.
+- [x] Forget-pwd -> receive an email to re-initialize the pwd
 
 ### User profile ##########
 - Profile -> Once connected, the user must fill his profile, adding the following information:
@@ -111,27 +110,47 @@ https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
 
 
 ## To do - Plan
+### Lun 02/03: Registration and Signing-in =>
+- [ ] Log-out -> with 1 click from any pages on the site.
 
+### Mar 03/03: User profile => 
+- Profile -> Once connected, the user must fill his profile, adding the following information:
+> - The gender (Son genre).
+> - Sexual preferences (Son orientation sexuelle).
+> - A biography (Une bio courte).
+> - A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
+> - Pictures, max 5, including 1 as profile picture.
+- Profile -> At any time, the user must be able to modify these information.
+- Profile -> The user must be able to check who looked at his profile and “liked” him.
+- Profile -> The user must have a public "fame rating" (score de popularite public) -> To I to define
+- GPS -> The user must be located (using GPS) up to his neighborhood.
+- GPS -> If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
+- GPS -> The user must be able to modify his GPS position in his profile.
+
+* user template -> navbar+home+...
+* after login
+* prob scrol profiles in one page with php ???
+### Mer 04/03: Browsing ##########
+
+### Jeu 05/03: Research ##########
+
+### Ven 06/03: Profile of other users
+
+### Lun 09/03: Chat ##########
+
+### Mar 10/03: Notifications ##########
+
+### Mer 11/03: Security
+
+### Jeu 12/03: Consignes générales
+
+### Ven 13/03: correction 
+
+
+# Questions
 ### Lun 02/03: Registration and Signing-in 
-- Sign-up -> asking at least: email + username + last name + first name + password (soit peu sécurisé).
-- Sign-up -> activation: by send an e-mail with an unique link.
-- [x] Sign-in -> with username and password.
-- Forget-pwd -> receive an email to re-initialize the pwd
-- Log-out -> with 1 click from any pages on the site.
-========================================================
-> - change name of all $message to $get_msg, $danger_msg, $warning_msg, $dark_msg ...
-
-- Sign-up -> asking at least: email + username + last name + first name + password (soit peu sécurisé).
 > - CSRF in sign up ?!
-- Sign-up -> activation: by send an e-mail with an unique link. + test
-- Forget-pwd -> receive an email to re-initialize the pwd
 
-
-
-- user template -> navbar+home+...
-- Log-out -> with 1 click from any pages on the site.
-> - after login
-- prob scrol profiles in one page with php ???
 
 ### Mar 03/03: User profile ##########
 

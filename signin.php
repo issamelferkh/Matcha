@@ -50,7 +50,7 @@ if(isset($_POST["signin"])) {
         <?php if(isset($message1)) {echo '<div class="alert alert-danger" role="alert">'.htmlspecialchars($message1).'</div>';}?>
         <?php if(isset($message2)) {echo '<div class="alert alert-warning" role="alert">'.htmlspecialchars($message2).'</div>';}?>
         <?php if(isset($message3)) {echo '<div class="alert alert-dark" role="alert">'.htmlspecialchars($message3).'</div>';}?>
-        <?php if(isset($_GET['get_msg'])) {echo '<div class="alert alert-primary" role="alert">'.htmlspecialchars($_GET['get_msg']).'</div>';}?>
+        <?php if(isset($_GET['msg_get'])) {echo '<div class="alert alert-primary" role="alert">'.htmlspecialchars($_GET['msg_get']).'</div>';}?>
         
         <form method="post" action="signin.php">
             <div class="form-row">

@@ -13,7 +13,7 @@ function ft_send_email($username,$email,$hash){
     Your account has been created, you can login with the following username and password after you have activated your account by pressing the url below.
 
     Please click to this link to activate your account:
-    '.$url.'/active_user.php?email='.$email.'&hash='.$hash.'
+    https://10.12.100.163/matcha/active_user.php?email='.$email.'&hash='.$hash.'
      
     Thanks for using Matcha!
     '; // message above including the link
@@ -71,8 +71,8 @@ if(isset($_POST["signup"])) {
                 $query = $db->prepare($query);
                 $query->execute([$username,$email,$password,$hash,$notification]);
                 ft_send_email($username, $email, $hash);
-                $get_msg = 'Please active your account by clicking the activation link that has been send to your email.';
-                header("location:signin.php?get_msg=".$get_msg."");
+                $msg_get = 'Please active your account by clicking the activation link that has been send to your email.';
+                header("location:signin.php?msg_get=".$msg_get."");
             }
         } 
     }

@@ -4,7 +4,7 @@ require_once("config/connection.php");
 
 
 if(empty($_GET['email']) || empty($_GET['hash'])) {
-    $message = 'All fields are required.';
+    $msg_get = 'All fields are required.';
 }
 else{        
     $query = 'SELECT * FROM user WHERE email="'.$_GET['email'].'" AND hash="'.$_GET['hash'].'"';
@@ -18,16 +18,16 @@ else{
             $sql = 'UPDATE user SET active=? WHERE email="'.$_GET['email'].'" AND hash="'.$_GET['hash'].'"';
             $db->prepare($sql)->execute([$active]);
 
-            $message = 'Your account is active now.';
-            header("location:signin.php?msg=".$message."");
+            $msg_get = 'Your account is active now.';
+            header("location:signin.php?msg_get=".$msg_get."");
         } else if($la_case[0]['active'] == 1) {
-            $message = 'Your account is already activated !!!';
-            header("location:signin.php?msg=".$message."");
+            $msg_get = 'Your account is already activated !!!';
+            header("location:signin.php?msg_get=".$msg_get."");
         }
         
     } else{
-        $message = 'You don\'t have an account yet in Camagru!!!';
-        header("location:signin.php?msg=".$message."");
+        $msg_get = 'You don\'t have an account yet in Matcha!!!';
+        header("location:signin.php?msg_get=".$msg_get."");
     }
 }
 

@@ -4,7 +4,7 @@ require_once("config/connection.php");
 
 
 if(empty($_GET['email']) || empty($_GET['hash'])) {
-    $message = 'All fields are required.';
+    $msg_get = 'All fields are required.';
 }
 else{        
     $query = 'SELECT * FROM user WHERE email="'.$_GET['email'].'" AND hash="'.$_GET['hash'].'"';
@@ -16,8 +16,8 @@ else{
         $token = md5(rand(0,1000));
         header("location:forget_pwd_reset.php?msg=".$token."");        
     } else{
-        $message = 'You don\'t have an account yet in Camagru!!!';
-        header("location:signin.php?msg=".$message."");
+        $msg_get = 'You don\'t have an account yet in Matcha!!!';
+        header("location:signin.php?msg_get=".$msg_get."");
     }
 }
 ?>

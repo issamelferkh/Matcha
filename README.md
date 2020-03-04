@@ -114,22 +114,28 @@ https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
 - [ ] Log-out -> with 1 click from any pages on the site.
 
 ### Mar 03/03: User profile => 
-- Profile -> Once connected, the user must fill his profile, adding the following information:
+- [ ] Profile -> Once connected, the user must fill his profile, adding the following information:
 > - The gender (Son genre).
 > - Sexual preferences (Son orientation sexuelle).
 > - A biography (Une bio courte).
 > - A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
 > - Pictures, max 5, including 1 as profile picture.
-- Profile -> At any time, the user must be able to modify these information.
-- Profile -> The user must be able to check who looked at his profile and “liked” him.
-- Profile -> The user must have a public "fame rating" (score de popularite public) -> To I to define
-- GPS -> The user must be located (using GPS) up to his neighborhood.
-- GPS -> If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
-- GPS -> The user must be able to modify his GPS position in his profile.
 
-* user template -> navbar+home+...
-* after login
-* prob scrol profiles in one page with php ???
+- [ ] Profile -> At any time, the user must be able to modify these information.
+- [ ] Profile -> The user must be able to check who looked at his profile and “liked” him.
+- [ ] Profile -> The user must have a public "fame rating" (score de popularite public) -> To I to define
+- [ ] GPS -> The user must be located (using GPS) up to his neighborhood.
+- [ ] GPS -> If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
+- [ ] GPS -> The user must be able to modify his GPS position in his profile.
+
+* Profile update template -> OK
+* Profile update pic template ->
+* Profile update pwd template ->
+* after login -> logout
+* navbar user
+* var sessions login
+* prob scrol profiles in one page with php -> carousel in bootstrap
+
 ### Mer 04/03: Browsing ##########
 
 ### Jeu 05/03: Research ##########

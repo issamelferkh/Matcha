@@ -158,9 +158,7 @@
 				                </div>
 				        </div>
 
-				        <button name="signup" type="submit" class="btn btn-primary">Update Profile</button>
-			            <a href="https://10.12.100.163/matcha/forget_pwd.php" class="btn btn-warning" role="button">Upload Pictures</a>
-			            <a href="https://10.12.100.163/matcha/forget_pwd.php" class="btn btn-danger" role="button">Update Password</a>
+				        <button name="signup" type="submit" class="btn btn-primary">Submit</button>
 			        </form>
 			    </div>
             </div><!-- End About profile -->

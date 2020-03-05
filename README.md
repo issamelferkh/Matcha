@@ -105,15 +105,14 @@ A user must be able to see, from any page that a notification hasn’t been read
 ### Contraintes et Obligations
 ## Partie bonus
 
-https://cdn.intra.42.fr/pdf/pdf/4832/matcha.en.pdf
-https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
-
 
 ## To do - Plan
 ### Lun 02/03: Registration and Signing-in =>
 - [ ] Log-out -> with 1 click from any pages on the site.
 
 ### Mar 03/03: User profile => 
+- verif 18ans
+
 - [ ] Profile -> Once connected, the user must fill his profile, adding the following information:
 > - The gender (Son genre).
 > - Sexual preferences (Son orientation sexuelle).
@@ -175,3 +174,8 @@ https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
 ### Jeu 12/03: Consignes générales
 
 ### Ven 13/03: correction 
+
+### Doc and Help
+- https://cdn.intra.42.fr/pdf/pdf/4832/matcha.en.pdf
+- https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
+- https://ipinfo.io/ => location with @IP

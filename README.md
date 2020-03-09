@@ -37,6 +37,7 @@
 - [x] Sign-up -> activation: by send an e-mail with an unique link.
 - [x] Sign-in -> with username and password.
 - [x] Forget-pwd -> receive an email to re-initialize the pwd
+- [x] Log-out -> with 1 click from any pages on the site.
 
 ### User profile ##########
 - Profile -> Once connected, the user must fill his profile, adding the following information:
@@ -107,8 +108,7 @@ A user must be able to see, from any page that a notification hasn’t been read
 
 
 ## To do - Plan
-### Lun 02/03: Registration and Signing-in =>
-- [ ] Log-out -> with 1 click from any pages on the site.
+### Lun 02/03: Registration and Signing-in => OK
 
 ### Mar 03/03: User profile => 
 - verif 18ans

@@ -109,9 +109,15 @@ A user must be able to see, from any page that a notification hasn’t been read
 
 ## To do - Plan
 ### Lun 02/03: Registration and Signing-in => OK
+* testing all
 
 ### Mar 03/03: User profile => 
-- verif 18ans
+* verif 18ans
+* Profile update frontend -> OK
+* Profile update pic frontend ->
+* Profile update pwd frontend ->
+* navbar user
+* prob scrol profiles in one page with php -> carousel in bootstrap
 
 - [ ] Profile -> Once connected, the user must fill his profile, adding the following information:
 > - The gender (Son genre).
@@ -127,13 +133,6 @@ A user must be able to see, from any page that a notification hasn’t been read
 - [ ] GPS -> If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
 - [ ] GPS -> The user must be able to modify his GPS position in his profile.
 
-* Profile update template -> OK
-* Profile update pic template ->
-* Profile update pwd template ->
-* after login -> logout
-* navbar user
-* var sessions login
-* prob scrol profiles in one page with php -> carousel in bootstrap
 
 ### Mer 04/03: Browsing ##########
 

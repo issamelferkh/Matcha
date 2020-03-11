@@ -2,10 +2,18 @@
 <?php require_once("../config/connection.php"); ?>
 <!-- session -->
 <?php require_once("../include/session.php"); ?>
+<!-- php show profile -->
+<?php
+	$query = 'SELECT * FROM `user` WHERE `user_id`="'.$_SESSION['user_id'].'"';
+	$query = $db->prepare($query);
+	$query->execute();
+	$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
+?>
+
 <!-- header -->
 <?php include("../include/header.php"); ?>   
 <!-- nav -->
-<?php include("../include/navbar.php"); ?>
+<?php include("../include/navbar_user.php"); ?>
 
 <main role="main" class="container">   
 	<?php include("../include/title.php"); ?>
@@ -34,6 +42,7 @@
 		    <!-- About profile -->
             <div class="col-md-8">
 				<div class="my-3 p-3 bg-white rounded box-shadow">
+				<?php if(isset($_GET["msg"])) {echo '<div class="alert alert-success" role="alert">'.htmlspecialchars($_GET["msg"]).'</div>';}?>
 				        <h6 class="border-bottom border-gray pb-2 mb-0">Profile</h6>
 				        <!-- personelle infos -->
 				        <div class="media text-muted pt-3">
@@ -45,38 +54,38 @@
 							<div class="form-row">
 				                <div class="form-group col-md-4">
 			                	    <label>First Name</label>
-				                    <input class="form-control" type="text" value="<?php if (isset($_POST['fname'])) echo htmlspecialchars(trim($_POST['fname'])); ?>" disabled>
+				                    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['fname'])) echo htmlspecialchars(trim($la_case[0]['fname'])); ?>" disabled>
 				                </div>
 
 				                <div class="form-group col-md-4">
 			                	    <label>Last Namet</label>
-				                    <input class="form-control" type="text" value="<?php if (isset($_POST['lname'])) echo htmlspecialchars(trim($_POST['lname'])); ?>" disabled>
+				                    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['lname'])) echo htmlspecialchars(trim($la_case[0]['lname'])); ?>" disabled>
 				                </div>
 
 
 				                <div class="form-group col-md-4">
 			                	    <label>Email</label>
-				                    <input class="form-control" type="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars(trim($_POST['email'])); ?>" disabled>
+				                    <input class="form-control" type="email" value="<?php if (isset($la_case[0]['email'])) echo htmlspecialchars(trim($la_case[0]['email'])); ?>" disabled>
 				                </div>
 
 				                <div class="form-group col-md-6">
 			                	    <label>Username</label>
-				                    <input class="form-control" type="text" value="<?php if (isset($_POST['username'])) echo htmlspecialchars(trim($_POST['username'])); ?>" disabled>
+				                    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['username'])) echo htmlspecialchars(trim($la_case[0]['username'])); ?>" disabled>
 				                </div>
 				                
 				                <div class="form-group col-md-6">
 			                	    <label>Birthday</label>
-				                    <input class="form-control" type="date" value="<?php if (isset($_POST['password'])) echo htmlspecialchars(trim($_POST['password'])); ?>" disabled>
+				                    <input class="form-control" type="date" value="<?php if (isset($la_case[0]['birthday'])) echo htmlspecialchars(trim($la_case[0]['birthday'])); ?>" disabled>
 				                </div>
 
 				                <div class="form-group col-md-6">
 			                	    <label>Gender</label>
-			                	    <input class="form-control" type="text" value="<?php if (isset($_POST['password'])) echo htmlspecialchars(trim($_POST['password'])); ?>" disabled>
+			                	    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['gender'])) echo htmlspecialchars(trim($la_case[0]['gender'])); ?>" disabled>
 				                </div>
 
 				                <div class="form-group col-md-6">
 			                	    <label>Sexual Preference</label>
-				                    <input class="form-control" type="text" value="<?php if (isset($_POST['password'])) echo htmlspecialchars(trim($_POST['password'])); ?>" disabled>
+				                    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['sex_pre'])) echo htmlspecialchars(trim($la_case[0]['sex_pre'])); ?>" disabled>
 				                </div>
 				            </div>
 				        </div>
@@ -89,7 +98,7 @@
 				        </div>
 				        <div class="media text-muted pt-3">
 				                <div class="form-group col-md-12">
-				                    <input class="form-control" type="text" value="<?php if (isset($_POST['fname'])) echo htmlspecialchars(trim($_POST['fname'])); ?>" disabled>
+				                    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['tag'])) echo htmlspecialchars(trim($la_case[0]['tag'])); ?>" disabled>
 				                </div>
 				        </div>
 
@@ -101,7 +110,7 @@
 				        </div>
 				        <div class="media text-muted pt-3">
 				                <div class="form-group col-md-12">
-				                    <input class="form-control" type="text" value="<?php if (isset($_POST['fname'])) echo htmlspecialchars(trim($_POST['fname'])); ?>" disabled>
+				                    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['bio'])) echo htmlspecialchars(trim($la_case[0]['bio'])); ?>" disabled>
 				                </div>
 				        </div>
 
@@ -151,10 +160,9 @@
 				                <div class="form-group col-md-12">
 				                </div>
 				        </div>
-
-	<a href="<?php echo $url; ?>/user/profile_update.php" class="btn btn-primary" role="button">Update Profile</a>
-	<a href="<?php echo $url; ?>/user/profile_pic.php" class="btn btn-warning" role="button">Upload Pictures</a>
-	<a href="<?php echo $url; ?>/user/profile_pwd.php" class="btn btn-danger" role="button">Update Password</a>
+	<a href="<?php echo $url; ?>/user/profile_update.php" 	class="btn btn-primary" role="button">Update Profile</a>
+	<a href="<?php echo $url; ?>/user/profile_pic.php" 		class="btn btn-warning" role="button">Upload Pictures</a>
+	<a href="<?php echo $url; ?>/user/profile_pwd.php"		class="btn btn-danger" 	role="button">Update Password</a>
 
 			    </div>
             </div><!-- End About profile -->

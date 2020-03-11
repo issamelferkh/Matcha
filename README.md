@@ -108,16 +108,29 @@ A user must be able to see, from any page that a notification hasn’t been read
 
 
 ## To do - Plan
-### Lun 02/03: Registration and Signing-in => OK
-* testing all
+### Registration and Signing-in => OK
+> - CSRF in signin/signup ?!
 
 ### Mar 03/03: User profile => 
-* verif 18ans
-* Profile update frontend -> OK
-* Profile update pic frontend ->
-* Profile update pwd frontend ->
-* navbar user
+#### FrontEnd 
+* Profile -> OK
+* Profile update  -> OK
+* Profile update pic  ->
+* Profile update pwd  ->
+* navbar user: logout,profile
 * prob scrol profiles in one page with php -> carousel in bootstrap
+
+#### BackEnd
+1 * update profile => check inputs !!! 
++ verif 18ans
++ username alredy exist
++ email already exist
++ notification in update 
++ tag ? 
++ popularity ? 
++ GPS ? 
+2 * Profile update pwd => ?
+3 * Profile update pic => ?
 
 - [ ] Profile -> Once connected, the user must fill his profile, adding the following information:
 > - The gender (Son genre).
@@ -151,30 +164,10 @@ A user must be able to see, from any page that a notification hasn’t been read
 ### Ven 13/03: correction 
 
 
-# Questions
-### Lun 02/03: Registration and Signing-in 
-> - CSRF in sign up ?!
-
-
-### Mar 03/03: User profile ##########
-
-### Mer 04/03: Browsing ##########
-
-### Jeu 05/03: Research ##########
-
-### Ven 06/03: Profile of other users
-
-### Lun 09/03: Chat ##########
-
-### Mar 10/03: Notifications ##########
-
-### Mer 11/03: Security
-
-### Jeu 12/03: Consignes générales
-
-### Ven 13/03: correction 
-
 ### Doc and Help
 - https://cdn.intra.42.fr/pdf/pdf/4832/matcha.en.pdf
 - https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
 - https://ipinfo.io/ => location with @IP
+
+
+for send id using get => 	<?php if (isset($la_case[0]['user_id'])) $user_id = hash('whirlpool',htmlspecialchars(trim($la_case[0]['user_id']))); ?>

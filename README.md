@@ -108,41 +108,56 @@ A user must be able to see, from any page that a notification hasn’t been read
 
 
 ## To do - Plan
-### Registration and Signing-in => OK
-> - CSRF in signin/signup ?!
-
-### Mar 03/03: User profile => 
-#### FrontEnd 
-* Profile -> OK
-* Profile update  -> OK
-* Profile update pic  ->
-* Profile update pwd  ->
-* navbar user: logout,profile
+### Template:
+* navbar_user: logout,profile...
+* check favicon prob
+* check download jquery-3.2.1.slim.min.js and jquery-slim.min.js in footer
+* Matcha icon in home page
+* finish home page: about us and blabla teamoiniage in english
 * prob scrol profiles in one page with php -> carousel in bootstrap
 
-#### BackEnd
-1 * update profile => check inputs !!! 
-+ verif 18ans
-+ username alredy exist
-+ email already exist
-+ notification in update 
-+ tag ? 
-+ popularity ? 
-+ GPS ? 
-2 * Profile update pwd => ?
-3 * Profile update pic => ?
+### Security:
+* Look at SSRF and other vulnerabilities
 
+### Registration and Signing-in => OK
+* CSRF -> login/singup => how to protect it?
+
+### Mar 03/03: User profile => 
 - [ ] Profile -> Once connected, the user must fill his profile, adding the following information:
 > - The gender (Son genre).
 > - Sexual preferences (Son orientation sexuelle).
 > - A biography (Une bio courte).
 > - A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
 > - Pictures, max 5, including 1 as profile picture.
-
 - [ ] Profile -> At any time, the user must be able to modify these information.
+
+#### FrontEnd 
+* Profile -> OK
+* Profile update  -> OK
+* Profile update pic  ->
+* Profile update pwd  ->
+
+#### BackEnd
+* 1 update profile => check inputs !!! 
+> * verif 18ans
+> * username alredy exist
+> * email already exist
+> * notification in update 
+> * tag ? 
+* 2 Profile update pwd => ?
+* 3 Profile update pic => ?
+* 4 always check profile is completed or not!
+
 - [ ] Profile -> The user must be able to check who looked at his profile and “liked” him.
+
 - [ ] Profile -> The user must have a public "fame rating" (score de popularite public) -> To I to define
+> * popularity ? 
+
 - [ ] GPS -> The user must be located (using GPS) up to his neighborhood.
+> * GPS ?
+> > * https://www.w3schools.com/html/html5_geolocation.asp
+> > * https://ipinfo.io/ => location with @IP
+
 - [ ] GPS -> If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
 - [ ] GPS -> The user must be able to modify his GPS position in his profile.
 
@@ -167,7 +182,4 @@ A user must be able to see, from any page that a notification hasn’t been read
 ### Doc and Help
 - https://cdn.intra.42.fr/pdf/pdf/4832/matcha.en.pdf
 - https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
-- https://ipinfo.io/ => location with @IP
-
-
-for send id using get => 	<?php if (isset($la_case[0]['user_id'])) $user_id = hash('whirlpool',htmlspecialchars(trim($la_case[0]['user_id']))); ?>
+- for send id using get => 	<?php if (isset($la_case[0]['user_id'])) $user_id = hash('whirlpool',htmlspecialchars(trim($la_case[0]['user_id']))); ?>

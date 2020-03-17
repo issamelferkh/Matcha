@@ -107,52 +107,25 @@ A user must be able to see, from any page that a notification hasn’t been read
 ## Partie bonus
 
 
-## To do - Plan
-### Template:
-* navbar_user: logout,profile...
-* check favicon prob
-* check download jquery-3.2.1.slim.min.js and jquery-slim.min.js in footer
-* Matcha icon in home page
-* finish home page: about us and blabla teamoiniage in english
-* prob scrol profiles in one page with php -> carousel in bootstrap
+## Plan ####################################################################################################################
+### Dim 15/03: Registration and Signing-in => OK
 
-### Security:
-* Look at SSRF and other vulnerabilities
-
-### Registration and Signing-in => OK
-* CSRF -> login/singup => how to protect it?
-
-### Mar 03/03: User profile => 
+### Lun 16/03: User profile => 
+2=> Check:
 - [ ] Profile -> Once connected, the user must fill his profile, adding the following information:
 > - The gender (Son genre).
 > - Sexual preferences (Son orientation sexuelle).
 > - A biography (Une bio courte).
 > - A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
 > - Pictures, max 5, including 1 as profile picture.
-- [ ] Profile -> At any time, the user must be able to modify these information.
 
-#### FrontEnd 
-* Profile -> OK
-* Profile update  -> OK
-* Profile update pic  ->
-* Profile update pwd  ->
-
-#### BackEnd
-* 1 update profile => check inputs !!! 
-> * verif 18ans
-> * username alredy exist
-> * email already exist
-> * notification in update 
-> * tag ? 
-* 2 Profile update pwd => ?
-* 3 Profile update pic => ?
-* 4 always check profile is completed or not!
-
+3=>
 - [ ] Profile -> The user must be able to check who looked at his profile and “liked” him.
 
 - [ ] Profile -> The user must have a public "fame rating" (score de popularite public) -> To I to define
 > * popularity ? 
 
+4=>
 - [ ] GPS -> The user must be located (using GPS) up to his neighborhood.
 > * GPS ?
 > > * https://www.w3schools.com/html/html5_geolocation.asp
@@ -161,22 +134,36 @@ A user must be able to see, from any page that a notification hasn’t been read
 - [ ] GPS -> If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
 - [ ] GPS -> The user must be able to modify his GPS position in his profile.
 
+5=>
+* always check profile is completed or not!
 
-### Mer 04/03: Browsing ##########
+- [ ] Profile -> At any time, the user must be able to modify these information.
+* check inputs in pudate: $birthday if +18ans AND $tag
+* Add notification in update 
+* tag in update ?
 
-### Jeu 05/03: Research ##########
+### Mar 17/03: Browsing ##########
 
-### Ven 06/03: Profile of other users
+### Mar 17/03: Research ##########
 
-### Lun 09/03: Chat ##########
+### Mer 18/03: Profile of other users
 
-### Mar 10/03: Notifications ##########
+### Jeu 19/03: Chat ##########
 
-### Mer 11/03: Security
+### Ven 20/03: Notifications ##########
 
-### Jeu 12/03: Consignes générales
+### Sam 21/03: Consignes générales
 
-### Ven 13/03: correction 
+### Dim 22/03: Security
+* Look at SSRF and other vulnerabilities
+
+### Template:
+* navbar_user: logout,profile...
+* check favicon prob
+* check download jquery-3.2.1.slim.min.js and jquery-slim.min.js in footer
+* Matcha icon in home page
+* finish home page: about us and blabla teamoiniage in english
+* prob scrol profiles in one page with php -> carousel in bootstrap
 
 
 ### Doc and Help

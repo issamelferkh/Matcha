@@ -11,27 +11,48 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
         $message = 'All fields are required.';
 	} else {
         // affectations
-        $fname = $_POST["fname"];
-        $lname = $_POST["lname"];
-        $email = $_POST["email"];
-        $username = $_POST["username"];
-        $birthday = $_POST["birthday"]; 
-        $gender = $_POST["gender"]; 
-        $sex_pre = $_POST["sex_pre"]; 
-        $tag = $_POST["tag"]; 
-		$bio = $_POST["bio"];
+        $fname = htmlspecialchars(trim($_POST["fname"]));
+        $lname = htmlspecialchars(trim($_POST["lname"]));
+        $email = htmlspecialchars(trim($_POST["email"]));
+        $username = htmlspecialchars(trim($_POST["username"]));
+        $birthday = htmlspecialchars(trim($_POST["birthday"])); 
+        $gender = htmlspecialchars(trim($_POST["gender"])); 
+        $sex_pre = htmlspecialchars(trim($_POST["sex_pre"])); 
+        $tag = htmlspecialchars(trim($_POST["tag"])); 
+		$bio = htmlspecialchars(trim($_POST["bio"]));
 		
-		// update profile query
-		$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `birthday`=?, `gender`=?, `sex_pre`=?, `tag`=?, `bio`=? 
-				WHERE `user_id`=?";
-		$query = $db->prepare($query);
-		$query->execute([$fname,$lname,$email,$username,$birthday,$gender,$sex_pre,$tag,$bio,$_SESSION['user_id']]);
-		// live update of username
-		$_SESSION["username"] = $username;
-		$msg = 'Your profile was successfully updated.';
-		header("location: profile.php?msg=$msg");
-	}
+        // check email
+        $emailcheck = preg_match('(^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]*$)', $email); 
 
+        if ((strlen($fname) > 50) || (strlen($fname) < 3)){
+	        $message = 'Invalid First name. First name must be between 3 and 50 characters.';
+	    } else if ((strlen($lname) > 50) || (strlen($lname) < 3)){
+	        $message = 'Invalid Last name. Last name must be between 3 and 50 characters.';
+	    } else if (strlen($email) > 320){
+            $message = 'Invalid email. Email must be less than 320 characters.';
+        } else if (!($emailcheck)) {
+            $message = 'Invalid email format.';
+        } else if ((strlen($username) > 50) || (strlen($username) < 5)){
+            $message = 'Invalid username. Username must be between 5 and 50 characters.';
+        } else {
+        	$query = 'SELECT * FROM user WHERE username="'.$username.'" AND user_id !="'.$_SESSION['user_id'].'" OR email="'.$email.'" AND user_id !="'.$_SESSION['user_id'].'"';
+            $query = $db->prepare($query);
+            $query->execute();
+            $count = $query->rowCount();
+            if ($count > 0) {
+                $message = 'Username OR email is already taken!';
+            } else {
+            	// update profile query
+				$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `birthday`=?, `gender`=?, `sex_pre`=?, `tag`=?, `bio`=? WHERE `user_id`=?";
+				$query = $db->prepare($query);
+				$query->execute([$fname,$lname,$email,$username,$birthday,$gender,$sex_pre,$tag,$bio,$_SESSION['user_id']]);
+				// live update of username
+				$_SESSION["username"] = $username;
+				$msg = 'Your profile was successfully updated.';
+				header("location: profile.php?msg=$msg");
+            }
+        }
+    }
 }
 ?>
 

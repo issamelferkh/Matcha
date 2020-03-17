@@ -22,7 +22,7 @@ function ft_send_email($username,$email,$hash){
     mail($to, $subject, $message, $headers); // send email
 }
 
-if(isset($_POST["signup"])) {
+if(isset($_POST["signup"])) { 
     if(empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["email"]) || empty($_POST["fname"]) || empty($_POST["lname"]) ) {
         $message1 = 'All fields are required.';
     } else {
@@ -51,8 +51,8 @@ if(isset($_POST["signup"])) {
             $message2 = 'Invalid password. Password must be at least 8 characters.';
         } else if(!$uppercase || !$lowercase || !$number || !$specialChars) {
             $message2 = 'Password should be include at least one upper case letter, one number, and one special character.';
-        } else if (($usernamelen > 50) || ($usernamelen < 8)){
-            $message2 = 'Invalid username. Username must be between 8 and 50 characters.';
+        } else if (($usernamelen > 50) || ($usernamelen < 5)){
+            $message2 = 'Invalid username. Username must be between 5 and 50 characters.';
         } else if ($emaillen > 320){
             $message2 = 'Invalid email. Email must be less than 320 characters.';
         } else if (!($emailcheck)) {
@@ -64,7 +64,7 @@ if(isset($_POST["signup"])) {
             $count = $query->rowCount();
             $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
             if ($count > 0) {
-                $message3 = 'Username is already taken!';
+                $message3 = 'Username OR email is already taken!';
             } else {
                 $notification = 1;
                 $query = 'INSERT INTO `user` (`username`, `email`, `password`, `hash`, `notification`) VALUES (?,?,?,?,?)';

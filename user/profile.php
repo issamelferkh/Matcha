@@ -1,4 +1,4 @@
-<!-- connection -->
+<!-- connection --> 
 <?php require_once("../config/connection.php"); ?>
 <!-- session -->
 <?php require_once("../include/session.php"); ?>

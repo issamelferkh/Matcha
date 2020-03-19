@@ -62,7 +62,7 @@ if(isset($_POST["signin"])) {
                 </div>
             </div>
             <button name="signin" type="submit" class="btn btn-primary">Sign in</button>
-            <a href="https://10.12.100.163/matcha/forget_pwd.php" class="btn btn-danger" role="button">Forgot Password</a>
+            <a href="<?php echo $url; ?>/forget_pwd.php" class="btn btn-danger" role="button">Forgot Password</a>
         </form>
     </div>
     <!-- slide -->

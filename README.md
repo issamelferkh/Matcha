@@ -110,14 +110,21 @@ A user must be able to see, from any page that a notification hasn’t been read
 ## Plan ####################################################################################################################
 ### Dim 15/03: Registration and Signing-in => OK
 
-### Lun 16/03: User profile => 
+### Lun 16/03: User profile => NOK
+=> update profile frontend -> not yet
+0=> delete picture
+
+1=>
+* always check profile is completed or not!
+
+- [ ] Profile -> At any time, the user must be able to modify these information.
+* check inputs in pudate: $birthday if +18ans AND $tag
+
 2=> Check:
 - [ ] Profile -> Once connected, the user must fill his profile, adding the following information:
-> - The gender (Son genre).
-> - Sexual preferences (Son orientation sexuelle).
 > - A biography (Une bio courte).
 > - A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
-> - Pictures, max 5, including 1 as profile picture.
+> - notification
 
 3=>
 - [ ] Profile -> The user must be able to check who looked at his profile and “liked” him.
@@ -130,32 +137,70 @@ A user must be able to see, from any page that a notification hasn’t been read
 > * GPS ?
 > > * https://www.w3schools.com/html/html5_geolocation.asp
 > > * https://ipinfo.io/ => location with @IP
-
 - [ ] GPS -> If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
 - [ ] GPS -> The user must be able to modify his GPS position in his profile.
 
-5=>
-* always check profile is completed or not!
 
-- [ ] Profile -> At any time, the user must be able to modify these information.
-* check inputs in pudate: $birthday if +18ans AND $tag
-* Add notification in update 
-* tag in update ?
+### Mar 17/03: Browsing -> NOK
+- The user must be able to easily get a list of suggestions that match his profile (if the profile is filled). in this list:
+> - propose only interesting profiles (for exe only men for a heterosexual girls)
+> - manage also the bisexuality
+> - if the orientation isn't specified -> user will considered bi-sexual.
+- the profiles are matched with:
+> - sexual orientation
+> - geographic area 
+> - max of common tags
+> - max of "fame rating"
+- You must show in priority people from the same geographical area.
+- The suggestion list must be sortable by age, location, “fame rating” and common tags.
+- The suggestion list must be filterable by age, location, “fame rating” and common tags.
 
-### Mar 17/03: Browsing ##########
-
-### Mar 17/03: Research ##########
+### Mar 17/03: Research -> NOK
+- The user must be able to run an advanced research selecting one or a few criterias such as:
+> - A age gap.
+> - A “fame rating” gap.
+> - A location.
+> - One or multiple interests tags.
+- The resulting list must be sortable by age, location, “fame rating” and common tags.
+- The resulting list must be filterable by age, location, “fame rating” and common tags.
 
 ### Mer 18/03: Profile of other users
+- the user must be able to consult the profile of other users.
+- Profiles must contain all the information available about them, except for the email address and the password.
+- When a user consults a profile, it must appear in his visit history.
+- The user must also be able to:
+> - If he has at least one picture he can “like” and "dislake" another user.
+> - When two people “like” each other, we will say that they are “connected” and are now able to chat.
+> - If the current user does not have a picture, he/she cannot complete this action.
+> - Check the “fame rating”
+> - See if the user is online, and if not see the date and time of the last connection.
+> - Report the user as a “fake account”
+> - Block the user. A blocked user won’t appear anymore in the research results and won’t generate anymore notifications.
+> - A user can clearly see if the consulted profile is connected or “like” his profile and must be able to “unlike” or be disconnected from that profile.
 
 ### Jeu 19/03: Chat ##########
+- When two users are connected (they like each other). they must be able to “chat” in real time (telerate a 10s).
+- How you will implement the chat is totally up to you.
+- The user must be able to see from any page if a new message is received.
 
 ### Ven 20/03: Notifications ##########
+-  A user must be notified in real time (telerate a 10s) of the following events:
+> - The user received a “like”.
+> - The user’s profile has been checked.
+> - The user received a message.
+> - A “liked” user “liked” back.
+> - A connected user “unliked” you.
+A user must be able to see, from any page that a notification hasn’t been read
+### Contraintes et Obligations
+## Partie bonus
 
 ### Sam 21/03: Consignes générales
 
 ### Dim 22/03: Security
 * Look at SSRF and other vulnerabilities
+
+### Problems !!!:
+- send mail-> error in localhost ?!
 
 ### Template:
 * navbar_user: logout,profile...

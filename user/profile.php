@@ -6,7 +6,7 @@
 <?php
 	$query = 'SELECT * FROM `user` WHERE `user_id`="'.$_SESSION['user_id'].'"';
 	$query = $db->prepare($query);
-	$query->execute();
+	$query->execute(); 
 	$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
 ?>
 
@@ -30,9 +30,18 @@
 				        </p>
 			        </div>
 			    </div>
+<!-- php profile picture -->
+<?php
+	$flag = 1;
+	$query = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'" AND `asProfile` = "'.$flag.'"';
+	$query = $db->prepare($query);
+	$query->execute();
+    $pro = $query->fetchAll(\PDO::FETCH_ASSOC);
+?>
                 <div class="card mb-2">
-                    <img class="card-img-top rounded" src="<?php echo $url; ?>/assets/img/slide/01.jpg" alt="Slide 1">
+                    <img class="card-img-top rounded" src="<?php echo $url.$pro[0]['imgURL']; ?>" >
                 </div>
+            
                 <label>Popularity</label>
                 <div class="progress">
 					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 60%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
@@ -122,31 +131,28 @@
 				        </div>
 				        <div class="media text-muted pt-3">
 					        <div class="row">
-					            <div class="col-md-2">
-					                <div class="card mb-2">
-					                    <img class="card-img-top rounded" src="<?php echo $url; ?>/assets/img/slide/01.jpg" alt="Slide 1">
-					                </div>
-					            </div>
-					            <div class="col-md-2">
-					                <div class="card mb-2">
-					                    <img class="card-img-top rounded" src="<?php echo $url; ?>/assets/img/slide/04.jpg" alt="Slide 4">
-					                </div>
-					            </div>
-					            <div class="col-md-2">
-					                <div class="card mb-2">
-					                    <img class="card-img-top rounded" src="<?php echo $url; ?>/assets/img/slide/03.jpg" alt="Slide 3">
-					                </div>
-					            </div>
-					            <div class="col-md-2">
-					                <div class="card mb-2">
-					                    <img class="card-img-top rounded" src="<?php echo $url; ?>/assets/img/slide/04.jpg" alt="Slide 4">
-					                </div>
-					            </div>
-					            <div class="col-md-2">
-					                <div class="card mb-2">
-					                    <img class="card-img-top rounded" src="<?php echo $url; ?>/assets/img/slide/03.jpg" alt="Slide 3">
-					                </div>
-					            </div>
+<!-- php show pictures -->
+<?php
+	$query = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'"';
+	$query = $db->prepare($query);
+	$query->execute();
+	$count = $query->rowCount();
+    $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
+    $i=0;
+    $result="";
+    while ($count > $i) {
+    	$result = $result."
+
+<div class='col-md-2'>
+    <div class='card mb-2'>
+        <img class='card-img-top rounded' src='".$url.$la_case[$i]['imgURL']."'>
+    </div>
+</div>
+					            ";
+    	$i++;
+    }
+    if($count > 0) {echo $result;}
+?>
 					        </div>
 					    </div>
 				        

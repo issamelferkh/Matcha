@@ -5,8 +5,6 @@
 
 <!-- php update profile -->
 <?php
-// SNV@issam123
-// SNV@issam1234
 
 if((isset($_POST["update_pwd"])) && ($_SESSION["token"] === $_POST["token"])) {
     if ((!empty($_POST["password_old"])) && (!empty($_POST["password1"])) && (!empty($_POST["password2"]))) {
@@ -81,8 +79,16 @@ if((isset($_POST["update_pwd"])) && ($_SESSION["token"] === $_POST["token"])) {
 				        </p>
 			        </div>
 			    </div>
+<!-- php profile picture -->
+<?php
+    $flag = 1;
+    $query = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'" AND `asProfile` = "'.$flag.'"';
+    $query = $db->prepare($query);
+    $query->execute();
+    $pro = $query->fetchAll(\PDO::FETCH_ASSOC);
+?>
                 <div class="card mb-2">
-                    <img class="card-img-top rounded" src="<?php echo $url; ?>/assets/img/slide/01.jpg" alt="Slide 1">
+                    <img class="card-img-top rounded" src="<?php echo $url.$pro[0]['imgURL']; ?>" >
                 </div>
             </div>
 

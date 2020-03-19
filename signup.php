@@ -123,7 +123,7 @@ if(isset($_POST["signup"])) {
                 </div>
             </div>
             <button name="signup" type="submit" class="btn btn-primary">Sign Up</button>
-            <a href="https://10.12.100.163/matcha/forget_pwd.php" class="btn btn-danger" role="button">Forgot Password</a>
+            <a href="<?php echo $url; ?>/forget_pwd.php" class="btn btn-danger" role="button">Forgot Password</a>
         </form>
     </div>
     <!-- slide -->

@@ -6,12 +6,19 @@
 
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-        <!-- <li class="nav-item"> -->
-                <a class="nav-link" href="<?php echo $url; ?>/user/profile.php">Home</a>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo $url; ?>/user/browsing.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo $url; ?>/user/research.php">Research</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url; ?>/user/profile.php"><?php echo $_SESSION["username"]; ?> Profile</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo $url; ?>/user/chat.php">Chat</a>
+            </li>
+
         </ul>
     
         <a href="<?php echo $url; ?>/signout.php" class="btn btn-outline-danger my-2 my-sm-0" role="button">Sign Out</a>

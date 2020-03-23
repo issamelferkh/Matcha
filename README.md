@@ -215,3 +215,8 @@ A user must be able to see, from any page that a notification hasn’t been read
 - https://cdn.intra.42.fr/pdf/pdf/4832/matcha.en.pdf
 - https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
 - for send id using get => 	<?php if (isset($la_case[0]['user_id'])) $user_id = hash('whirlpool',htmlspecialchars(trim($la_case[0]['user_id']))); ?>
+
+
+
+
+

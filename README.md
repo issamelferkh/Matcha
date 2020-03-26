@@ -217,4 +217,10 @@ A user must be able to see, from any page that a notification hasn’t been read
 - for send id using get => 	<?php if (isset($la_case[0]['user_id'])) $user_id = hash('whirlpool',htmlspecialchars(trim($la_case[0]['user_id']))); ?>
 
 
+<<<<<<< HEAD
 https://a4-we5-npdo.vidstream.to/dl/bfd8a6d53a3216d3I-5WzyJZ6LrYDB15p.Ue5Ha4jcBiPX2z3-n0fFnA__.Q09VRkhjbTFGNGR5VGtKK0laWGdaUlhjSVBPaklQUUg0R2dBRUlKb0ZYN1ZWZVdtZ3l0NXM0ekdPQ3puZ2I3YkpRNUdOeWQ3RUcrQStxWHVyRm8zQWFNdDkrWXRoMEl3YzUzWmpvYnNNREszYWV0YUpGbUY4bDZQMUdCVkR1R2d5VU1JYjNrOWJVV3BablhWNVM3aXRlSDhhOWVMcmRLTjdFRjRsSzJmWEk3TmU0MWNZUmRzZjlBY0dDbC9iYjZNSHNFZTBsWkN1TmtMelRFZytJRGx0VW5yc0x1YTJ2dFFJQm1qdjZ5TC9ObTkrL0k3YXNod3lwbnZqU0hVcEJobXY5R1ZSZ2tVQmZ3U2J6UWZWQjdONFdodFkrODRxNml3N20xRFhEZjZGSGVVenQ3QlZOYXRuRElBWlZLdDc0TlR4eGZpK2Vyazgyc3Nnc2Q2STd6ZFlNbms5aDFCc0lzRHFEdUV3dUNNaVpTanllRnl2MUJKVDV6dG1LWXJ2NkphVUE9PQ__/[EgyBest].Inception.2010.BluRay.480p.x264.mp4
+=======
+
+
+
+>>>>>>> 752dcc60232d0f7f2282976abb774047e4c58fa7

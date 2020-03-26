@@ -11,6 +11,9 @@
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/offcanvas/">
 
+        <!-- font awesome icons -->
+        <script src="https://kit.fontawesome.com/e82fad5226.js" crossorigin="anonymous"></script>
+
         <!-- Bootstrap core CSS -->
         <link href="<?php echo $url; ?>/assets/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 

@@ -82,7 +82,7 @@
 			        </small>
 			        <div class="d-flex justify-content-center">
 						<a href="<?php echo $url; ?>/user/browsing.php?i=<?php echo $i+1;?>" class="btn btn-success" role="button">Like</a>&nbsp;&nbsp;&nbsp;
-						<a href="<?php echo $url; ?>/user/browsing.php?i=$i+1" class="btn btn-danger" role="button">Nope</a>
+						<a href="<?php echo $url; ?>/user/browsing.php?i=<?php echo $i+1;?>" class="btn btn-danger" role="button">Nope</a>
 					</div>
 			    </div>
             </div>

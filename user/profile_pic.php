@@ -120,7 +120,9 @@ if(isset($_POST["submit"]) && ($_SESSION["token"] === $_POST["token"])) {
 
 <div class='col-md-2'>
     <div class='card mb-2'>
+        <a href='profile_pic_detail.php?img_id=".$la_case[$i]['img_id']."'>
         <img class='card-img-top rounded' src='".$url.$la_case[$i]['imgURL']."'>
+        </a>
     </div>
 	<div class='form-check'>
 		<input class='form-check-input' type='radio' name='asProfile' value='".$la_case[$i]['img_id']."'>

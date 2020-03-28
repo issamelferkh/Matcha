@@ -32,7 +32,7 @@
 > - Pouvoir modifier une requête SQL.
 
 ## Partie obligatoire
-### Registration and Signing-in 
+### Registration and Signing-in ##########
 - [x] Sign-up -> asking at least: email + username + last name + first name + password (soit peu sécurisé).
 - [x] Sign-up -> activation: by send an e-mail with an unique link.
 - [x] Sign-in -> with username and password.
@@ -76,7 +76,7 @@
 - The resulting list must be sortable by age, location, “fame rating” and common tags.
 - The resulting list must be filterable by age, location, “fame rating” and common tags.
 
-### Profile of other users
+### Profile of other users ##########
 - the user must be able to consult the profile of other users.
 - Profiles must contain all the information available about them, except for the email address and the password.
 - When a user consults a profile, it must appear in his visit history.
@@ -103,20 +103,13 @@
 > - A “liked” user “liked” back.
 > - A connected user “unliked” you.
 A user must be able to see, from any page that a notification hasn’t been read
-### Contraintes et Obligations
-## Partie bonus
 
+## To-Do ####################################################################################################################
+### Registration and Signing-in => OK
 
-## Plan ####################################################################################################################
-### Dim 15/03: Registration and Signing-in => OK
+### User profile => NOK
 
-### Lun 16/03: User profile => NOK
-=> update profile frontend -> not yet
-0=> delete picture
-
-1=>
-* always check profile is completed or not!
-
+1=> 
 - [ ] Profile -> At any time, the user must be able to modify these information.
 * check inputs in pudate: $birthday if +18ans AND $tag
 
@@ -141,7 +134,7 @@ A user must be able to see, from any page that a notification hasn’t been read
 - [ ] GPS -> The user must be able to modify his GPS position in his profile.
 
 
-### Mar 17/03: Browsing -> NOK
+### Browsing -> NOK
 - The user must be able to easily get a list of suggestions that match his profile (if the profile is filled). in this list:
 > - propose only interesting profiles (for exe only men for a heterosexual girls)
 > - manage also the bisexuality
@@ -155,7 +148,7 @@ A user must be able to see, from any page that a notification hasn’t been read
 - The suggestion list must be sortable by age, location, “fame rating” and common tags.
 - The suggestion list must be filterable by age, location, “fame rating” and common tags.
 
-### Mar 17/03: Research -> NOK
+### Research -> NOK
 - The user must be able to run an advanced research selecting one or a few criterias such as:
 > - A age gap.
 > - A “fame rating” gap.
@@ -164,7 +157,7 @@ A user must be able to see, from any page that a notification hasn’t been read
 - The resulting list must be sortable by age, location, “fame rating” and common tags.
 - The resulting list must be filterable by age, location, “fame rating” and common tags.
 
-### Mer 18/03: Profile of other users
+### Profile of other users -> NOK
 - the user must be able to consult the profile of other users.
 - Profiles must contain all the information available about them, except for the email address and the password.
 - When a user consults a profile, it must appear in his visit history.
@@ -178,12 +171,12 @@ A user must be able to see, from any page that a notification hasn’t been read
 > - Block the user. A blocked user won’t appear anymore in the research results and won’t generate anymore notifications.
 > - A user can clearly see if the consulted profile is connected or “like” his profile and must be able to “unlike” or be disconnected from that profile.
 
-### Jeu 19/03: Chat ##########
+### Chat -> NOK
 - When two users are connected (they like each other). they must be able to “chat” in real time (telerate a 10s).
 - How you will implement the chat is totally up to you.
 - The user must be able to see from any page if a new message is received.
 
-### Ven 20/03: Notifications ##########
+### Notifications -> NOK
 -  A user must be notified in real time (telerate a 10s) of the following events:
 > - The user received a “like”.
 > - The user’s profile has been checked.
@@ -191,18 +184,16 @@ A user must be able to see, from any page that a notification hasn’t been read
 > - A “liked” user “liked” back.
 > - A connected user “unliked” you.
 A user must be able to see, from any page that a notification hasn’t been read
-### Contraintes et Obligations
-## Partie bonus
 
-### Sam 21/03: Consignes générales
+### Consignes générales -> NOK
 
-### Dim 22/03: Security
-* Look at SSRF and other vulnerabilities
+### Security -> NOK
+- Look at SSRF and other vulnerabilities
 
-### Problems !!!:
+### Issues -> NOK
 - send mail-> error in localhost ?!
 
-### Template:
+### Template -> NOK
 * navbar_user: logout,profile...
 * check favicon prob
 * check download jquery-3.2.1.slim.min.js and jquery-slim.min.js in footer
@@ -215,12 +206,3 @@ A user must be able to see, from any page that a notification hasn’t been read
 - https://cdn.intra.42.fr/pdf/pdf/4832/matcha.en.pdf
 - https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
 - for send id using get => 	<?php if (isset($la_case[0]['user_id'])) $user_id = hash('whirlpool',htmlspecialchars(trim($la_case[0]['user_id']))); ?>
-
-
-<<<<<<< HEAD
-https://a4-we5-npdo.vidstream.to/dl/bfd8a6d53a3216d3I-5WzyJZ6LrYDB15p.Ue5Ha4jcBiPX2z3-n0fFnA__.Q09VRkhjbTFGNGR5VGtKK0laWGdaUlhjSVBPaklQUUg0R2dBRUlKb0ZYN1ZWZVdtZ3l0NXM0ekdPQ3puZ2I3YkpRNUdOeWQ3RUcrQStxWHVyRm8zQWFNdDkrWXRoMEl3YzUzWmpvYnNNREszYWV0YUpGbUY4bDZQMUdCVkR1R2d5VU1JYjNrOWJVV3BablhWNVM3aXRlSDhhOWVMcmRLTjdFRjRsSzJmWEk3TmU0MWNZUmRzZjlBY0dDbC9iYjZNSHNFZTBsWkN1TmtMelRFZytJRGx0VW5yc0x1YTJ2dFFJQm1qdjZ5TC9ObTkrL0k3YXNod3lwbnZqU0hVcEJobXY5R1ZSZ2tVQmZ3U2J6UWZWQjdONFdodFkrODRxNml3N20xRFhEZjZGSGVVenQ3QlZOYXRuRElBWlZLdDc0TlR4eGZpK2Vyazgyc3Nnc2Q2STd6ZFlNbms5aDFCc0lzRHFEdUV3dUNNaVpTanllRnl2MUJKVDV6dG1LWXJ2NkphVUE9PQ__/[EgyBest].Inception.2010.BluRay.480p.x264.mp4
-=======
-
-
-
->>>>>>> 752dcc60232d0f7f2282976abb774047e4c58fa7

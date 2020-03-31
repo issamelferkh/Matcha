@@ -41,12 +41,12 @@
 
 ### User profile ##########
 - Profile -> Once connected, the user must fill his profile, adding the following information:
-> - The gender (Son genre).
-> - Sexual preferences (Son orientation sexuelle).
+> - [x] The gender (Son genre).
+> - [x] Sexual preferences (Son orientation sexuelle).
 > - A biography (Une bio courte).
 > - A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
-> - Pictures, max 5, including 1 as profile picture.
-- Profile -> At any time, the user must be able to modify these information.
+> - [x] Pictures, max 5, including 1 as profile picture.
+- [x] Profile -> At any time, the user must be able to modify these information.
 - Profile -> The user must be able to check who looked at his profile and “liked” him.
 - Profile -> The user must have a public "fame rating" (score de popularite public) -> To I to define
 - GPS -> The user must be located (using GPS) up to his neighborhood.
@@ -109,36 +109,29 @@ A user must be able to see, from any page that a notification hasn’t been read
 
 ### User profile => NOK
 
-1=> 
-- [ ] Profile -> At any time, the user must be able to modify these information.
-* check inputs in pudate: $birthday if +18ans AND $tag
+#User Profile - Tag
+A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
+- [ ] fill tags
+- [ ] update tags
 
-2=> Check:
-- [ ] Profile -> Once connected, the user must fill his profile, adding the following information:
-> - A biography (Une bio courte).
-> - A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
-> - notification
+#User Profile -> looked at your profile
+The user must be able to check who looked at his profile and “liked” him.
 
-3=>
-- [ ] Profile -> The user must be able to check who looked at his profile and “liked” him.
+#User Profile -> GPS
+- [ ] The user must be located (using GPS) up to his neighborhood.
+- [ ] If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
+- [ ] The user must be able to modify his GPS position in his profile.
+- https://www.w3schools.com/html/html5_geolocation.asp
+- https://ipinfo.io/ => location with @IP
 
-- [ ] Profile -> The user must have a public "fame rating" (score de popularite public) -> To I to define
-> * popularity ? 
-
-4=>
-- [ ] GPS -> The user must be located (using GPS) up to his neighborhood.
-> * GPS ?
-> > * https://www.w3schools.com/html/html5_geolocation.asp
-> > * https://ipinfo.io/ => location with @IP
-- [ ] GPS -> If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
-- [ ] GPS -> The user must be able to modify his GPS position in his profile.
-
+#User profile - always check if profile is completed or not ?
 
 ### Browsing -> NOK
-- The user must be able to easily get a list of suggestions that match his profile (if the profile is filled). in this list:
-> - propose only interesting profiles (for exe only men for a heterosexual girls)
-> - manage also the bisexuality
-> - if the orientation isn't specified -> user will considered bi-sexual.
+- [x] The user must be able to easily get a list of suggestions that match his profile (if the profile is filled). in this list:
+@> - propose only interesting profiles (for exe only men for a heterosexual girls)
+@> - manage also the bisexuality
+@> - if the orientation isn't specified -> user will considered bi-sexual.
+
 - the profiles are matched with:
 > - sexual orientation
 > - geographic area 
@@ -158,8 +151,10 @@ A user must be able to see, from any page that a notification hasn’t been read
 - The resulting list must be filterable by age, location, “fame rating” and common tags.
 
 ### Profile of other users -> NOK
-- the user must be able to consult the profile of other users.
-- Profiles must contain all the information available about them, except for the email address and the password.
+- [x] the user must be able to consult the profile of other users.
+@- Profiles must contain all the information available about them, except for the email address and the password.
+=> affiche profile detail
+
 - When a user consults a profile, it must appear in his visit history.
 - The user must also be able to:
 > - If he has at least one picture he can “like” and "dislake" another user.

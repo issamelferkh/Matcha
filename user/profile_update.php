@@ -3,6 +3,24 @@
 <!-- session -->
 <?php require_once("../include/session.php"); ?>
 
+<?php
+// validate birthday
+function validateAge($birthday, $age = 18)
+{
+    // $birthday can be UNIX_TIMESTAMP or just a string-date.
+    if(is_string($birthday)) {
+        $birthday = strtotime($birthday);
+    }
+
+    // check
+    // 31536000 is the number of seconds in a 365 days year.
+    if(time() - $birthday < $age * 31536000)  {
+        return false;
+    }
+
+    return true;
+}
+?>
 <!-- php update profile -->
 <?php
 if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) {
@@ -10,6 +28,12 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
 	|| empty($_POST["gender"]) || empty($_POST["sex_pre"]) || empty($_POST["tag"]) || empty($_POST["bio"]) ) {
         $message = 'All fields are required.';
 	} else {
+		if(isset($_POST['notification']) && $_POST['notification'] == 1) {
+            $notification = 1;
+        } else {
+            $notification = 0;
+        }
+
         // affectations
         $fname = htmlspecialchars(trim($_POST["fname"]));
         $lname = htmlspecialchars(trim($_POST["lname"]));
@@ -24,7 +48,9 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
         // check email
         $emailcheck = preg_match('(^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]*$)', $email); 
 
-        if ((strlen($fname) > 50) || (strlen($fname) < 3)){
+        if (!validateAge($birthday)) {
+        	$message = 'Your age is under 18 years !!!';
+        } else if ((strlen($fname) > 50) || (strlen($fname) < 3)){
 	        $message = 'Invalid First name. First name must be between 3 and 50 characters.';
 	    } else if ((strlen($lname) > 50) || (strlen($lname) < 3)){
 	        $message = 'Invalid Last name. Last name must be between 3 and 50 characters.';
@@ -43,9 +69,9 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
                 $message = 'Username OR email is already taken!';
             } else {
             	// update profile query
-				$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `birthday`=?, `gender`=?, `sex_pre`=?, `tag`=?, `bio`=? WHERE `user_id`=?";
+				$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `birthday`=?, `gender`=?, `sex_pre`=?, `tag`=?, `bio`=?, `notification`=? WHERE `user_id`=?";
 				$query = $db->prepare($query);
-				$query->execute([$fname,$lname,$email,$username,$birthday,$gender,$sex_pre,$tag,$bio,$_SESSION['user_id']]);
+				$query->execute([$fname,$lname,$email,$username,$birthday,$gender,$sex_pre,$tag,$bio,$notification,$_SESSION['user_id']]);
 				// live update of username
 				$_SESSION["username"] = $username;
 				$msg = 'Your profile was successfully updated.';
@@ -157,6 +183,13 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
 										<option value="Other" >Other</option>
 									</select>
 				                </div>
+
+				                <!-- notification -->
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="notification" value="1" <?php if ($la_case[0]['notification'] == 1) { echo "checked";} ?> >
+									<label class="form-check-label" for="exampleCheck1">Notification</label>
+								</div>
+
 				            </div>
 				        </div>
 

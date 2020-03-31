@@ -41,10 +41,25 @@
                 <div class="card mb-2">
                     <img class="card-img-top rounded" src="<?php echo $url.$pro[0]['imgURL']; ?>" >
                 </div>
-            
-                <label>Popularity</label>
-                <div class="progress">
-					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 60%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+<!-- php calcul public rating -->
+<?php
+	// calcul total
+	$query = 'SELECT * FROM `like_table` WHERE `user_p`="'.$_SESSION['user_id'].'"';
+	$query = $db->prepare($query);
+    $query->execute();
+    $total = $query->rowCount();
+
+	// calcul likes
+    $query = 'SELECT * FROM `like_table` WHERE `user_p`="'.$_SESSION['user_id'].'" AND `liked` = 1';
+	$query = $db->prepare($query);
+    $query->execute();
+    $liked = $query->rowCount();
+
+	$rating = $liked/$total*100;
+?>
+				<label>Popularity: <?php echo intval($rating); ?>%</label>
+                <div class="progress">	
+					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $rating;?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
             </div>
 
@@ -96,6 +111,12 @@
 			                	    <label>Sexual Preference</label>
 				                    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['sex_pre'])) echo htmlspecialchars(trim($la_case[0]['sex_pre'])); ?>" disabled>
 				                </div>
+
+				                <!-- notification -->
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="notification" value="1" <?php if ($la_case[0]['notification'] == 1) { echo "checked";} ?> disabled>
+									<label class="form-check-label" for="exampleCheck1">Notification</label>
+								</div>
 				            </div>
 				        </div>
 

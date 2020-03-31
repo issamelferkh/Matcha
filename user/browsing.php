@@ -15,10 +15,21 @@
 	$count = $query->rowCount();
     $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
 
-	if (isset($_GET["i"]) && $count > $_GET["i"])
+	if (isset($_GET["i"])) {
+		if(isset($_GET["user_p"])) { $user_p = htmlspecialchars(trim($_GET["user_p"])); }
+		if(isset($_GET["user_o"])) { $user_o = htmlspecialchars(trim($_GET["user_o"])); }
+		if(isset($_GET["liked"]))  { $liked =  htmlspecialchars(trim($_GET["liked"])); }
+		if(isset($_GET["noped"]))  { $noped =  htmlspecialchars(trim($_GET["noped"])); }
+
+		$query = 'INSERT INTO `like_table` (`user_p`, `user_o`, `liked`, `noped`) VALUES (?,?,?,?)';
+        $query = $db->prepare($query);
+        $query->execute([$user_p,$user_o,$liked,$noped]);
+	}
+	if (isset($_GET["i"]) && $count > $_GET["i"]) {
 		$i = $_GET["i"];
-	else 
+	} else {
 		$i = 0;
+	}
 ?>
 
 <main role="main" class="container">
@@ -81,8 +92,21 @@
 				        <a href="<?php echo $url; ?>/user/profile.php">All updates</a>
 			        </small>
 			        <div class="d-flex justify-content-center">
-						<a href="<?php echo $url; ?>/user/browsing.php?i=<?php echo $i+1;?>" class="btn btn-success" role="button">Like</a>&nbsp;&nbsp;&nbsp;
-						<a href="<?php echo $url; ?>/user/browsing.php?i=<?php echo $i+1;?>" class="btn btn-danger" role="button">Nope</a>
+<a href="<?php echo $url; ?>/user/browsing.php?
+	i=<?php echo $i+1;?>&
+	user_p=<?php echo $_SESSION['user_id'];?>&
+	user_o=<?php echo $la_case[$i]['user_id'];?>&
+	liked=1&
+	noped=0
+	" class="btn btn-success" role="button">Like</a>
+&nbsp;&nbsp;&nbsp;
+<a href="<?php echo $url; ?>/user/browsing.php?
+	i=<?php echo $i+1;?>&
+	user_p=<?php echo $_SESSION['user_id'];?>&
+	user_o=<?php echo $la_case[$i]['user_id'];?>&
+	liked=0&
+	noped=1
+	" class="btn btn-danger" role="button">Nope</a>
 					</div>
 			    </div>
             </div>

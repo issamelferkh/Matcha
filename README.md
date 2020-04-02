@@ -114,9 +114,6 @@ A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags 
 - [ ] fill tags
 - [ ] update tags
 
-#User Profile -> looked at your profile
-The user must be able to check who looked at his profile and “liked” him.
-
 #User Profile -> GPS
 - [ ] The user must be located (using GPS) up to his neighborhood.
 - [ ] If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
@@ -173,12 +170,24 @@ The user must be able to check who looked at his profile and “liked” him.
 
 ### Notifications -> NOK
 -  A user must be notified in real time (telerate a 10s) of the following events:
+
 > - The user received a “like”.
-> - The user’s profile has been checked.
+L’utilisateur a reçu un “like”.
+
+#Notifications-> user’s profile has been checked
+The user must be able to check who looked at his profile and “liked” him.
+
 > - The user received a message.
+L’utilisateur a reçu un message.
+
 > - A “liked” user “liked” back.
+Un utilisateur “liké” a “liké” en retour.
+
 > - A connected user “unliked” you.
+Un utilisateur matché ne vous “like” plus.
+
 A user must be able to see, from any page that a notification hasn’t been read
+
 
 ### Consignes générales -> NOK
 

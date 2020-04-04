@@ -168,6 +168,7 @@ A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags 
 - How you will implement the chat is totally up to you.
 - The user must be able to see from any page if a new message is received.
 
+
 ### Notifications -> NOK
 -  A user must be notified in real time (telerate a 10s) of the following events:
 

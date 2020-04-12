@@ -11,6 +11,9 @@
  
 
 ?>
+
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -32,7 +35,7 @@
     </style>
   </head>
   <body>
-    <div id="demo"></div>
+    <div id="map"></div>
     <script>
       // var map, infoWindow;
       // function initMap() {
@@ -78,7 +81,7 @@
     </script>
 <!-- /*************************************************************************/ -->
 <script type="text/javascript">
-	var x = document.getElementById("demo");
+	var x = document.getElementById("map");
 
 	function getLocation() {
 	  if (navigator.geolocation) {

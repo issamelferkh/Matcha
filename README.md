@@ -109,7 +109,7 @@ A user must be able to see, from any page that a notification hasn’t been read
 
 ### User profile => NOK
 
-#User Profile - Tag
+#User Profile - Tag\
 A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
 - [ ] fill tags
 - [ ] update tags
@@ -124,28 +124,26 @@ A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags 
 #User profile - always check if profile is completed or not ?
 
 ### Browsing -> NOK
-- [x] The user must be able to easily get a list of suggestions that match his profile (if the profile is filled). in this list:
-@> - propose only interesting profiles (for exe only men for a heterosexual girls)
-@> - manage also the bisexuality
-@> - if the orientation isn't specified -> user will considered bi-sexual.
-
-- the profiles are matched with:
-> - sexual orientation
-> - geographic area 
-> - max of common tags
-> - max of "fame rating"
-- You must show in priority people from the same geographical area.
-- The suggestion list must be sortable by age, location, “fame rating” and common tags.
-- The suggestion list must be filterable by age, location, “fame rating” and common tags.
+- [ ] The user must be able to easily get a list of suggestions that match his profile (if the profile is filled). In this list:
+> - [ ] sexual orientation
+> > - [ ] propose only interesting profiles (for exe only men for a heterosexual girls)
+> > - [ ] manage also the bisexuality
+> > - [ ] if the orientation isn't specified -> user will considered bi-sexual.
+> - [ ] geographic area 
+> - [ ] max of common tags
+> - [ ] max of "fame rating"
+- [ ] You must show in priority people from the same geographical area.
+- [ ] The suggestion list must be sortable by age, location, “fame rating” and common tags.
+- [ ] The suggestion list must be filterable by age, location, “fame rating” and common tags.
 
 ### Research -> NOK
-- The user must be able to run an advanced research selecting one or a few criterias such as:
-> - A age gap.
-> - A “fame rating” gap.
-> - A location.
-> - One or multiple interests tags.
-- The resulting list must be sortable by age, location, “fame rating” and common tags.
-- The resulting list must be filterable by age, location, “fame rating” and common tags.
+- [ ] The user must be able to run an advanced research selecting one or a few criterias such as:
+> - [ ] A age gap.
+> - [ ] A location.
+> - [ ] One or multiple interests tags.
+> - [ ] A “fame rating” gap.
+- [ ] The resulting list must be sortable by age, location, “fame rating” and common tags.
+- [ ] The resulting list must be filterable by age, location, “fame rating” and common tags.
 
 ### Profile of other users -> NOK
 - [x] the user must be able to consult the profile of other users.

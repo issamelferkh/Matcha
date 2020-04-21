@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2020 at 11:08 PM
+-- Generation Time: Apr 12, 2020 at 03:45 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -46,7 +46,10 @@ INSERT INTO `like_table` (`like_id`, `user_p`, `user_o`, `liked`, `noped`, `crea
 (13, 23, 23, 1, 0, '2020-03-31 14:56:18'),
 (14, 23, 24, 1, 0, '2020-03-31 14:56:22'),
 (15, 23, 23, 0, 1, '2020-03-31 14:56:36'),
-(16, 23, 24, 0, 1, '2020-03-31 14:56:38');
+(16, 23, 24, 0, 1, '2020-03-31 14:56:38'),
+(17, 23, 23, 1, 0, '2020-04-01 00:10:33'),
+(18, 23, 23, 1, 0, '2020-04-01 00:57:47'),
+(19, 23, 23, 1, 0, '2020-04-01 00:58:02');
 
 -- --------------------------------------------------------
 
@@ -118,16 +121,17 @@ CREATE TABLE `user` (
   `tag` varchar(255) DEFAULT NULL,
   `bio` varchar(1000) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
-  `popularity` varchar(255) DEFAULT NULL
+  `popularity` varchar(255) DEFAULT NULL,
+  `loc` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `username`, `password`, `fname`, `lname`, `email`, `hash`, `notification`, `active`, `created_at`, `birthday`, `gender`, `sex_pre`, `tag`, `bio`, `location`, `popularity`) VALUES
-(23, 'issamelferkh', '210ad1da7fbb8f5067e23918ab3a3ad9eb9237cb4bc7211ec73391dc34951016dc573337abf7f2528ca7427518f137191d18431f65847e1956df29865fb51558', 'Issam', 'EL FERKH', 'issam.elferkh@gmail.com', 'aa942ab2bfa6ebda4840e7360ce6e7ef', 1, 1, '2020-03-03 17:09:52', '1999-03-16', 'Men', 'hhh', 'aaaa', 'im name i have x years old', NULL, NULL),
-(24, 'issam', NULL, NULL, NULL, 'issam@issam.com', NULL, 1, 0, '2020-03-16 17:22:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`user_id`, `username`, `password`, `fname`, `lname`, `email`, `hash`, `notification`, `active`, `created_at`, `birthday`, `gender`, `sex_pre`, `tag`, `bio`, `location`, `popularity`, `loc`) VALUES
+(23, 'issamelferkh', '210ad1da7fbb8f5067e23918ab3a3ad9eb9237cb4bc7211ec73391dc34951016dc573337abf7f2528ca7427518f137191d18431f65847e1956df29865fb51558', 'Issam 01', 'EL FERKH', 'issam.elferkh@gmail.com', 'aa942ab2bfa6ebda4840e7360ce6e7ef', 1, 1, '2020-03-03 17:09:52', '1999-03-16', 'Men', 'hhh', 'aaaa', 'im name i have x years old', NULL, NULL, '32.8811,-6.9063'),
+(24, 'issam', NULL, NULL, NULL, 'issam@issam.com', NULL, 1, 0, '2020-03-16 17:22:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -165,7 +169,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `like_table`
 --
 ALTER TABLE `like_table`
-  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `picture`
 --

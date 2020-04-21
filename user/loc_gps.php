@@ -10,7 +10,7 @@
 <!-- from gps -->
 <script type="text/javascript">
 	var x = document.getElementById("map");
-	var loc = "";
+	var loc = "aaa";
 
 	function getLocation() {
 	  if (navigator.geolocation) {
@@ -21,18 +21,19 @@
 	function sendPosition(position) {
 		loc = position.coords.latitude +","+ position.coords.longitude;
 	
-		// bghit nsefet had l 3ibat b ajax b GET ms mabghach kaytala3 li error 
-		// Uncaught SyntaxError: Unexpected token < in JSON at position 0
 		$(function () {
-			var loc2 = loc;
-			console.log(loc2);
+			var loc_var = loc;
+			var dataString = 'loc_var=' + loc;
 			$.ajax({
-				url: "./loc_gps.php",
-				type: "GET",
-				data: { loc: loc2},
-				success: function (data) {
-					var dataParsed = JSON.parse(data); // mni kan7ayed had dataParsed kaymchi error
-					console.log(dataParsed);
+				url: "./loc_gps_script.php",
+				type: "POST",
+				data: dataString,
+				success: function(data) {
+					if (data) {
+						location.href = "loc_gps_script.php";
+					}
+					// console.log(data.stack); // overflow
+					// console.log(data.key);   // value
 				}
 			});
 		});

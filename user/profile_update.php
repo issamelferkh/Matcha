@@ -25,7 +25,7 @@ function validateAge($birthday, $age = 18)
 <?php
 if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) {
 	if(empty($_POST["fname"]) || empty($_POST["lname"]) || empty($_POST["email"]) || empty($_POST["username"]) || empty($_POST["birthday"]) 
-	|| empty($_POST["gender"]) || empty($_POST["sex_pre"]) || empty($_POST["tag"]) || empty($_POST["bio"]) ) {
+	|| empty($_POST["gender"]) || empty($_POST["sex_pre"]) || empty($_POST["tag1"]) || empty($_POST["bio"]) ) {
         $message = 'All fields are required.';
 	} else {
 		if(isset($_POST['notification']) && $_POST['notification'] == 1) {
@@ -42,7 +42,9 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
         $birthday = htmlspecialchars(trim($_POST["birthday"])); 
         $gender = htmlspecialchars(trim($_POST["gender"])); 
         $sex_pre = htmlspecialchars(trim($_POST["sex_pre"])); 
-        $tag = htmlspecialchars(trim($_POST["tag"])); 
+        $tag1 = htmlspecialchars(trim($_POST["tag1"])); 
+        $tag2 = htmlspecialchars(trim($_POST["tag2"])); 
+        $tag3 = htmlspecialchars(trim($_POST["tag3"])); 
 		$bio = htmlspecialchars(trim($_POST["bio"]));
 		
         // check email
@@ -69,9 +71,9 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
                 $message = 'Username OR email is already taken!';
             } else {
             	// update profile query
-				$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `birthday`=?, `gender`=?, `sex_pre`=?, `tag`=?, `bio`=?, `notification`=? WHERE `user_id`=?";
+				$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `birthday`=?, `gender`=?, `sex_pre`=?, `tag1`=?, `tag2`=?, `tag3`=?, `bio`=?, `notification`=? WHERE `user_id`=?";
 				$query = $db->prepare($query);
-				$query->execute([$fname,$lname,$email,$username,$birthday,$gender,$sex_pre,$tag,$bio,$notification,$_SESSION['user_id']]);
+				$query->execute([$fname,$lname,$email,$username,$birthday,$gender,$sex_pre,$tag1,$tag2,$tag3,$bio,$notification,$_SESSION['user_id']]);
 				// live update of username
 				$_SESSION["username"] = $username;
 				$msg = 'Your profile was successfully updated.';
@@ -93,7 +95,16 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
 <?php include("../include/header.php"); ?>   
 <!-- nav -->
 <?php include("../include/navbar_user.php"); ?>
+<!-- autocompete tags -->
+<!-- <script>
+        $(document).ready(function(){ 
+        	$("#tag1").autocomplete({source: "action/tag_autocomplete.php"}); 
+        	$("#tag2").autocomplete({source: "action/tag_autocomplete.php"}); 
+        	$("#tag3").autocomplete({source: "action/tag_autocomplete.php"}); 
+        });
+</script> -->
 
+<!-- start container -->
 <main role="main" class="container">   
 	<?php include("../include/title.php"); ?>
     
@@ -200,9 +211,16 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
 					        </p>
 				        </div>
 				        <div class="media text-muted pt-3">
-				                <div class="form-group col-md-12">
-				                    <input class="form-control" type="text" name="tag" value="<?php if (isset($la_case[0]['tag'])) echo htmlspecialchars(trim($la_case[0]['tag'])); ?>" placeholder="Tags" required>
+								<div class="form-group col-md-4">
+				                    <input class="form-control" type="text" id="tag1" name="tag1" value="<?php if (isset($la_case[0]['tag1'])) echo htmlspecialchars(trim($la_case[0]['tag1'])); ?>" placeholder="Interest #1" required>
 				                </div>
+								<div class="form-group col-md-4">
+				                    <input class="form-control" type="text" id="tag2" name="tag2" value="<?php if (isset($la_case[0]['tag2'])) echo htmlspecialchars(trim($la_case[0]['tag2'])); ?>" placeholder="Interest #2">
+				                </div>
+				                <div class="form-group col-md-4">
+				                    <input class="form-control" type="text" id="tag3"  name="tag3" value="<?php if (isset($la_case[0]['tag3'])) echo htmlspecialchars(trim($la_case[0]['tag3'])); ?>" placeholder="Interest #3">
+				                </div>
+
 				        </div>
 
 				        <!-- Bio -->

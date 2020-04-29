@@ -1,30 +1,12 @@
+<!-- not include 'include/session.php' because not loged yet-->
+<?php session_start(); ?>
 <?php
-session_start();
 require_once("config/connection.php");
-
-function ft_send_email($username,$email,$hash){
-
-    $to      = $email; // email of user
-    $subject = 'Matcha | Signup - Verification'; // give the email a subject 
-    $message = '
-     
-    Hi "'.$username.'",
-
-    Your account has been created, you can login with the following username and password after you have activated your account by pressing the url below.
-
-    Please click to this link to activate your account:
-    https://10.12.100.163/matcha/active_user.php?email='.$email.'&hash='.$hash.'
-     
-    Thanks for using Matcha!
-    '; // message above including the link
-                         
-    $headers = 'From:no-reply@matcha.com' . "\r\n"; // set from headers
-    mail($to, $subject, $message, $headers); // send email
-}
+require_once("include/libft.php");
 
 if(isset($_POST["signup"])) { 
     if(empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["email"]) || empty($_POST["fname"]) || empty($_POST["lname"]) ) {
-        $message1 = 'All fields are required.';
+        ft_putmsg('dark','All fields are required.','/signup.php');
     } else {
         // affectations
         $fname = $_POST["lname"];
@@ -48,15 +30,15 @@ if(isset($_POST["signup"])) {
         $emailcheck = preg_match('(^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]*$)', $email); 
 
         if($pwdlen < 8) {
-            $message2 = 'Invalid password. Password must be at least 8 characters.';
+            ft_putmsg('warning','Invalid password. Password must be at least 8 characters.','/signup.php');
         } else if(!$uppercase || !$lowercase || !$number || !$specialChars) {
-            $message2 = 'Password should be include at least one upper case letter, one number, and one special character.';
-        } else if (($usernamelen > 50) || ($usernamelen < 5)){
-            $message2 = 'Invalid username. Username must be between 5 and 50 characters.';
-        } else if ($emaillen > 320){
-            $message2 = 'Invalid email. Email must be less than 320 characters.';
+            ft_putmsg('warning','Password should be include at least one upper case letter, one number, and one special character.','/signup.php');
+        } else if (($usernamelen > 50) || ($usernamelen < 5)) {
+            ft_putmsg('warning','Invalid username. Username must be between 5 and 50 characters.','/signup.php');
+        } else if ($emaillen > 320) {
+            ft_putmsg('warning','Invalid email. Email must be less than 320 characters.','/signup.php');
         } else if (!($emailcheck)) {
-            $message2 = 'Invalid email format.';
+            ft_putmsg('warning','Invalid email format.','/signup.php');
         } else {
             $query = 'SELECT * FROM user WHERE username="'.$username.'" OR email="'.$email.'"';
             $query = $db->prepare($query);
@@ -64,15 +46,14 @@ if(isset($_POST["signup"])) {
             $count = $query->rowCount();
             $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
             if ($count > 0) {
-                $message3 = 'Username OR email is already taken!';
+                ft_putmsg('danger','Username OR email is already taken!','/signup.php');
             } else {
                 $notification = 1;
                 $query = 'INSERT INTO `user` (`username`, `email`, `password`, `hash`, `notification`) VALUES (?,?,?,?,?)';
                 $query = $db->prepare($query);
                 $query->execute([$username,$email,$password,$hash,$notification]);
-                ft_send_email($username, $email, $hash);
-                $msg_get = 'Please active your account by clicking the activation link that has been send to your email.';
-                header("location:signin.php?msg_get=".$msg_get."");
+                // ft_send_email($username, $email, $hash);
+                ft_putmsg('primary','Please active your account by clicking the activation link that has been send to your email.','/signin.php');
             }
         } 
     }
@@ -85,20 +66,10 @@ if(isset($_POST["signup"])) {
 
 <!-- start container -->
 <main role="main" class="container">
-    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
-        <img class="mr-3" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
-        <div class="lh-100">
-        <h6 class="mb-0 text-white lh-100">Matcha</h6>
-        <small>Since 2020</small>
-        </div>
-    </div>
+    <?php include("include/title.php") ;?>
 
     <div class="my-3 p-3 bg-white rounded box-shadow">
-        <h6 class="border-bottom border-gray pb-2 mb-0">Sign Up</h6></br>
-        <?php if(isset($message1)) {echo '<div class="alert alert-dark" role="alert">'.htmlspecialchars($message1).'</div>';}?>
-        <?php if(isset($message2)) {echo '<div class="alert alert-warning" role="alert">'.htmlspecialchars($message2).'</div>';}?>
-        <?php if(isset($message3)) {echo '<div class="alert alert-danger" role="alert">'.htmlspecialchars($message3).'</div>';}?>
-        
+        <h6 class="border-bottom border-gray pb-2 mb-0">Sign Up</h6></br>        
         <form method="POST" action="signup.php">
             <div class="form-row">
                 <div class="form-group col-md-4">

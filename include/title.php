@@ -5,3 +5,19 @@
     <small>Since 2020</small>
     </div>
 </div>
+
+
+<!-- putmsg -->
+<?php
+
+if (isset($_SESSION['message'])) {
+    $message = htmlspecialchars($_SESSION['message']);
+    $type = htmlspecialchars($_SESSION['type']);
+    ?>
+        <div class="alert alert-<?= $type; ?>" role="alert">
+            <?= $message; ?>
+        </div>
+    <?php
+    unset($_SESSION['message']);
+}
+?>

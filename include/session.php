@@ -1,5 +1,11 @@
 <?php
 
-if(session_status() === PHP_SESSION_NONE) session_start();
+// check if sessions are enabled, but none exists.
+if(session_status() === PHP_SESSION_NONE) { 
+    session_start();
+}
 
-if (!$_SESSION['username'])  header('Location:../index.php');
+// check if the user are logged
+if (!$_SESSION['username'])  {
+    header('Location:../index.php');
+}

@@ -1,3 +1,5 @@
+<!-- not include 'include/session.php' because not loged yet-->
+<?php session_start(); ?>
 <!-- connection -->
 <?php require_once("config/connection.php"); ?>
 <!-- header -->
@@ -7,14 +9,9 @@
 <!-- sub nav -->
 <?php //include("include/nav_sub.php"); ?>   
 
+<!-- start container -->
 <main role="main" class="container">
-    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
-        <img class="mr-3" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
-        <div class="lh-100">
-        <h6 class="mb-0 text-white lh-100">Matcha</h6>
-        <small>Since 2020</small>
-        </div>
-    </div>
+    <?php include("include/title.php") ;?>
 
     <!-- about -->
     <div class="my-3 p-3 bg-white rounded box-shadow">

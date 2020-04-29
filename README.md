@@ -111,8 +111,8 @@ A user must be able to see, from any page that a notification hasn’t been read
 
 #User Profile - Tag\
 A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
-- [ ] fill tags
-- [ ] update tags
+- [ ] autocomplete
+- [ ] not repeat the same tags
 
 #User Profile -> GPS
 - [ ] The user must be located (using GPS) up to his neighborhood.

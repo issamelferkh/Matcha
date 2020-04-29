@@ -64,6 +64,7 @@ if((isset($_POST["update_pwd"])) && ($_SESSION["token"] === $_POST["token"])) {
 <!-- nav -->
 <?php include("../include/navbar_user.php"); ?>
 
+<!-- start container -->
 <main role="main" class="container">   
 	<?php include("../include/title.php"); ?>
     

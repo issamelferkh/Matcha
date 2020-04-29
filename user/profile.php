@@ -13,8 +13,9 @@
 <!-- header -->
 <?php include("../include/header.php"); ?>   
 <!-- nav -->
-<?php include("../include/navbar_user.php"); ?>
+<?php include("../include/navbar.php"); ?>
 
+<!-- start container -->
 <main role="main" class="container">   
 	<?php include("../include/title.php"); ?>
     
@@ -127,9 +128,15 @@
 					        </p>
 				        </div>
 				        <div class="media text-muted pt-3">
-				                <div class="form-group col-md-12">
-				                    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['tag'])) echo htmlspecialchars(trim($la_case[0]['tag'])); ?>" disabled>
-				                </div>
+						<div class="form-group col-md-4">
+								<input class="form-control" type="text" value="<?php if (isset($la_case[0]['tag1'])) echo htmlspecialchars(trim($la_case[0]['tag1'])); ?>" disabled>
+							</div>
+							<div class="form-group col-md-4">
+								<input class="form-control" type="text" value="<?php if (isset($la_case[0]['tag2'])) echo htmlspecialchars(trim($la_case[0]['tag2'])); ?>" disabled>
+							</div>
+							<div class="form-group col-md-4">
+								<input class="form-control" type="text" value="<?php if (isset($la_case[0]['tag3'])) echo htmlspecialchars(trim($la_case[0]['tag3'])); ?>" disabled>
+							</div>
 				        </div>
 
 				        <!-- Bio -->

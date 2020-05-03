@@ -2,6 +2,8 @@
 <?php require_once("../config/connection.php"); ?>
 <!-- session -->
 <?php require_once("../include/session.php"); ?>
+<!-- libft -->
+<?php require_once("../include/libft.php"); ?>
 <!-- php show profile -->
 <?php
 	$query = 'SELECT * FROM `user` WHERE `user_id`="'.$_SESSION['user_id'].'"';
@@ -25,23 +27,33 @@
 		    <!-- Photo profile -->
             <div class="col-md-4">
             	<div class="my-3 p-3 bg-white rounded box-shadow">
-			        <div class="media text-muted pt-3">
+					<!-- online => id = user_login_status -->
+			        <div class="media text-muted pt-3" id="user_login_status"></div>
+					<div class="media text-muted pt-3">
 				        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 				            <strong class="d-block text-gray-dark">Profile Picture</strong>
-				        </p>
+				        </p>				        
 			        </div>
 			    </div>
 <!-- php profile picture -->
 <?php
-	$flag = 1;
-	$query = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'" AND `asProfile` = "'.$flag.'"';
+	$query = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'" AND `asProfile` = 1';
 	$query = $db->prepare($query);
 	$query->execute();
-    $pro = $query->fetchAll(\PDO::FETCH_ASSOC);
+	$pic = $query->fetchAll(\PDO::FETCH_ASSOC);
+	// check if is set user_o profile profile
+	if (isset($pic[0]['imgURL'])) {
+		$user_o_pic_profile = $pic[0]['imgURL'];
+	} else {
+		$user_o_pic_profile = "/assets/img/avatar.png";
+	}
+    echo "
+				<div class='card mb-2'>
+					<img class='card-img-top rounded' src='".$url.$user_o_pic_profile."'>
+				</div>
+";
 ?>
-                <div class="card mb-2">
-                    <img class="card-img-top rounded" src="<?php echo $url.$pro[0]['imgURL']; ?>" >
-                </div>
+
 <!-- php calcul public rating -->
 <?php
 	// calcul total
@@ -195,7 +207,7 @@
 				                </div>
 				        </div>
 	<a href="<?php echo $url; ?>/user/profile_update.php" 	class="btn btn-primary" role="button">Update Profile</a>
-	<a href="<?php echo $url; ?>/user/profile_pic.php" 		class="btn btn-warning" role="button">Upload Pictures</a>
+	<a href="<?php echo $url; ?>/user/profile_pic.php" 		class="btn btn-warning" role="button">Update Pictures</a>
 	<a href="<?php echo $url; ?>/user/profile_pwd.php"		class="btn btn-danger" 	role="button">Update Password</a>
 
 			    </div>
@@ -203,6 +215,53 @@
         </div>
     </div>
 </main>
+
+<!-- script to check if user is online -->
+<script>
+$(document).ready(function(){
+
+<?php //if($_SESSION["username"]) { ?>
+	// update user lastonline
+	function update_user_activity() {
+		var action = 'update_time';
+		$.ajax({
+			url:"online.php",
+			method:"POST",
+			data:{action:action},
+			success:function(data) {}
+		});
+	}
+
+	setInterval(function(){ 
+		update_user_activity();
+	}, 3000);
+
+<?php //} else { ?>
+
+	fetch_user_login_data();
+
+	setInterval(function(){
+		fetch_user_login_data();
+	}, 3000);
+
+	// fetch user online
+	function fetch_user_login_data() {
+		var action = "fetch_data";
+		$.ajax({
+			url:"online.php",
+			method:"POST",
+			data:{action:action},
+			success:function(data) {
+				$('#user_login_status').html(data);
+			}
+		});
+	}
+
+<?php //} ?>
+
+});
+</script>
+
 
 <!-- footer -->
 <?php include("../include/footer.php"); ?>

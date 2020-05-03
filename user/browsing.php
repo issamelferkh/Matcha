@@ -5,7 +5,7 @@
 <!-- header -->
 <?php include("../include/header.php"); ?>   
 <!-- nav -->
-<?php include("../include/navbar_user.php"); ?> 
+<?php include("../include/navbar.php"); ?> 
 
 <!-- php show other profile -->
 <?php
@@ -13,9 +13,9 @@
 	$query = $db->prepare($query);
 	$query->execute();
 	$count = $query->rowCount();
-    $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
-
+	$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
 	if (isset($_GET["i"])) {
+		// add like or nope to like_table
 		if(isset($_GET["user_p"])) { $user_p = htmlspecialchars(trim($_GET["user_p"])); }
 		if(isset($_GET["user_o"])) { $user_o = htmlspecialchars(trim($_GET["user_o"])); }
 		if(isset($_GET["liked"]))  { $liked =  htmlspecialchars(trim($_GET["liked"])); }
@@ -44,11 +44,17 @@
 	$query = 'SELECT * FROM `picture` WHERE `user_id`="'.$la_case[$i]['user_id'].'" AND `asProfile` = 1';
 	$query = $db->prepare($query);
 	$query->execute();
-    $pic = $query->fetchAll(\PDO::FETCH_ASSOC);
+	$pic = $query->fetchAll(\PDO::FETCH_ASSOC);
+	// check if is set user_o profile profile
+	if (isset($pic[0]['imgURL'])) {
+		$user_o_pic_profile = $pic[0]['imgURL'];
+	} else {
+		$user_o_pic_profile = "/assets/img/avatar.png";
+	}
     echo "
 	    <div class='col-md-4'>
             <div class='card mb-2'>
-                <img class='card-img-top rounded' src='".$url.$pic[0]['imgURL']."'>
+                <img class='card-img-top rounded' src='".$url.$user_o_pic_profile."'>
             </div>
         </div>
 ";
@@ -111,3 +117,9 @@
 
 <!-- footer -->
 <?php include("../include/footer.php"); ?>
+
+<!-- help -->
+<!-- 
+	user_p = user principal, user logged
+	user_o = other users, in browsing or search 
+ -->

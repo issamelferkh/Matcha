@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once("config/connection.php");
+// require_once("include/libftconnection.php");
 function ft_send_email($username,$email,$hash){
 
     $to      = $email;
@@ -23,7 +24,7 @@ $token_tmp = hash('whirlpool', $_SERVER['SERVER_ADDR']);
 
 if(isset($_POST["reset_pwd"]) && ($token_tmp === $_POST["token"])) {
     if(empty($_POST["username"]) || empty($_POST["email"])) {
-        $msg_danger = 'All fields are required.';
+        ft_putmsg('danger','All fields are required.','/forget_pwd.php');
     } else {
         $query = 'SELECT * FROM user WHERE username="'.$_POST['username'].'" AND email="'.$_POST['email'].'"';
         $query = $db->prepare($query);
@@ -32,13 +33,10 @@ if(isset($_POST["reset_pwd"]) && ($token_tmp === $_POST["token"])) {
         $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
         if ($count > 0) {
             $hash = $la_case[0]['hash'];
-            ft_send_email($_POST['username'], $_POST['email'], $hash);
-            $msg_get = 'The magic link for reset your password has been sent to your email.';
-            header("location:signin.php?msg_get=".$msg_get."");
+            // ft_send_email($_POST['username'], $_POST['email'], $hash);
+            ft_putmsg('primary','The magic link for reset your password has been sent to your email.','/signin.php');
         } else {
-            $msg_get = 'Sorry your Username or Email are incorrect !';
-            header("location:signin.php?msg_get=".$msg_get."");
-            
+            ft_putmsg('danger','Sorry your Username or Email are incorrect!','/signin.php');            
         }
     } 
 } 
@@ -54,7 +52,6 @@ if(isset($_POST["reset_pwd"]) && ($token_tmp === $_POST["token"])) {
 
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">Reset Password</h6></br>
-        <?php if(isset($msg_danger)) {echo '<div class="alert alert-danger" role="alert">'.htmlspecialchars($msg_danger).'</div>';}?>
         <form method="post" action="forget_pwd.php">
             <input type="hidden"    name="token"        value="<?php echo $token_tmp; ?>">
             <div class="form-row">

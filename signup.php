@@ -52,7 +52,7 @@ if(isset($_POST["signup"])) {
                 $query = 'INSERT INTO `user` (`username`, `email`, `password`, `hash`, `notification`) VALUES (?,?,?,?,?)';
                 $query = $db->prepare($query);
                 $query->execute([$username,$email,$password,$hash,$notification]);
-                // ft_send_email($username, $email, $hash);
+                // ft_send_email_verification($username, $email, $hash);
                 ft_putmsg('primary','Please active your account by clicking the activation link that has been send to your email.','/signin.php');
             }
         } 

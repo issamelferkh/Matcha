@@ -62,7 +62,7 @@ if((isset($_POST["update_pwd"])) && ($_SESSION["token"] === $_POST["token"])) {
 <!-- header -->
 <?php include("../include/header.php"); ?>   
 <!-- nav -->
-<?php include("../include/navbar_user.php"); ?>
+<?php include("../include/navbar.php"); ?>
 
 <!-- start container -->
 <main role="main" class="container">   
@@ -82,15 +82,22 @@ if((isset($_POST["update_pwd"])) && ($_SESSION["token"] === $_POST["token"])) {
 			    </div>
 <!-- php profile picture -->
 <?php
-    $flag = 1;
-    $query = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'" AND `asProfile` = "'.$flag.'"';
-    $query = $db->prepare($query);
-    $query->execute();
-    $pro = $query->fetchAll(\PDO::FETCH_ASSOC);
+	$query = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'" AND `asProfile` = 1';
+	$query = $db->prepare($query);
+	$query->execute();
+	$pic = $query->fetchAll(\PDO::FETCH_ASSOC);
+	// check if is set user_o profile profile
+	if (isset($pic[0]['imgURL'])) {
+		$user_o_pic_profile = $pic[0]['imgURL'];
+	} else {
+		$user_o_pic_profile = "/assets/img/avatar.png";
+	}
+    echo "
+				<div class='card mb-2'>
+					<img class='card-img-top rounded' src='".$url.$user_o_pic_profile."'>
+				</div>
+";
 ?>
-                <div class="card mb-2">
-                    <img class="card-img-top rounded" src="<?php echo $url.$pro[0]['imgURL']; ?>" >
-                </div>
             </div>
 
 		    <!-- About profile -->

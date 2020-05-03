@@ -14,7 +14,7 @@ if(isset($_POST["submit"]) && ($_SESSION["token"] === $_POST["token"])) {
         $query = $db->prepare($query);
         $query->execute();
         $count = $query->rowCount();
-        $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
+        $la_case = $query->fetchAll(\PDO::FETCH_ASSOC); 
         if ($count < 5) {
         	$imgName = $_SESSION['user_id']."_".date("Y_m_d_H_i_s")."_profile.png";
 			$imgURL = "../assets/img/".$imgName;
@@ -61,7 +61,7 @@ if(isset($_POST["submit"]) && ($_SESSION["token"] === $_POST["token"])) {
 <!-- header -->
 <?php include("../include/header.php"); ?>   
 <!-- nav -->
-<?php include("../include/navbar_user.php"); ?>
+<?php include("../include/navbar.php"); ?>
 
 <!-- start container -->
 <main role="main" class="container">   
@@ -80,22 +80,27 @@ if(isset($_POST["submit"]) && ($_SESSION["token"] === $_POST["token"])) {
 			    </div>
 <!-- php profile picture -->
 <?php
-	$flag = 1;
-	$query = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'" AND `asProfile` = "'.$flag.'"';
+	$query = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'" AND `asProfile` = 1';
 	$query = $db->prepare($query);
 	$query->execute();
-    $pro = $query->fetchAll(\PDO::FETCH_ASSOC);
+	$pic = $query->fetchAll(\PDO::FETCH_ASSOC);
+	// check if is set user_o profile profile
+	if (isset($pic[0]['imgURL'])) {
+		$user_o_pic_profile = $pic[0]['imgURL'];
+	} else {
+		$user_o_pic_profile = "/assets/img/avatar.png";
+	}
+    echo "
+				<div class='card mb-2'>
+					<img class='card-img-top rounded' src='".$url.$user_o_pic_profile."'>
+				</div>
+";
 ?>
-                <div class="card mb-2">
-                    <img class="card-img-top rounded" src="<?php echo $url.$pro[0]['imgURL']; ?>" >
-                </div>
             </div>
 
 		    <!-- About profile -->
             <div class="col-md-8">
 				<div class="my-3 p-3 bg-white rounded box-shadow">
-				<?php if(isset($message)) {echo '<div class="alert alert-danger" role="alert">'.htmlspecialchars($message).'</div>';}?>
-
 					<form method="POST" action="profile_pic.php" enctype="multipart/form-data">
 						<input type="hidden"    name="token"        value="<?php echo $_SESSION['token']; ?>">
 				        <h6 class="border-bottom border-gray pb-2 mb-0">Profile</h6>

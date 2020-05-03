@@ -2,6 +2,8 @@
 <?php require_once("../config/connection.php"); ?>
 <!-- session -->
 <?php require_once("../include/session.php"); ?>
+<!-- libft -->
+<?php require_once("../include/libft.php"); ?>
 <!-- php delete picture -->
 <?php
 	if(isset($_POST["pic_delete"]) && isset($_POST["img_id"]) && ($_SESSION["token"] === $_POST["token"])) {
@@ -9,14 +11,13 @@
         $query = $db->prepare($query);
         $query->bindParam(':img_id', $_POST['img_id'], PDO::PARAM_INT); 
         $query->execute();
-        $msg = 'The picture '.$_POST['img_id'].' is deleted with succeed.';
-        header("location:profile_pic.php?msg=".$msg."");
+		ft_putmsg('success','The picture '.$_POST['img_id'].' is deleted with succeed.','/user/profile_pic.php');
 	}
 ?>
 <!-- header -->
 <?php include("../include/header.php"); ?>   
 <!-- nav -->
-<?php include("../include/navbar_user.php"); ?> 
+<?php include("../include/navbar.php"); ?> 
 
 <!-- start container -->
 <main role="main" class="container">   
@@ -34,12 +35,17 @@
 	$query = 'SELECT * FROM `picture` WHERE `img_id`="'.$_GET['img_id'].'"';
 	$query = $db->prepare($query);
 	$query->execute();
-    $pic = $query->fetchAll(\PDO::FETCH_ASSOC);
-    echo "
-		                <img class='card-img-top rounded' src='".$url.$pic[0]['imgURL']."'> "; ?>
-		                <input type="hidden" name="img_id" value="<?php echo $pic[0]['img_id']; ?>">
-		                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-			            <button name="pic_delete" type="submit" class="btn btn-primary">Delete</button>
+	$pic = $query->fetchAll(\PDO::FETCH_ASSOC);
+	if (isset($pic[0]['imgURL'])) {
+		echo "  <img class='card-img-top rounded' src='".$url.$pic[0]['imgURL']."'> 
+				<input type='hidden' name='img_id' value='".$pic[0]['img_id']."'>
+				<input type='hidden' name='token' value='".$_SESSION['token']."'>
+				<button name='pic_delete' type='submit' class='btn btn-primary'>Delete</button>
+		";
+	} else {
+		echo " <img class='card-img-top rounded' src='".$url."/assets/img/avatar_no_pic.png'> ";
+	}
+?>
 			        </div>
 
 		        </div>

@@ -4,9 +4,9 @@ require_once("config/connection.php");
 
 if(isset($_POST["reset"])) {
     if(empty($_POST["password1"]) || empty($_POST["password2"])) {
-        $msg_danger = 'All fields are required.';
+        ft_putmsg('danger','All fields are required.','/forget_pwd_reset.php');
     } else if(($_POST["password1"]) !== ($_POST["password2"])) {
-        $msg_danger = 'Password does not match!';
+        ft_putmsg('danger','Password does not match!','/forget_pwd_reset.php');
     } else {
         $password = hash('whirlpool', $_POST['password1']);
         $pwdlen = strlen($_POST['password1']);
@@ -16,9 +16,9 @@ if(isset($_POST["reset"])) {
         $specialChars = preg_match('@[^\w]@', $_POST['password1']);
 
         if($pwdlen < 8) {
-            $msg_danger = 'Invalid password. Password must be at least 8 characters.';
+            ft_putmsg('danger','Invalid password. Password must be at least 8 characters.','/forget_pwd_reset.php');
         } else if(!$uppercase || !$lowercase || !$number || !$specialChars) {
-            $msg_danger = 'Password should be include at least one upper case letter, one number, and one special character.';
+            ft_putmsg('danger','Password should be include at least one upper case letter, one number, and one special character.','/forget_pwd_reset.php');
         } else {
             $query = 'SELECT * FROM user WHERE username="'.$_POST['username'].'"';
             $query = $db->prepare($query);
@@ -26,13 +26,11 @@ if(isset($_POST["reset"])) {
             $count = $query->rowCount();
             $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
             if ($count > 0) {
-                $msg_danger = 'Username is already taken!';
+                ft_putmsg('danger','Username is already taken!','/forget_pwd_reset.php');
             } else {
                 $sql = "UPDATE user SET `password`=?";
                 $db->prepare($sql)->execute([$password]);
-
-                $msg_get = 'Your password has been reset successfully!.';
-                header("location:signin.php?msg_get=".$msg_get."");
+                ft_putmsg('success','Your password has been reset successfully!','/signin.php');
             }
         } 
     }
@@ -55,9 +53,6 @@ if(isset($_POST["reset"])) {
 
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">Reset Password</h6></br>
-        <?php if(isset($msg_danger)) {echo '<div class="alert alert-danger" role="alert">'.htmlspecialchars($msg_danger).'</div>';}?>
-        <?php if(isset($_GET['msg_get'])) {echo '<div class="alert alert-primary" role="alert">'.htmlspecialchars($_GET['msg_get']).'</div>';}?>
-        
         <form method="post" action="forget_pwd_reset.php">
             <div class="form-row">
                 <div class="form-group col-md-6">

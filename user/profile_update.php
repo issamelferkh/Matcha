@@ -46,6 +46,8 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
         $tag2 = htmlspecialchars(trim($_POST["tag2"])); 
         $tag3 = htmlspecialchars(trim($_POST["tag3"])); 
 		$bio = htmlspecialchars(trim($_POST["bio"]));
+		$lati = htmlspecialchars($_POST["lati"]);
+		$longi = htmlspecialchars($_POST["longi"]);
 		
         // check email
         $emailcheck = preg_match('(^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]*$)', $email); 
@@ -71,9 +73,9 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
                 $message = 'Username OR email is already taken!';
             } else {
             	// update profile query
-				$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `birthday`=?, `gender`=?, `sex_pre`=?, `tag1`=?, `tag2`=?, `tag3`=?, `bio`=?, `notification`=? WHERE `user_id`=?";
+				$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `birthday`=?, `gender`=?, `sex_pre`=?, `tag1`=?, `tag2`=?, `tag3`=?, `bio`=?, `lati`=?, `longi`=?, `notification`=? WHERE `user_id`=?";
 				$query = $db->prepare($query);
-				$query->execute([$fname,$lname,$email,$username,$birthday,$gender,$sex_pre,$tag1,$tag2,$tag3,$bio,$notification,$_SESSION['user_id']]);
+				$query->execute([$fname,$lname,$email,$username,$birthday,$gender,$sex_pre,$tag1,$tag2,$tag3,$bio,$lati,$longi,$notification,$_SESSION['user_id']]);
 				// live update of username
 				$_SESSION["username"] = $username;
 				$msg = 'Your profile was successfully updated.';
@@ -250,8 +252,12 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
 					        </p>
 				        </div>
 				        <div class="media text-muted pt-3">
-				                <div class="form-group col-md-12">
-				                </div>
+							<div class="form-group col-md-6">
+								<input class="form-control" type="text" name="lati" value="<?php if (isset($la_case[0]['lati'])) echo htmlspecialchars(trim($la_case[0]['lati'])); ?>" placeholder="Latitude">
+							</div>
+							<div class="form-group col-md-6">
+								<input class="form-control" type="text" name="longi" value="<?php if (isset($la_case[0]['longi'])) echo htmlspecialchars(trim($la_case[0]['longi'])); ?>" placeholder="Longitude">
+							</div>
 				        </div>
 						
 						<!-- submit -->

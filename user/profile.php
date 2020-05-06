@@ -14,6 +14,13 @@
 
 <!-- header -->
 <?php include("../include/header.php"); ?>   
+<style>
+	/* Set the size of the div element that contains the map */
+	#map {
+	height: 400px;
+	width: 100%;
+	}
+</style>
 <!-- nav -->
 <?php include("../include/navbar.php"); ?>
 
@@ -173,39 +180,46 @@
 					        <div class="row">
 <!-- php show pictures -->
 <?php
-	$query = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'"';
-	$query = $db->prepare($query);
-	$query->execute();
-	$count = $query->rowCount();
-    $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
-    $i=0;
-    $result="";
-    while ($count > $i) {
-    	$result = $result."
+	$query5 = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'"';
+	$query5 = $db->prepare($query5);
+	$query5->execute();
+	$count5 = $query5->rowCount();
+    $la_case5 = $query5->fetchAll(\PDO::FETCH_ASSOC);
+    $i5=0;
+    $result5="";
+    while ($count5 > $i5) {
+    	$result5 = $result5."
 
 <div class='col-md-2'>
     <div class='card mb-2'>
-        <img class='card-img-top rounded' src='".$url.$la_case[$i]['imgURL']."'>
+        <img class='card-img-top rounded' src='".$url.$la_case5[$i5]['imgURL']."'>
     </div>
 </div>
 					            ";
-    	$i++;
+    	$i5++;
     }
-    if($count > 0) {echo $result;}
+    if($count5 > 0) {echo $result5;}
 ?>
 					        </div>
 					    </div>
 				        
-				        <!-- gps -->
+				        <!-- location -->
 				        <div class="media text-muted pt-3">
 					        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 					            <strong class="d-block text-gray-dark">Location</strong>
 					        </p>
 				        </div>
 				        <div class="media text-muted pt-3">
-				                <div class="form-group col-md-12">
-				                </div>
+							<div class="form-group col-md-6">
+								<input class="form-control" type="text" value="<?php if (isset($la_case[0]['lati'])) echo htmlspecialchars(trim($la_case[0]['lati'])); ?>" disabled>
+							</div>
+							<div class="form-group col-md-6">
+								<input class="form-control" type="text" value="<?php if (isset($la_case[0]['longi'])) echo htmlspecialchars(trim($la_case[0]['longi'])); ?>" disabled>
+							</div>
 				        </div>
+						<!-- maps location -->
+						<div id="map"></div>
+						</br>
 	<a href="<?php echo $url; ?>/user/profile_update.php" 	class="btn btn-primary" role="button">Update Profile</a>
 	<a href="<?php echo $url; ?>/user/profile_pic.php" 		class="btn btn-warning" role="button">Update Pictures</a>
 	<a href="<?php echo $url; ?>/user/profile_pwd.php"		class="btn btn-danger" 	role="button">Update Password</a>
@@ -262,6 +276,46 @@ $(document).ready(function(){
 });
 </script>
 
+<!-- script show maps -->
+<?php
+	$query6 = 'SELECT * FROM `user` WHERE `user_id`="'.$_SESSION['user_id'].'"';
+	$query6 = $db->prepare($query6);
+	$query6->execute();
+	$count6 = $query6->rowCount();
+	$la_case6 = $query6->fetchAll(\PDO::FETCH_ASSOC);
+	if ($la_case6[0]['lati'] !== NULL && $la_case6[0]['longi'] !== NULL) {
+		$lati = $la_case6[0]['lati'];
+		$longi = $la_case6[0]['longi'];
+	} else {
+		$lati = 32.882284;
+		$longi = -6.897821;
+	}
+?>
+<script>
+
+// Initialize and add the map
+function initMap() {
+	// get lati and longi from database with php
+	var lati = "<?php echo $lati; ?>";
+	var longi = "<?php echo $longi; ?>";
+
+	// String to Number
+	lati = Number(lati);
+	longi = Number(longi);
+
+	var uluru = {lat: lati, lng: longi};
+	// The map, centered 
+	var map = new google.maps.Map(
+		document.getElementById('map'), {zoom: 12, center: uluru}
+	);
+	// The marker, positioned
+	var marker = new google.maps.Marker({position: uluru, map: map});
+}
+</script>
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiFCibdMN7rF9a8Ei3pQo504GHHDqjBMU&callback=initMap">
+</script>
 
 <!-- footer -->
 <?php include("../include/footer.php"); ?>

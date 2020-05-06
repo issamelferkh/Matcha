@@ -2,7 +2,7 @@
 // check if logged
 if (isset($_SESSION['username']))  { ?>  
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="<?php echo $url; ?>/user/browsing.php">Matcha</a>
+    <a class="navbar-brand" href="<?php echo $url; ?>/user/index.php">Matcha</a>
     <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
         <span class="navbar-toggler-icon"></span>
     </button>

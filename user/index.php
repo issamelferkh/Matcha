@@ -55,5 +55,38 @@
     </div>
 </main>
 
+<!-- from gps -->
+<script type="text/javascript">
+	function getLocation() {
+	  if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(sendPosition,iploc);
+	  }
+	}
+	
+	function sendPosition(position) {
+		var lati1 = position.coords.latitude;
+		var longi1 = position.coords.longitude;
+		$.ajax({
+			url:"loc_gps_script.php",
+			method:"POST",
+			data:{lati:lati1,
+				  longi:longi1},
+			success:function(data) {}
+		});
+	}
+
+	function iploc() {
+		var action = "noGPS";
+		$.ajax({
+			url:"loc_gps_script.php",
+			method:"POST",
+			data:{action:action},
+			success:function(data) {}
+		});
+	}
+
+	getLocation();
+</script>
+
 <!-- footer -->
 <?php include("../include/footer.php"); ?>

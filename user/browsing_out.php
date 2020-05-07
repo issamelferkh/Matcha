@@ -77,7 +77,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 				header('Location: index.php');  
 			}
 		} else if ($sort == "tags") { // sort by tags
-			$sex_pre = $_SESSION['auth']['sex_pre'];
+			$sex_pre = $_SESSION['auth']['sex_pre']; 
 			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' ORDER BY tag1 ASC, tag2 ASC, tag3 ASC";
 			$query1 = $db->prepare($query1);
 			$query1->execute();

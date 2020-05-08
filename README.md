@@ -44,15 +44,15 @@
 - Profile -> Once connected, the user must fill his profile, adding the following information:
 > - [x] The gender (Son genre).
 > - [x] Sexual preferences (Son orientation sexuelle).
-> - A biography (Une bio courte).
-> - A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
+> - [x] A biography (Une bio courte).
+> - [x] A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
 > - [x] Pictures, max 5, including 1 as profile picture.
 - [x] Profile -> At any time, the user must be able to modify these information.
 - Profile -> The user must be able to check who looked at his profile and “liked” him.
-- Profile -> The user must have a public "fame rating" (score de popularite public) -> To I to define
-- GPS -> The user must be located (using GPS) up to his neighborhood.
-- GPS -> If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
-- GPS -> The user must be able to modify his GPS position in his profile.
+- [x] Profile -> The user must have a public "fame rating" (score de popularite public) -> To I to define
+- [x] GPS -> The user must be located (using GPS) up to his neighborhood.
+- [x] GPS -> If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
+- [x] GPS -> The user must be able to modify his GPS position in his profile.
 
 ### Browsing ##########
 - The user must be able to easily get a list of suggestions that match his profile (if the profile is filled). in this list:
@@ -108,21 +108,7 @@ A user must be able to see, from any page that a notification hasn’t been read
 ## To-Do ####################################################################################################################
 ### Registration and Signing-in => OK
 
-### User profile => NOK
-
-#User Profile - Tag\
-A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags must be reusable.
-- [ ] autocomplete
-- [ ] not repeat the same tags
-
-#User Profile -> GPS
-- [ ] The user must be located (using GPS) up to his neighborhood.
-- [ ] If the user does not want to be positionned, you must find a way to locate him even without his knowledge.
-- [ ] The user must be able to modify his GPS position in his profile.
-- https://www.w3schools.com/html/html5_geolocation.asp
-- https://ipinfo.io/ => location with @IP
-
-#User profile - always check if profile is completed or not ?
+### User profile => OK
 
 ### Browsing -> NOK
 - [ ] The user must be able to easily get a list of suggestions that match his profile (if the profile is filled). In this list:
@@ -170,6 +156,8 @@ A list of interests with tags (ex: #vegan, #geek, #piercing etc...). These tags 
 
 ### Notifications -> NOK
 -  A user must be notified in real time (telerate a 10s) of the following events:
+
+> - - Profile -> The user must be able to check who looked at his profile and “liked” him.
 
 > - The user received a “like”.
 L’utilisateur a reçu un “like”.

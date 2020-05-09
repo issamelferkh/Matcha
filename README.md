@@ -137,7 +137,6 @@ A user must be able to see, from any page that a notification hasn’t been read
 @- Profiles must contain all the information available about them, except for the email address and the password.
 => affiche profile detail
 
-
 - When a user consults a profile, it must appear in his visit history.
 - The user must also be able to:
 > - If he has at least one picture he can “like” and "dislake" another user.

@@ -136,7 +136,7 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
 		$user_o_pic_profile = "/assets/img/avatar.png";
 	}
     echo "
-				<div class='card mb-2'>
+				<div class='my-3 p-3 bg-white rounded box-shadow'>
 					<img class='card-img-top rounded' src='".$url.$user_o_pic_profile."'>
 				</div>
 ";
@@ -165,7 +165,7 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
 				                </div>
 
 				                <div class="form-group col-md-4">
-			                	    <label>Last Namet</label>
+			                	    <label>Last Name</label>
 				                    <input class="form-control" type="text" name="lname" value="<?php if (isset($la_case[0]['lname'])) echo htmlspecialchars(trim($la_case[0]['lname'])); ?>" placeholder="Last Name" required>
 				                </div>
 
@@ -217,7 +217,7 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
 				        <!-- tags -->
 				        <div class="media text-muted pt-3">
 					        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-					            <strong class="d-block text-gray-dark">Tags</strong>
+					            <strong class="d-block text-gray-dark">Interests</strong>
 					        </p>
 				        </div>
 				        <div class="media text-muted pt-3">

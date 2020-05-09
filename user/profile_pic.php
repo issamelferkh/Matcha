@@ -91,7 +91,7 @@ if(isset($_POST["submit"]) && ($_SESSION["token"] === $_POST["token"])) {
 		$user_o_pic_profile = "/assets/img/avatar.png";
 	}
     echo "
-				<div class='card mb-2'>
+				<div class='my-3 p-3 bg-white rounded box-shadow'>
 					<img class='card-img-top rounded' src='".$url.$user_o_pic_profile."'>
 				</div>
 ";

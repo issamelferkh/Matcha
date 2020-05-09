@@ -10,11 +10,11 @@ if (isset($_SESSION['username']))  { ?>
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url; ?>/user/profile.php"><?php echo $_SESSION["username"]; ?> Profile</a>
+                <a class="nav-link" href="<?php echo $url; ?>/user/profile.php"><?php echo $_SESSION["username"]; ?>-Profile</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url; ?>/user/browsing.php">Browsing</a>
+                <a class="nav-link" href="<?php echo $url; ?>/user/browsing_in.php">Browsing</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url; ?>/user/research.php">Research</a>

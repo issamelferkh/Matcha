@@ -55,7 +55,7 @@
 		$user_o_pic_profile = "/assets/img/avatar.png";
 	}
     echo "
-				<div class='card mb-2'>
+				<div class='my-3 p-3 bg-white rounded box-shadow'>
 					<img class='card-img-top rounded' src='".$url.$user_o_pic_profile."'>
 				</div>
 ";
@@ -63,19 +63,19 @@
 
 <!-- php calcul public rating -->
 <?php
-	// calcul total
-	$query = 'SELECT * FROM `like_table` WHERE `user_p`="'.$_SESSION['user_id'].'"';
+	// calcul total (likes + nopes)
+	$query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$_SESSION['user_id'].'"';
 	$query = $db->prepare($query);
     $query->execute();
     $total = $query->rowCount();
 
 	// calcul likes
-    $query = 'SELECT * FROM `like_table` WHERE `user_p`="'.$_SESSION['user_id'].'" AND `liked` = 1';
+    $query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$_SESSION['user_id'].'" AND `liked` = 1';
 	$query = $db->prepare($query);
     $query->execute();
-    $liked = $query->rowCount();
+    $likes = $query->rowCount();
 
-	$rating = $liked/$total*100;
+	$rating = $likes/$total*100;
 ?>
 				<label>Popularity: <?php echo intval($rating); ?>%</label>
                 <div class="progress">	
@@ -102,7 +102,7 @@
 				                </div>
 
 				                <div class="form-group col-md-4">
-			                	    <label>Last Namet</label>
+			                	    <label>Last Name</label>
 				                    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['lname'])) echo htmlspecialchars(trim($la_case[0]['lname'])); ?>" disabled>
 				                </div>
 
@@ -143,7 +143,7 @@
 				        <!-- tags -->
 				        <div class="media text-muted pt-3">
 					        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-					            <strong class="d-block text-gray-dark">Tags</strong>
+					            <strong class="d-block text-gray-dark">Interests</strong>
 					        </p>
 				        </div>
 				        <div class="media text-muted pt-3">
@@ -261,10 +261,12 @@ $(document).ready(function(){
 	// fetch user online
 	function fetch_user_login_data() {
 		var action = "fetch_data";
+		var user_o = "<?php echo $_SESSION['user_id']; ?>";
 		$.ajax({
 			url:"online.php",
 			method:"POST",
-			data:{action:action},
+			data:{action:action,
+				  user_o:user_o},
 			success:function(data) {
 				$('#user_login_status').html(data);
 			}

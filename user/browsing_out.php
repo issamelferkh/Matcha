@@ -74,7 +74,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 			} else {
 				// if not found result
 				// header 404 or not result finding
-				header('Location: index.php'); 
+				header('Location: index.php');  
 			}
 		} else if ($sort == "tags") { // sort by tags
 			$sex_pre = $_SESSION['auth']['sex_pre'];

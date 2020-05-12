@@ -2,6 +2,8 @@
 <?php require_once("../config/connection.php"); ?>
 <!-- session -->
 <?php require_once("../include/session.php"); ?>
+<!-- libft -->
+<?php require_once("../include/libft.php"); ?>
 <!-- header -->
 <?php include("../include/header.php"); ?>   
 <!-- nav -->
@@ -27,27 +29,26 @@
             <div class="col-md-12">
 				<div class="my-3 p-3 bg-white rounded box-shadow">
 				<?php if(isset($message)) {echo '<div class="alert alert-danger" role="alert">'.htmlspecialchars($message).'</div>';}?>
-
-					<form method="POST" action="browsing_out.php">
+					<form method="GET" action="browsing_out.php">
 						<input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
 						<!-- Sort by -->
 				        <h6 class="border-bottom border-gray pb-2 mb-0">Sort by:</h6>
 				        <div class="media text-muted pt-3">
 							<div class="form-row">
 								<label class="btn btn-outline-primary mr-3">
-									<input type="radio" name="options" id="option1" checked> Default
+									<input type="radio" value="default" name="sort" checked> Default
 								</label>
 								<label class="btn btn-outline-primary mr-3">
-									<input type="radio" name="options" id="option2"> Age
+									<input type="radio" value="age" name="sort"> Age
 								</label>
 								<label class="btn btn-outline-primary mr-3">
-									<input type="radio" name="options" id="option3"> Distance
+									<input type="radio" value="distance" name="sort"> Distance
 								</label>
 								<label class="btn btn-outline-primary mr-3">
-									<input type="radio" name="options" id="option3"> Popularity
+									<input type="radio" value="popularity" name="sort"> Popularity
 								</label>
 								<label class="btn btn-outline-primary mr-3">
-									<input type="radio" name="options" id="option3"> Interests
+									<input type="radio" value="tags" name="sort"> Interests
 								</label>
 				            </div>
 				        </div></br>
@@ -57,22 +58,22 @@
 						<div class="form-row">
 							<div class="form-group col-md-4">
 								<label>Age:</label>
-								<input class="form-control" type="text" name="" placeholder="Min Age">
+								<input class="form-control" type="text" name="age_min" placeholder="Min Age">
 								</br>
-								<input class="form-control" type="text" name="" placeholder="Max Age">
+								<input class="form-control" type="text" name="age_max" placeholder="Max Age">
 							</div>
 
 							<div class="form-group col-md-4">
 								<label>Distance</label>
-								<input class="form-control" type="text" name="" placeholder="Min Distance">
+								<input class="form-control" type="text" name="distance_min" placeholder="Min Distance">
 								</br>
-								<input class="form-control" type="text" name="" placeholder="Max Distance">
+								<input class="form-control" type="text" name="distance_max" placeholder="Max Distance">
 							</div>
 							<div class="form-group col-md-4">
 								<label>Popularity</label>
-								<input class="form-control" type="text" name="" placeholder="Min Popularity">
+								<input class="form-control" type="text" name="popularity_min" placeholder="Min Popularity">
 								</br>
-								<input class="form-control" type="text" name="" placeholder="Max Popularity">
+								<input class="form-control" type="text" name="popularity_max" placeholder="Max Popularity">
 							</div>
 						</div>
 

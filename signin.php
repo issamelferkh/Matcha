@@ -23,6 +23,7 @@ if(isset($_POST["signin"])) {
                 $_SESSION['lname']=$la_case[0]['lname'];
                 $_SESSION['email']=$la_case[0]['email'];
                 $_SESSION['token']=hash('whirlpool', (rand(0,1000)));
+                $_SESSION['auth'] = $la_case[0];
                 header("location:user/index.php");
             } else {
                 ft_putmsg('warning','Your account is not activated yet!','/signin.php');

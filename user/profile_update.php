@@ -76,8 +76,9 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
 				$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `birthday`=?, `gender`=?, `sex_pre`=?, `tag1`=?, `tag2`=?, `tag3`=?, `bio`=?, `lati`=?, `longi`=?, `notification`=? WHERE `user_id`=?";
 				$query = $db->prepare($query);
 				$query->execute([$fname,$lname,$email,$username,$birthday,$gender,$sex_pre,$tag1,$tag2,$tag3,$bio,$lati,$longi,$notification,$_SESSION['user_id']]);
-				// live update of username
+				// update SESSIONS
 				$_SESSION["username"] = $username;
+				$_SESSION['auth']['sex_pre'] = $sex_pre;
 				$msg = 'Your profile was successfully updated.';
 				header("location: profile.php?msg=$msg");
             }

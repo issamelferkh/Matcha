@@ -22,6 +22,24 @@
 //     return ($la_case[0]['lastonline']);
 // }
 
+// Get Distance
+// from https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
+function ft_getDistance($latitude2, $longitude2) {
+    $earth_radius = 6371;
+
+    $latitude1 = $_SESSION['auth']['lati'];
+    $longitude1 = $_SESSION['auth']['longi'];
+
+    $dLat = deg2rad($latitude2 - $latitude1);
+    $dLon = deg2rad($longitude2 - $longitude1);
+
+    $a = sin($dLat/2) * sin($dLat/2) + cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * sin($dLon/2) * sin($dLon/2);
+    $c = 2 * asin(sqrt($a));
+    $d = $earth_radius * $c;
+
+    return $d;
+}
+
 // put message function
 function ft_putmsg($type, $message, $path) {
 

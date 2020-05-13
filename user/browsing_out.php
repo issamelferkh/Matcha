@@ -44,6 +44,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 			$count1 = $query1->rowCount();
 			if ($count1 > 0) {
 				$la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
+				$i = 0;
 			} else {
 				// if not found result
 				// header 404 or not result finding
@@ -52,12 +53,20 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 			} 
 		} else if ($sort == "age") { // sort by age
 			$sex_pre = $_SESSION['auth']['sex_pre'];
-			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' ORDER BY `birthday` ASC";
+			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' 
+				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
+    			  OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
+    			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
+				AND (popularity BETWEEN '$popularity_min' AND '$popularity_max')
+				AND (age BETWEEN '$age_min' AND '$age_max')
+				ORDER BY `age` ASC";
+
 			$query1 = $db->prepare($query1);
 			$query1->execute();
 			$count1 = $query1->rowCount();
 			if ($count1 > 0) {
 				$la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
+				$i = 0;
 			} else {
 				// if not found result
 				// header 404 or not result finding
@@ -65,12 +74,20 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 			}
 		} else if ($sort == "popularity") { // sort by popularity
 			$sex_pre = $_SESSION['auth']['sex_pre'];
-			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' ORDER BY popularity DESC";
+			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' 
+				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
+    			  OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
+    			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
+				AND (popularity BETWEEN '$popularity_min' AND '$popularity_max')
+				AND (age BETWEEN '$age_min' AND '$age_max')
+				ORDER BY popularity DESC";
+
 			$query1 = $db->prepare($query1);
 			$query1->execute();
 			$count1 = $query1->rowCount();
 			if ($count1 > 0) {
 				$la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
+				$i = 0;
 			} else {
 				// if not found result
 				// header 404 or not result finding
@@ -78,12 +95,20 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 			}
 		} else if ($sort == "tags") { // sort by tags
 			$sex_pre = $_SESSION['auth']['sex_pre']; 
-			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' ORDER BY tag1 ASC, tag2 ASC, tag3 ASC";
+			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' 
+				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
+    			  OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
+    			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
+				AND (popularity BETWEEN '$popularity_min' AND '$popularity_max')
+				AND (age BETWEEN '$age_min' AND '$age_max')
+				ORDER BY tag1 ASC, tag2 ASC, tag3 ASC";
+
 			$query1 = $db->prepare($query1);
 			$query1->execute();
 			$count1 = $query1->rowCount();
 			if ($count1 > 0) {
 				$la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
+				$i = 0;
 			} else {
 				// if not found result
 				// header 404 or not result finding
@@ -91,12 +116,20 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 			}
 		} else { // default sort
 			$sex_pre = $_SESSION['auth']['sex_pre'];
-			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' ";
+			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' 
+				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
+    			  OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
+    			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
+				AND (popularity BETWEEN '$popularity_min' AND '$popularity_max')
+				AND (age BETWEEN '$age_min' AND '$age_max')
+				";
+
 			$query1 = $db->prepare($query1);
 			$query1->execute();
 			$count1 = $query1->rowCount();
 			if ($count1 > 0) {
 				$la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
+				$i = 0;
 			} else {
 				// if not found result
 				// header 404 or not result finding
@@ -134,16 +167,10 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 	// get next user by identify $i
 	if (isset($_GET["i"]) && $count1 > $_GET["i"]) {
 		$i = $_GET["i"];
-	} else {
-		$i = 0;
-	}
-	// filter by distance
-	// $distance = ft_getDistance($_SESSION['auth']['lati'], $_SESSION['auth']['longi'], $la_case1[$i]['lati'], $la_case1[$i]['longi']);
-	// while($distance < $distance_min && $distance > $distance_max) {
-	// 	$i++;
+	} 
+	// else {
+	// 	$i = 0;
 	// }
-	// popularity to int
-	$popularity = intval($la_case1[$i]['popularity']);
 } else {
 	// 404
 	// msg csrf detected !
@@ -151,10 +178,20 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 }
 ?>
 
+
+<?php
+	// filter by distance
+	$distance = ft_getDistance($la_case1[$i]['lati'], $la_case1[$i]['longi']);
+	// verif if && $count1 > $_GET["i"]
+	if ($count1 > $_GET["i"]) {
+	if ($distance >= $distance_min && $distance <= $distance_max) {
+	// popularity to int
+	$popularity = intval($la_case1[$i]['popularity']);
+?> 
+
 <!-- start container -->
 <main role="main" class="container">   
-	<?php include("../include/title.php"); ?>
-    
+	<?php include("../include/title.php"); ?>   
     <!-- Main -->
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <div class="row">
@@ -192,7 +229,12 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 			        <div class="media text-muted pt-3">
 			        	<i class="fas fa-map-marked-alt" title="Distance"></i>&nbsp;&nbsp;&nbsp;
 				        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-				            <strong class="d-block text-gray-dark">1 Km away</strong>
+				            <strong class="d-block text-gray-dark">
+								<?php 
+									$distance < 1.00 ? $echo_distance = "In your city" : $echo_distance = intval($distance,10) ." km away."; 
+									echo $echo_distance;
+								?>
+							</strong>
 				        </p>
 			        </div>
 			        <div class="media text-muted pt-3">
@@ -218,7 +260,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 					<!-- online => id = user_login_status -->
 			        <div class="media text-muted pt-3" id="user_login_status"></div>
 			        <small class="d-block text-right mt-3">
-				        <a href="<?= $url; ?>/user/profile.php">All Profile</a>
+				        <a href="<?= $url; ?>/user/profile_detail.php?id=<?= $la_case1[$i]['user_id']; ?>">All Profile</a>
 			        </small>
 			        <div class="d-flex justify-content-center">
 <a href="<?= $url; ?>/user/browsing_out.php?
@@ -265,6 +307,19 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
     </div>
 </main>
 
+<?php // next profile if Distance not in range
+} else {
+	$i++;
+	$next_profile = $url."/user/browsing_out.php?i=".$i."&sort=".$sort."&distance_min=".$distance_min."&distance_max=".$distance_max."&age_min=".$age_min."&age_max=".$age_max."&popularity_min=".$popularity_min."&popularity_max=".$popularity_max."&tag1=".$tag1."&tag2=".$tag2."&tag3=".$tag3."&token=".$_SESSION['token'];
+	header('Location: '.$next_profile);
+}
+	} else {
+		// if not found distance range -> filter
+		// header 404 or not result finding
+		// header('Location: index.php');
+		echo "Mab9ach";
+	}
+?>
 
 <!-- script to check if user is online -->
 <script>

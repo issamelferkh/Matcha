@@ -31,6 +31,7 @@
 				<?php if(isset($message)) {echo '<div class="alert alert-danger" role="alert">'.htmlspecialchars($message).'</div>';}?>
 					<form method="GET" action="browsing_out.php">
 						<input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+						<input type="hidden" name="i" value="0">
 						<!-- Sort by -->
 				        <h6 class="border-bottom border-gray pb-2 mb-0">Sort by:</h6>
 				        <div class="media text-muted pt-3">

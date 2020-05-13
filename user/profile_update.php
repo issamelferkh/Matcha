@@ -4,27 +4,27 @@
 <?php require_once("../include/session.php"); ?>
 
 <?php
-// validate birthday
-function validateAge($birthday, $age = 18)
-{
-    // $birthday can be UNIX_TIMESTAMP or just a string-date.
-    if(is_string($birthday)) {
-        $birthday = strtotime($birthday);
-    }
+// // validate birthday
+// function validateAge($birthday, $age = 18)
+// {
+//     // $birthday can be UNIX_TIMESTAMP or just a string-date.
+//     if(is_string($birthday)) {
+//         $birthday = strtotime($birthday);
+//     }
 
-    // check
-    // 31536000 is the number of seconds in a 365 days year.
-    if(time() - $birthday < $age * 31536000)  {
-        return false;
-    }
+//     // check
+//     // 31536000 is the number of seconds in a 365 days year.
+//     if(time() - $birthday < $age * 31536000)  {
+//         return false;
+//     }
 
-    return true;
-}
+//     return true;
+// }
 ?>
 <!-- php update profile -->
 <?php
 if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) {
-	if(empty($_POST["fname"]) || empty($_POST["lname"]) || empty($_POST["email"]) || empty($_POST["username"]) || empty($_POST["birthday"]) 
+	if(empty($_POST["fname"]) || empty($_POST["lname"]) || empty($_POST["email"]) || empty($_POST["username"]) || empty($_POST["age"]) 
 	|| empty($_POST["gender"]) || empty($_POST["sex_pre"]) || empty($_POST["tag1"]) || empty($_POST["bio"]) ) {
         $message = 'All fields are required.';
 	} else {
@@ -39,7 +39,7 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
         $lname = htmlspecialchars(trim($_POST["lname"]));
         $email = htmlspecialchars(trim($_POST["email"]));
         $username = htmlspecialchars(trim($_POST["username"]));
-        $birthday = htmlspecialchars(trim($_POST["birthday"])); 
+        $age = htmlspecialchars(trim($_POST["age"])); 
         $gender = htmlspecialchars(trim($_POST["gender"])); 
         $sex_pre = htmlspecialchars(trim($_POST["sex_pre"])); 
         $tag1 = htmlspecialchars(trim($_POST["tag1"])); 
@@ -52,7 +52,7 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
         // check email
         $emailcheck = preg_match('(^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]*$)', $email); 
 
-        if (!validateAge($birthday)) {
+        if ($age < 18) {
         	$message = 'Your age is under 18 years !!!';
         } else if ((strlen($fname) > 50) || (strlen($fname) < 3)){
 	        $message = 'Invalid First name. First name must be between 3 and 50 characters.';
@@ -73,9 +73,9 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
                 $message = 'Username OR email is already taken!';
             } else {
             	// update profile query
-				$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `birthday`=?, `gender`=?, `sex_pre`=?, `tag1`=?, `tag2`=?, `tag3`=?, `bio`=?, `lati`=?, `longi`=?, `notification`=? WHERE `user_id`=?";
+				$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `age`=?, `gender`=?, `sex_pre`=?, `tag1`=?, `tag2`=?, `tag3`=?, `bio`=?, `lati`=?, `longi`=?, `notification`=? WHERE `user_id`=?";
 				$query = $db->prepare($query);
-				$query->execute([$fname,$lname,$email,$username,$birthday,$gender,$sex_pre,$tag1,$tag2,$tag3,$bio,$lati,$longi,$notification,$_SESSION['user_id']]);
+				$query->execute([$fname,$lname,$email,$username,$age,$gender,$sex_pre,$tag1,$tag2,$tag3,$bio,$lati,$longi,$notification,$_SESSION['user_id']]);
 				// update SESSIONS
 				$_SESSION["username"] = $username;
 				$_SESSION['auth']['sex_pre'] = $sex_pre;
@@ -182,8 +182,8 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
 				                </div>
 				                
 				                <div class="form-group col-md-6">
-			                	    <label>Birthday</label>
-				                    <input class="form-control" type="date" name="birthday" value="<?php if (isset($la_case[0]['birthday'])) echo htmlspecialchars(trim($la_case[0]['birthday'])); ?>"    placeholder="Birthday" required>
+			                	    <label>Age</label>
+				                    <input class="form-control" type="text" name="age" value="<?php if (isset($la_case[0]['age'])) echo htmlspecialchars(trim($la_case[0]['age'])); ?>"    placeholder="Age" required>
 				                </div>
 
 				                <div class="form-group col-md-6">
@@ -197,7 +197,7 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
 				                </div>
 
 				                <div class="form-group col-md-6">
-			                	    <label>Choose your Sexual Preference</label>
+			                	    <label>Sexual Preference</label>
 				                    <select class="form-control" name="sex_pre">
 										<?php if (isset($la_case[0]['sex_pre'])) echo '<option value="'.htmlspecialchars(trim($la_case[0]['sex_pre'])).'">'.htmlspecialchars(trim($la_case[0]['sex_pre']))."</option>" ; ?>
 										<option value="Men" >Men</option>

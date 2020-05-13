@@ -111,17 +111,6 @@ A user must be able to see, from any page that a notification hasn’t been read
 ### User profile => OK
 
 ### Browsing -> NOK
-- [ ] The user must be able to easily get a list of suggestions that match his profile (if the profile is filled). In this list:
-> - [ ] sexual orientation
-> > - [ ] propose only interesting profiles (for exe only men for a heterosexual girls)
-> > - [ ] manage also the bisexuality
-> > - [ ] if the orientation isn't specified -> user will considered bi-sexual.
-> - [ ] geographic area 
-> - [ ] max of common tags
-> - [ ] max of "fame rating"
-- [ ] You must show in priority people from the same geographical area.
-- [ ] The suggestion list must be sortable by age, location, “fame rating” and common tags.
-- [ ] The suggestion list must be filterable by age, location, “fame rating” and common tags.
 
 ### Research -> NOK
 - [ ] The user must be able to run an advanced research selecting one or a few criterias such as:
@@ -134,16 +123,14 @@ A user must be able to see, from any page that a notification hasn’t been read
 
 ### Profile of other users -> NOK
 - [x] the user must be able to consult the profile of other users.
-@- Profiles must contain all the information available about them, except for the email address and the password.
-=> affiche profile detail
-
-- When a user consults a profile, it must appear in his visit history.
+- [x] Profiles must contain all the information available about them, except for the email address and the password.
 - The user must also be able to:
-> - If he has at least one picture he can “like” and "dislake" another user.
+> - If he has at least one picture he can “like” and "dislake" another user -> verif if profile completed
+> - If the current user does not have a picture, he/she cannot complete this action -> verif if profile completed
+
+> - [x] Check the “fame rating”
+> - [x] See if the user is online, and if not see the date and time of the last connection.
 > - When two people “like” each other, we will say that they are “connected” and are now able to chat.
-> - If the current user does not have a picture, he/she cannot complete this action.
-> - Check the “fame rating”
-> - See if the user is online, and if not see the date and time of the last connection.
 > - Report the user as a “fake account”
 > - Block the user. A blocked user won’t appear anymore in the research results and won’t generate anymore notifications.
 > - A user can clearly see if the consulted profile is connected or “like” his profile and must be able to “unlike” or be disconnected from that profile.
@@ -155,6 +142,8 @@ A user must be able to see, from any page that a notification hasn’t been read
 
 
 ### Notifications -> NOK
+
+- Profile of other users -> When a user consults a profile, it must appear in his visit history.
 -  A user must be notified in real time (telerate a 10s) of the following events:
 
 > - - Profile -> The user must be able to check who looked at his profile and “liked” him.
@@ -180,7 +169,6 @@ A user must be able to see, from any page that a notification hasn’t been read
 ### Consignes générales -> NOK
 
 ### Security -> NOK
-- Look at SSRF and other vulnerabilities
 
 ### Issues -> NOK
 - send mail-> error in localhost ?!

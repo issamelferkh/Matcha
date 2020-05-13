@@ -2,14 +2,25 @@
 <?php require_once("../config/connection.php"); ?>
 <!-- session -->
 <?php require_once("../include/session.php"); ?>
-<!-- libft -->
+<!-- libft --> 
 <?php require_once("../include/libft.php"); ?>
 <!-- php show profile -->
 <?php
-	$query = 'SELECT * FROM `user` WHERE `user_id`="'.$_SESSION['user_id'].'"';
-	$query = $db->prepare($query);
-	$query->execute(); 
-	$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
+	if(isset($_GET["id"])) {
+		$user_id = htmlspecialchars(trim($_GET["id"]));
+		$query = 'SELECT * FROM `user` WHERE `user_id`="'.$user_id.'"';
+		$query = $db->prepare($query);
+		$query->execute(); 
+        $count = $query->rowCount();
+		$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
+		if ($count == 0) {
+			// / 404
+			echo "pas user";
+		}
+	} else {
+		// 404
+		echo "pas user";
+	}
 ?>
 
 <!-- header -->
@@ -44,7 +55,7 @@
 			    </div>
 <!-- php profile picture -->
 <?php
-	$query = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'" AND `asProfile` = 1';
+	$query = 'SELECT * FROM `picture` WHERE `user_id`="'.$user_id.'" AND `asProfile` = 1';
 	$query = $db->prepare($query);
 	$query->execute();
 	$pic = $query->fetchAll(\PDO::FETCH_ASSOC);
@@ -64,13 +75,13 @@
 <!-- php calcul public rating -->
 <?php
 	// calcul total (likes + nopes)
-	$query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$_SESSION['user_id'].'"';
+	$query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$user_id.'"';
 	$query = $db->prepare($query);
     $query->execute();
     $total = $query->rowCount();
 
 	// calcul likes
-    $query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$_SESSION['user_id'].'" AND `liked` = 1';
+    $query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$user_id.'" AND `liked` = 1';
 	$query = $db->prepare($query);
     $query->execute();
     $likes = $query->rowCount();
@@ -96,21 +107,16 @@
 				        </div>
 				        <div class="media text-muted pt-3">
 							<div class="form-row">
-				                <div class="form-group col-md-4">
+				                <div class="form-group col-md-6">
 			                	    <label>First Name</label>
 				                    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['fname'])) echo htmlspecialchars(trim($la_case[0]['fname'])); ?>" disabled>
 				                </div>
 
-				                <div class="form-group col-md-4">
+				                <div class="form-group col-md-6">
 			                	    <label>Last Name</label>
 				                    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['lname'])) echo htmlspecialchars(trim($la_case[0]['lname'])); ?>" disabled>
 				                </div>
 
-
-				                <div class="form-group col-md-4">
-			                	    <label>Email</label>
-				                    <input class="form-control" type="email" value="<?php if (isset($la_case[0]['email'])) echo htmlspecialchars(trim($la_case[0]['email'])); ?>" disabled>
-				                </div>
 
 				                <div class="form-group col-md-6">
 			                	    <label>Username</label>
@@ -132,11 +138,6 @@
 				                    <input class="form-control" type="text" value="<?php if (isset($la_case[0]['sex_pre'])) echo htmlspecialchars(trim($la_case[0]['sex_pre'])); ?>" disabled>
 				                </div>
 
-				                <!-- notification -->
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" name="notification" value="1" <?php if ($la_case[0]['notification'] == 1) { echo "checked";} ?> disabled>
-									<label class="form-check-label" for="exampleCheck1">Notification</label>
-								</div>
 				            </div>
 				        </div>
 
@@ -180,7 +181,7 @@
 					        <div class="row">
 <!-- php show pictures -->
 <?php
-	$query5 = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'"';
+	$query5 = 'SELECT * FROM `picture` WHERE `user_id`="'.$user_id.'"';
 	$query5 = $db->prepare($query5);
 	$query5->execute();
 	$count5 = $query5->rowCount();
@@ -220,9 +221,39 @@
 						<!-- maps location -->
 						<div id="map"></div>
 						</br>
-	<a href="<?php echo $url; ?>/user/profile_update.php" 	class="btn btn-primary" role="button">Update Profile</a>
-	<a href="<?php echo $url; ?>/user/profile_pic.php" 		class="btn btn-warning" role="button">Update Pictures</a>
-	<a href="<?php echo $url; ?>/user/profile_pwd.php"		class="btn btn-danger" 	role="button">Update Password</a>
+<a href="<?= $url; ?>/user/action.php?
+	user=<?= $la_case[0]['user_id'];?>&
+	action=noped&
+	token=<?= $_SESSION['token'];?>
+	" class="btn btn-danger" role="button">Nope</a>
+	&nbsp;&nbsp;&nbsp;
+
+<a href="<?= $url; ?>/user/action.php?
+	user=<?= $la_case[0]['user_id'];?>&
+	action=liked&
+	token=<?= $_SESSION['token'];?>
+	" class="btn btn-success" role="button">Like</a>
+	&nbsp;&nbsp;&nbsp;
+
+<a href="<?php echo $url; ?>/user/action.php? 		
+	user=<?= $la_case[0]['user_id'];?>&
+	action=reported&
+	token=<?= $_SESSION['token'];?>
+	" class="btn btn-warning" role="button">Report</a>
+	&nbsp;&nbsp;&nbsp;
+
+<a href="<?php echo $url; ?>/user/action.php?
+	user=<?= $la_case[0]['user_id'];?>&
+	action=blocked&
+	token=<?= $_SESSION['token'];?>
+	" class="btn btn-dark" 	role="button">Block</a>
+	&nbsp;&nbsp;&nbsp;
+
+<a href="<?= $url; ?>/user/chat.php?
+	user=<?= $la_case[0]['user_id'];?>&
+	token=<?= $_SESSION['token'];?>
+	" class="btn btn-primary" role="button">Chat</a>
+	&nbsp;&nbsp;&nbsp;
 
 			    </div>
             </div><!-- End About profile -->
@@ -261,7 +292,7 @@ $(document).ready(function(){
 	// fetch user online
 	function fetch_user_login_data() {
 		var action = "fetch_data";
-		var user_o = "<?php echo $_SESSION['user_id']; ?>";
+		var user_o = "<?php echo $user_id; ?>";
 		$.ajax({
 			url:"online.php",
 			method:"POST",
@@ -280,7 +311,7 @@ $(document).ready(function(){
 
 <!-- script show maps -->
 <?php
-	$query6 = 'SELECT * FROM `user` WHERE `user_id`="'.$_SESSION['user_id'].'"';
+	$query6 = 'SELECT * FROM `user` WHERE `user_id`="'.$user_id.'"';
 	$query6 = $db->prepare($query6);
 	$query6->execute();
 	$count6 = $query6->rowCount();

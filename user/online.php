@@ -12,8 +12,8 @@ if (isset($_POST["action"])) {
     }
     if($_POST["action"] === "fetch_data") {
         // set user_id
-        $user_o = $_POST['user_o'];
-        $query2 = 'SELECT * FROM `user` WHERE  lastonline > DATE_SUB(NOW(), INTERVAL 5 SECOND) AND `user_id`="'.$user_o.'"';
+        $user_o = htmlspecialchars(trim($_POST['user_o']));
+        $query2 = 'SELECT * FROM `user` WHERE  lastonline > DATE_SUB(NOW(), INTERVAL 0 SECOND) AND `user_id`="'.$user_o.'"';
         $query2 = $db->prepare($query2);
         $query2->execute(); 
         $la_case2 = $query2->fetchAll(\PDO::FETCH_ASSOC);
@@ -21,7 +21,11 @@ if (isset($_POST["action"])) {
         if (isset($la_case2[0]['lastonline'])) {
             echo "<strong class='d-block text-success'>Online</strong>";
         } else {
-            echo "<strong class='d-block text-danger'>OffLine</strong>";
+            $query2 = 'SELECT `lastonline` FROM `user` WHERE `user_id`="'.$user_o.'"';
+            $query2 = $db->prepare($query2);
+            $query2->execute(); 
+            $la_case2 = $query2->fetchAll(\PDO::FETCH_ASSOC);
+            echo "<strong class='d-block text-danger'>Last Connection: ".$la_case2[0]['lastonline']."</strong>";
         }
     }
 }

@@ -133,7 +133,8 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 			} else {
 				// if not found result
 				// header 404 or not result finding
-				header('Location: index.php');
+				// header('Location: index.php');
+				echo "aa";
 			}
 		}
 
@@ -154,6 +155,8 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 			$query = $db->prepare($query);
 			$query->execute();
 			$total = $query->rowCount();
+			// Avoid Division by zero
+			$total == 0 ? $total = 1 : $total = $total;
 			// calcul likes
 			$query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$user_o.'" AND `liked` = 1';
 			$query = $db->prepare($query);

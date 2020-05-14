@@ -67,7 +67,9 @@
 	$query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$_SESSION['user_id'].'"';
 	$query = $db->prepare($query);
     $query->execute();
-    $total = $query->rowCount();
+	$total = $query->rowCount();
+	// Avoid Division by zero
+	$total == 0 ? $total = 1 : $total = $total;
 
 	// calcul likes
     $query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$_SESSION['user_id'].'" AND `liked` = 1';

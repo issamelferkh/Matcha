@@ -239,14 +239,14 @@
 	user=<?= $la_case[0]['user_id'];?>&
 	action=reported&
 	token=<?= $_SESSION['token'];?>
-	" class="btn btn-warning" role="button">Report</a>
+	" class="btn btn-warning" role="button" onclick="return confirm('Are you sure you want to Report this user as a “fake account”?');">Report</a>
 	&nbsp;&nbsp;&nbsp;
 
 <a href="<?php echo $url; ?>/user/action.php?
 	user=<?= $la_case[0]['user_id'];?>&
 	action=blocked&
 	token=<?= $_SESSION['token'];?>
-	" class="btn btn-dark" 	role="button">Block</a>
+	" class="btn btn-dark" 	role="button" onclick="return confirm('Are you sure you want to Block this user?');">Block</a>
 	&nbsp;&nbsp;&nbsp;
 
 <a href="<?= $url; ?>/user/chat.php?
@@ -260,6 +260,8 @@
         </div>
     </div>
 </main>
+
+<!-- confirmation -->
 
 <!-- script to check if user is online -->
 <script>

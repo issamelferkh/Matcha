@@ -27,7 +27,6 @@
 <!-- start container -->
 <main role="main" class="container">   
 	<?php include("../include/title.php"); ?>
-    
     <!-- Main -->
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <div class="row">

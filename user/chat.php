@@ -10,6 +10,9 @@
 <link href="<?php echo $url; ?>/assets/css/chat.css" rel="stylesheet">
 <!-- nav -->
 <?php include("../include/navbar.php"); ?>
+<!-- check profile is completed -->
+<?php include("../include/check_profile.php"); ?> 
+
 <!-- start container -->
 <main role="main" class="container">   
 	<?php include("../include/title.php"); ?>  

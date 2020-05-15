@@ -1,26 +1,4 @@
 <?php
-// check if user is online
-// function ft_check_online($user_id) {
-//     // connection with database
-//     $DB_DSN = 'mysql:dbname=matcha_mm;host=127.0.0.1';
-//     $DB_USER = 'root';
-//     $DB_PASSWORD = '';
-//     $DB_NAME = 'matcha';
-//     $DB_HOST = '127.0.0.1';
-        
-//     try {
-//         $db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-//     } catch (PDOException $e) {
-//         echo 'Connection failed: ' . $e->getMessage();
-//     }
-
-
-//     $query = ' SELECT * FROM `user` WHERE `user_id`="'.$user_id.'" ';
-// 	$query = $db->prepare($query);
-// 	$query->execute();
-//     $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
-//     return ($la_case[0]['lastonline']);
-// }
 
 // Get Distance
 // from https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
@@ -86,4 +64,5 @@ function ft_send_email_verification($username,$email,$hash){
     $headers = 'From:no-reply@matcha.com' . "\r\n"; // set from headers
     mail($to, $subject, $message, $headers); // send email
 }
+
 ?>

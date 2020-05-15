@@ -71,26 +71,9 @@
 				</div>
 ";
 ?>
-
-<!-- php calcul public rating -->
-<?php
-	// calcul total (likes + nopes)
-	$query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$user_id.'"';
-	$query = $db->prepare($query);
-    $query->execute();
-    $total = $query->rowCount();
-
-	// calcul likes
-    $query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$user_id.'" AND `liked` = 1';
-	$query = $db->prepare($query);
-    $query->execute();
-    $likes = $query->rowCount();
-
-	$rating = $likes/$total*100;
-?>
-				<label>Popularity: <?php echo intval($rating); ?>%</label>
+				<label>Popularity: <?php echo intval($la_case[0]['popularity']); ?>%</label>
                 <div class="progress">	
-					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $rating;?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo intval($la_case[0]['popularity']); ?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
             </div>
 
@@ -189,14 +172,11 @@
     $i5=0;
     $result5="";
     while ($count5 > $i5) {
-    	$result5 = $result5."
-
-<div class='col-md-2'>
-    <div class='card mb-2'>
-        <img class='card-img-top rounded' src='".$url.$la_case5[$i5]['imgURL']."'>
-    </div>
-</div>
-					            ";
+    	$result5 = $result5."	<div class='col-md-2'>
+									<div class='card mb-2'>
+										<img class='card-img-top rounded' src='".$url.$la_case5[$i5]['imgURL']."'>
+									</div>
+								</div>";
     	$i5++;
     }
     if($count5 > 0) {echo $result5;}
@@ -224,29 +204,49 @@
 <a href="<?= $url; ?>/user/action.php?
 	user=<?= $la_case[0]['user_id'];?>&
 	action=noped&
-	token=<?= $_SESSION['token'];?>
+	token=<?= $_SESSION['token'];?>&
+	link=<?= $_SERVER['SCRIPT_FILENAME'];?>
 	" class="btn btn-danger" role="button">Nope</a>
 	&nbsp;&nbsp;&nbsp;
 
 <a href="<?= $url; ?>/user/action.php?
 	user=<?= $la_case[0]['user_id'];?>&
 	action=liked&
-	token=<?= $_SESSION['token'];?>
+	token=<?= $_SESSION['token'];?>&
+	link=<?= $_SERVER['SCRIPT_FILENAME'];?>
 	" class="btn btn-success" role="button">Like</a>
 	&nbsp;&nbsp;&nbsp;
 
 <a href="<?php echo $url; ?>/user/action.php? 		
 	user=<?= $la_case[0]['user_id'];?>&
 	action=reported&
-	token=<?= $_SESSION['token'];?>
+	token=<?= $_SESSION['token'];?>&
+	link=<?= $_SERVER['SCRIPT_FILENAME'];?>
 	" class="btn btn-warning" role="button" onclick="return confirm('Are you sure you want to Report this user as a “fake account”?');">Report</a>
 	&nbsp;&nbsp;&nbsp;
 
+<!-- Block || Unblock -->
+<?php
+$query7 = "SELECT * FROM like_table WHERE user_p=".$_SESSION["user_id"]." AND user_o = ".$la_case[0]['user_id'];
+	$query7 = $db->prepare($query7);
+	$query7->execute();
+	$count7 = $query7->rowCount();
+	$la_case7 = $query7->fetchAll(\PDO::FETCH_ASSOC);
+	if ($count7 > 0 && $la_case7[0]["blocked"] == 1) {
+		$block_action = "unblock";
+		$block_name = "Unblock";
+	} else {
+		$block_action = "blocked";
+		$block_name = "Block";
+	}
+	
+	?>
 <a href="<?php echo $url; ?>/user/action.php?
 	user=<?= $la_case[0]['user_id'];?>&
-	action=blocked&
-	token=<?= $_SESSION['token'];?>
-	" class="btn btn-dark" 	role="button" onclick="return confirm('Are you sure you want to Block this user?');">Block</a>
+	action=<?= $block_action;?>&
+	token=<?= $_SESSION['token'];?>&
+	link=<?= $_SERVER['SCRIPT_FILENAME'];?>
+	" class="btn btn-dark" 	role="button" ><?= $block_name;?></a>
 	&nbsp;&nbsp;&nbsp;
 
 <a href="<?= $url; ?>/user/chat.php?

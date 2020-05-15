@@ -9,11 +9,11 @@ if(isset($_POST["signup"])) {
         ft_putmsg('dark','All fields are required.','/signup.php');
     } else {
         // affectations
-        $fname = $_POST["lname"];
-        $lname = $_POST["fname"];
-        $email = $_POST["email"];
-        $username = $_POST["username"];
-        $password = $_POST["password"]; 
+        $fname = htmlspecialchars(trim($_POST["lname"]));
+        $lname = htmlspecialchars(trim($_POST["fname"]));
+        $email = htmlspecialchars(trim($_POST["email"]));
+        $username = htmlspecialchars(trim($_POST["username"]));
+        $password = htmlspecialchars(trim($_POST["password"])); 
         $hash = md5(rand(0,1000));
 
         // check password
@@ -49,9 +49,9 @@ if(isset($_POST["signup"])) {
                 ft_putmsg('danger','Username OR email is already taken!','/signup.php');
             } else {
                 $notification = 1;
-                $query = 'INSERT INTO `user` (`username`, `email`, `password`, `hash`, `notification`) VALUES (?,?,?,?,?)';
+                $query = 'INSERT INTO `user` (`fname`,`lname`,`username`, `email`, `password`, `hash`, `notification`) VALUES (?,?,?,?,?,?,?)';
                 $query = $db->prepare($query);
-                $query->execute([$username,$email,$password,$hash,$notification]);
+                $query->execute([$fname,$lname,$username,$email,$password,$hash,$notification]);
                 // ft_send_email_verification($username, $email, $hash);
                 ft_putmsg('primary','Please active your account by clicking the activation link that has been send to your email.','/signin.php');
             }

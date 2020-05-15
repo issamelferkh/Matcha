@@ -168,6 +168,8 @@ A user must be able to see, from any page that a notification hasn’t been read
 
 ### Consignes générales -> NOK
 
+### Code Optimization -> NOK
+
 ### Security -> NOK
 
 ### Issues -> NOK

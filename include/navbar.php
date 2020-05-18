@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Turn on output buffering - avoid "Cannot modify header information - headers already sent by" Error
 // check if logged
 if (isset($_SESSION['username']))  { ?>  
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
@@ -16,11 +17,20 @@ if (isset($_SESSION['username']))  { ?>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url; ?>/user/browsing_in.php">Browsing</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url; ?>/user/research.php">Research</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $url; ?>/user/chat.php">Chat</a>
+            </li>
+
+            <!-- noti test -->
+            <!-- source : https://www.cloudways.com/blog/real-time-php-notification-system/ -->
+            <li class="nav-item dropdown" style=" position: relative; top: 8px">
+                <a href="#" id="noti_click" data-toggle="dropdown"></a>
+                <ul id="noti_fetch" class="dropdown-menu" style="height:300px; overflow-y: scroll;"></ul>
             </li>
 
         </ul>
@@ -49,3 +59,36 @@ else { ?>
 </nav>
 <?php }
 ?>
+
+
+<script>
+    $(document).ready(function(){
+        $("#noti_click").click(function(){
+            var noti_fetch = "noti_fetch";
+
+            $.ajax({
+                url:"../user/noti_fetch.php",
+                type: 'POST',
+                data: { noti_fetch:noti_fetch},
+                success: function(data) {
+                    $("#noti_fetch").html(data);
+                }
+            });
+        });
+	});
+
+    function get_noti_count()
+	{
+        var noti_count = "noti_count";
+
+        $.ajax({
+                url:"../user/noti_fetch.php",
+                type: 'POST',
+                data: { noti_count:noti_count},
+                success: function(data) {
+                	$("#noti_click").html(data);
+                }
+            });
+	}
+	setInterval('get_noti_count()', 2000);
+</script>

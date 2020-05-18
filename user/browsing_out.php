@@ -312,6 +312,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 	$i++;
 	$next_profile = $url."/user/browsing_out.php?i=".$i."&sort=".$sort."&distance_min=".$distance_min."&distance_max=".$distance_max."&age_min=".$age_min."&age_max=".$age_max."&popularity_min=".$popularity_min."&popularity_max=".$popularity_max."&tag1=".$tag1."&tag2=".$tag2."&tag3=".$tag3."&token=".$_SESSION['token'];
 	header('Location: '.$next_profile);
+	ob_end_flush(); //Flush (send) the output buffer and turn off output buffering - avoid Cannot modify header information - headers already sent Error
 }
 	} else {
 		// if not found distance range -> filter

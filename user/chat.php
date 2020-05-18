@@ -47,7 +47,7 @@
                                     <!-- contact list -->
 <?php
     // check if is connected or not
-    $query1 = " SELECT * FROM `like_table` WHERE `user_p`=".$_SESSION['user_id']." AND `connected` = 1 ";
+    $query1 = " SELECT * FROM `like_table` WHERE `user_p`=".$_SESSION['user_id']." AND `connected` = 1 AND `reported` = 0 AND `blocked` = 0 ";
     $query1 = $db->prepare($query1);
     $query1->execute();
     $count1 = $query1->rowCount();
@@ -73,11 +73,10 @@
             $user_o_pic_profile = "/assets/img/avatar.png";
         }
 
-        // check if online
-
         if ($count2 > 0) {
             echo "
                     <li class='person'>
+<a href='chat.php?receiver_id=".$la_case2[0]['user_id']."&receiver_name=".$la_case2[0]['fname']."&receiver_pic=".$user_o_pic_profile." '>
                         <div class='user'>
                             <img src='".$url.$user_o_pic_profile."'>
                             <span class='status busy'></span>
@@ -86,6 +85,7 @@
                             <span class='name'>".$la_case2[0]['fname']." ".$la_case2[0]['lname']."</span>
                             <span class='time'>15/02/2019</span>
                         </p>
+                    </a>
                     </li>
             ";
 
@@ -99,35 +99,49 @@
                         </div>
                         <!-- message box -->
                         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9">
-                            <div class="selected-user">
-                                <span>To: <span class="name">Emily Russell</span></span>
-                            </div>
-                            <div class="chat-container">
-                                <ul class="chat-box chatContainerScroll">
-                                    <li class="chat-left">
-                                        <div class="chat-avatar">
-                                            <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
-                                            <div class="chat-name">Russell</div>
-                                        </div>
-                                        <div class="chat-text">Hello, I'm Russell.
-                                            <br>How can I help you today?</div>
-                                        <div class="chat-hour">08:55 <span class="fa fa-check-circle"></span></div>
-                                    </li>
-                                    <li class="chat-right">
-                                        <div class="chat-hour">08:56 <span class="fa fa-check-circle"></span></div>
-                                        <div class="chat-text">Hi, Russell
-                                            <br> I need more information about Developer Plan.</div>
-                                        <div class="chat-avatar">
-                                            <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
-                                            <div class="chat-name">Sam</div>
-                                        </div>
-                                    </li>
-                                    
-                                </ul>
-                                <div class="form-group mt-3 mb-0">
-                                    <textarea class="form-control" rows="3" placeholder="Type your message here..."></textarea>
-                                </div>
-                            </div>
+
+<?php 
+if(isset($_GET['receiver_id']) && isset($_GET['receiver_name'])) {
+    $receiver_id = htmlspecialchars(trim($_GET['receiver_id']));
+    $receiver_name = htmlspecialchars(trim($_GET['receiver_name']));
+    $receiver_pic = htmlspecialchars(trim($_GET['receiver_pic']));
+    // chat box header
+    echo "
+            <div class='selected-user'>
+                <span>To: <span class='name'>".$receiver_name."</span></span>
+            </div>
+            <div class='chat-container'>
+                <ul class='chat-box chatContaineScroll'>
+    "; 
+?>
+    <!-- chat box body -->
+    <div id="msg" style="height:300px; overflow-y: scroll"></div>
+<?php
+    // chat box footer
+    echo "
+                </ul>
+                <div class='form-group mt-3 mb-0'>
+                    <input id='sender_id' name='sender_id' value='".$_SESSION['user_id']."' type='hidden' >    
+                    <input id='sender_name' name='sender_name' value='".$_SESSION['fname']."' type='hidden' >    
+                    <input id='sender_pic' name='sender_pic' value='".$_SESSION['profile_pic']."' type='hidden' >
+                    <input id='receiver_id' name='receiver_id' value='".$receiver_id."' type='hidden' >    
+                    <input id='receiver_name' name='receiver_name' value='".$receiver_name."' type='hidden' >    
+                    <input id='receiver_pic' name='receiver_pic' value='".$receiver_pic."' type='hidden' >
+        <div class='form-row'>
+            <div class='col-10'>  
+                <input id='msg_text' name='msg_text' class='form-control'  placeholder='Type your message here...'>
+            </div>
+            <div class='col-2'>
+                <button id='send' type='submit' name='send' class='btn btn-primary float-right'><i class='fa fa-send'></i>Send</button>
+            </div>
+        </div>  
+                </div>
+            </div>
+            ";
+} 
+?>
+
+
                         </div>
                     </div>
                     <!-- Row end -->
@@ -193,6 +207,71 @@ $(document).ready(function(){
 
 });
 </script>
+
+
+<!-- chat script -->
+<script>
+	 $(document).ready(function(){
+	 	get_msg();
+        $("#send").click(function(){
+            
+            var sender_id = $("#sender_id").val();
+        	var sender_name = $("#sender_name").val();
+            var sender_pic = $("#sender_pic").val();
+
+            var receiver_id = $("#receiver_id").val();
+            var receiver_name = $("#receiver_name").val();
+            var receiver_pic = $("#receiver_pic").val();
+
+            var msg_text = $("#msg_text").val();
+
+            $.ajax({
+                url: 'chat/put_msg.php',
+                type: 'POST',
+                data: { sender_id:sender_id,
+        	            sender_name:sender_name,
+                        sender_pic:sender_pic,
+                        receiver_id:receiver_id,
+                        receiver_name:receiver_name,
+                        receiver_pic:receiver_pic,
+                        msg_text:msg_text },
+                success: function(data) {
+                    $("#text").val('');
+                }
+            });
+            $('#msg_text').val('');
+        });
+	});
+	function get_msg()
+	{
+        var sender_id = $("#sender_id").val();
+        	var sender_name = $("#sender_name").val();
+            var sender_pic = $("#sender_pic").val();
+
+            var receiver_id = $("#receiver_id").val();
+            var receiver_name = $("#receiver_name").val();
+            var receiver_pic = $("#receiver_pic").val();
+
+            var msg_text = $("#msg_text").val();
+
+        $.ajax({
+                url: 'chat/get_msg.php',
+                type: 'POST',
+                data: { sender_id:sender_id,
+        	            sender_name:sender_name,
+                        sender_pic:sender_pic,
+                        receiver_id:receiver_id,
+                        receiver_name:receiver_name,
+                        receiver_pic:receiver_pic,
+                        msg_text:msg_text },
+                success: function(data) {
+                	$("#msg").html(data);
+                }
+            });
+	}
+	setInterval('get_msg()', 1000);
+</script>
+
 
 <!-- footer -->
 <?php include("../include/footer.php"); ?>

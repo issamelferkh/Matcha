@@ -24,6 +24,19 @@ if(isset($_POST["signin"])) {
                 $_SESSION['email']=$la_case[0]['email'];
                 $_SESSION['token']=hash('whirlpool', (rand(0,1000)));
                 $_SESSION['auth'] = $la_case[0];
+
+                // recorver Profile picture
+                $query = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'" AND `asProfile` = 1';
+                $query = $db->prepare($query);
+                $query->execute();
+                $pic = $query->fetchAll(\PDO::FETCH_ASSOC);
+                if (isset($pic[0]['imgURL'])) {
+                    $user_o_pic_profile = $pic[0]['imgURL'];
+                } else {
+                    $user_o_pic_profile = "/assets/img/avatar.png";
+                }
+                $_SESSION['profile_pic'] = $user_o_pic_profile;
+
                 header("location:user/index.php");
             } else {
                 ft_putmsg('warning','Your account is not activated yet!','/signin.php');

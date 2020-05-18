@@ -136,17 +136,12 @@ A user must be able to see, from any page that a notification hasn’t been read
 > - A user can clearly see if the consulted profile is connected or “like” his profile and must be able to “unlike” or be disconnected from that profile.
 
 ### Chat -> NOK
-- When two users are connected (they like each other). they must be able to “chat” in real time (telerate a 10s).
-- How you will implement the chat is totally up to you.
 - The user must be able to see from any page if a new message is received.
 
 
 ### Notifications -> NOK
 
-- Profile of other users -> When a user consults a profile, it must appear in his visit history.
--  A user must be notified in real time (telerate a 10s) of the following events:
-
-> - - Profile -> The user must be able to check who looked at his profile and “liked” him.
+> - Profile -> The user must be able to check who looked at his profile and “liked” him.
 
 > - The user received a “like”.
 L’utilisateur a reçu un “like”.
@@ -173,7 +168,16 @@ A user must be able to see, from any page that a notification hasn’t been read
 ### Security -> NOK
 
 ### Issues -> NOK
-- send mail-> error in localhost ?!
+- send mail: error in localhost ?!
+- Browsing: if "connected" display "disconnect" button
+- Chat: list contact (online or last connection)
+- Browsing: Don't appear if
+    - blocked user
+    - reported
+    - Noped
+    - liked
+- Chat: Display by default the last msg in chat
+- Security: Chat sucure msg (if spaces, lenght ...)
 
 ### Template -> NOK
 * navbar_user: logout,profile...
@@ -188,3 +192,5 @@ A user must be able to see, from any page that a notification hasn’t been read
 - https://cdn.intra.42.fr/pdf/pdf/4832/matcha.en.pdf
 - https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
 - for send id using get => 	<?php if (isset($la_case[0]['user_id'])) $user_id = hash('whirlpool',htmlspecialchars(trim($la_case[0]['user_id']))); ?>
+
+

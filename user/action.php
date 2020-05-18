@@ -37,8 +37,26 @@ if(isset($_GET["user"]) && isset($_GET["action"]) && ($_SESSION["token"] === $_G
 		$query2 = $db->prepare($query2);
 		$query2->execute([$user_p,$user_o,$liked,$noped,$reported,$blocked]);
 	}
+	// Add like notification
+		// recorver 'sender_name'
+		$sql = 'SELECT * FROM `user` WHERE `user_id`="'.$user_o.'"';
+		$sql = $db->prepare($sql);
+		$sql->execute(); 
+        $k = $sql->rowCount();
+		$case = $sql->fetchAll(\PDO::FETCH_ASSOC);
+		if ($k > 0) {
+			$sender_id = $_SESSION['user_id'];
+			$sender_name = $_SESSION['fname']." ".$_SESSION['lname'];
+			$receiver_id = $case[0]['user_id'];
+			$receiver_name = $case[0]['fname']." ".$case[0]['lname'];
+			$noti_text = "Like your profile";
+		}
 
-	// check if the users are connected and update it
+		$r_noti = "INSERT INTO `noti` (`sender_id`, `sender_name`, `receiver_id`, `receiver_name`, `noti_text`) VALUES (?,?,?,?,?) ";
+		$r_noti = $db->prepare($r_noti);
+		$r_noti->execute([$sender_id,$sender_name,$receiver_id,$receiver_name,$noti_text]);
+
+	// update contact list
 		// check if user_p like user_o
 		$query = "SELECT * FROM like_table WHERE user_p=".$user_p." AND user_o = ".$user_o;
 		$query = $db->prepare($query);
@@ -47,6 +65,9 @@ if(isset($_GET["user"]) && isset($_GET["action"]) && ($_SESSION["token"] === $_G
 		$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
 		if ($count > 0) {
 			$la_case[0]["liked"] == 1 ? $flag1 = 1 : $flag1 = 0;
+			$la_case[0]["noped"] == 0 ? $flag1 = 1 : $flag1 = 0;
+			$la_case[0]["reported"] == 0 ? $flag1 = 1 : $flag1 = 0;
+			$la_case[0]["blocked"] == 0 ? $flag1 = 1 : $flag1 = 0;
 		} else {
 			$flag1 = 0;
 		}
@@ -58,16 +79,21 @@ if(isset($_GET["user"]) && isset($_GET["action"]) && ($_SESSION["token"] === $_G
 		$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
 		if ($count > 0) {
 			$la_case[0]["liked"] == 1 ? $flag2 = 1 : $flag2 = 0;
+			$la_case[0]["noped"] == 0 ? $flag2 = 1 : $flag2 = 0;
+			$la_case[0]["reported"] == 0 ? $flag2 = 1 : $flag2 = 0;
+			$la_case[0]["blocked"] == 0 ? $flag2 = 1 : $flag2 = 0;
 		} else {
 			$flag2 = 0;
 		}
 		// update connected if user_p and user_o like each other
 		if ($flag1 == 1 && $flag2 == 1) {
 			$connected = 1;
-			$query = "UPDATE `like_table` SET `connected`=? WHERE (`user_p`=? AND `user_o`=?) OR (`user_p`=? AND `user_o`=?)";
-			$query = $db->prepare($query);
-			$query->execute([$connected,$user_p,$user_o,$user_o,$user_p]);
-		} 
+		} else {
+			$connected = 0;
+		}
+		$query = "UPDATE `like_table` SET `connected`=? WHERE (`user_p`=? AND `user_o`=?) OR (`user_p`=? AND `user_o`=?)";
+		$query = $db->prepare($query);
+		$query->execute([$connected,$user_p,$user_o,$user_o,$user_p]);
 
 	// update popularity
 		// calcul total (likes + nopes)

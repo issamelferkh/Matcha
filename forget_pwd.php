@@ -1,7 +1,8 @@
 <?php
 session_start();
 require_once("config/connection.php");
-// require_once("include/libftconnection.php");
+require_once("include/libft.php");
+
 function ft_send_email($username,$email,$hash){
 
     $to      = $email;
@@ -20,9 +21,7 @@ function ft_send_email($username,$email,$hash){
     mail($to, $subject, $message, $headers);
 }
 
-$token_tmp = hash('whirlpool', $_SERVER['SERVER_ADDR']);
-
-if(isset($_POST["reset_pwd"]) && ($token_tmp === $_POST["token"])) {
+if(isset($_POST["reset_pwd"])) {
     if(empty($_POST["username"]) || empty($_POST["email"])) {
         ft_putmsg('danger','All fields are required.','/forget_pwd.php');
     } else {
@@ -46,6 +45,9 @@ if(isset($_POST["reset_pwd"]) && ($token_tmp === $_POST["token"])) {
 
 <?php include 'include/navbar.php'; ?>
 
+<!-- if logged -> redirect to app -->
+<?php if (isset($_SESSION['username']))  { header("location:user/index.php");} ?>  
+
 <!-- start container -->
 <main role="main" class="container">
     <?php include("include/title.php") ;?>
@@ -53,13 +55,12 @@ if(isset($_POST["reset_pwd"]) && ($token_tmp === $_POST["token"])) {
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">Reset Password</h6></br>
         <form method="post" action="forget_pwd.php">
-            <input type="hidden"    name="token"        value="<?php echo $token_tmp; ?>">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <input class="form-control" type="text" name="username" value="<?php if (isset($_POST['username'])) echo htmlspecialchars(trim($_POST['username'])); ?>" placeholder="Username" required>
+                    <input class="form-control" type="text" name="username" placeholder="Username" required>
                 </div>
                 <div class="form-group col-md-6">
-                    <input class="form-control" type="email" name="email" value="<?php if (isset($_POST['email']))    echo htmlspecialchars(trim($_POST['email'])); ?>"    placeholder="Email" required>
+                    <input class="form-control" type="email" name="email" placeholder="Email" required>
                 </div>
             </div>
             <button name="reset_pwd" type="submit" class="btn btn-primary">Reset Password</button>

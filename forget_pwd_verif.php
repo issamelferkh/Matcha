@@ -1,10 +1,10 @@
 <?php
 session_start();
 require_once("config/connection.php");
+require_once("include/libft.php");
 
 
 if(empty($_GET['email']) || empty($_GET['hash'])) {
-    $msg_get = '';
     ft_putmsg('warning','All fields are required.','/signin.php');
 }
 else{        

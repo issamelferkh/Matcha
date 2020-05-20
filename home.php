@@ -5,9 +5,9 @@
 <!-- header -->
 <?php include("include/header.php"); ?>   
 <!-- nav -->
-<?php include("include/navbar.php"); ?>
-<!-- sub nav -->
-<?php //include("include/nav_sub.php"); ?>   
+<?php include("include/navbar_visitor.php"); ?>
+<!-- if logged -> redirect to app -->
+<?php if (isset($_SESSION['username']))  { header("location:user/index.php");} ?>  
 
 <!-- start container -->
 <main role="main" class="container">

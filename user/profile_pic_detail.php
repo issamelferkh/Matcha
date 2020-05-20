@@ -6,13 +6,26 @@
 <?php require_once("../include/libft.php"); ?>
 <!-- php delete picture -->
 <?php
-	if(isset($_POST["pic_delete"]) && isset($_POST["img_id"]) && ($_SESSION["token"] === $_POST["token"])) {
-	    $query = 'DELETE FROM `picture` WHERE `img_id` = :img_id';
-        $query = $db->prepare($query);
-        $query->bindParam(':img_id', $_POST['img_id'], PDO::PARAM_INT); 
-        $query->execute();
-		ft_putmsg('success','The picture '.$_POST['img_id'].' is deleted with succeed.','/user/profile_pic.php');
-	}
+	if (isset($_POST['pic_delete'])) {
+		if(isset($_POST["token"]) && isset($_POST["img_id"]) && ($_SESSION["token"] === $_POST["token"])) {
+			isset($_POST['img_id']) ? $img_id = htmlspecialchars(trim($_POST["img_id"])) : $img_id = 0;
+			// check if $img_id is exist
+			$query = 'SELECT * FROM `picture` WHERE `img_id`="'.$img_id.'" and `user_id`="'.$_SESSION['user_id'].'" ';
+			$query = $db->prepare($query);
+			$query->execute();
+			$count = $query->rowCount();
+			if ($count === 1) {
+				$query = 'DELETE FROM `picture` WHERE `img_id` ="'.$img_id.'" and `user_id`="'.$_SESSION['user_id'].'" ';
+				$query = $db->prepare($query);
+				$query->execute();
+				ft_putmsg('success','The picture '.$img_id.' is deleted with succeed.','/user/profile_pic.php');
+			} else {
+				ft_putmsg('warning','Sorry The picture '.$img_id.' is not available.','/user/profile_pic.php');
+			}
+		} else {
+			header("location: ../404.php");
+		}
+	} 
 ?>
 <!-- header -->
 <?php include("../include/header.php"); ?>   
@@ -32,7 +45,7 @@
 			   	<div class='col-md-4'>
 		            <div class='card mb-2'>
 <?php
-	$query = 'SELECT * FROM `picture` WHERE `img_id`="'.$_GET['img_id'].'"';
+	$query = 'SELECT * FROM `picture` WHERE `img_id`="'.$_GET['img_id'].'" and `user_id`="'.$_SESSION['user_id'].'" ';
 	$query = $db->prepare($query);
 	$query->execute();
 	$pic = $query->fetchAll(\PDO::FETCH_ASSOC);

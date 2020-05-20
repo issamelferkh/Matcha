@@ -105,12 +105,49 @@
 > - A connected user “unliked” you.
 A user must be able to see, from any page that a notification hasn’t been read
 
-## To-Do ####################################################################################################################
-### Registration and Signing-in => OK
+## To-Do All except Issues AND Secu Vuln #########################################################################################
+## Objectifs -> OK
+## Consignes générales
+- home page (content)
+
+### Registration and Signing-in
+- [ ] Log-out -> avoid logout from unkown source
+- [ ] signin.php -> CSRF
+- [ ] signup.php  -> CSRF
+- [ ] forget_pwd.php  -> CSRF
 
 ### User profile => OK
+- profile_pic.php
+    - [ ] can't upload any picture
+    - check picture format
+    - limit sizeof pic
+    - limit types of pic
+    - avoid LFI 
+    - Vuln: if delete asprofile value from fronent -> add avatar pic as profile ?
+
+- index.php
+404
+SQL
+XSS
+CSRF
+ft_putmsg
+public "fame rating"
+
+- if Object not found! -> redirect to 404.php
 
 ### Browsing -> NOK
+- from browsing_out.php to profile_detail.php
+404
+SQL
+XSS
+CSRF
+ft_putmsg
+public "fame rating"
+
+- list tests
+- browsing_in.php
+- browsing_out.php
+- check subject
 
 ### Research -> NOK
 - [ ] The user must be able to run an advanced research selecting one or a few criterias such as:
@@ -194,3 +231,58 @@ A user must be able to see, from any page that a notification hasn’t been read
 - for send id using get => 	<?php if (isset($la_case[0]['user_id'])) $user_id = hash('whirlpool',htmlspecialchars(trim($la_case[0]['user_id']))); ?>
 
 
+## To-Do in 1337 ################################################################################################################
+
+## Consignes générales ->
+- [ ] ft_putmsg -> test in all pages
+- [ ] auteur 
+- [ ] Error , Warning or notice => server side or client side -> in console
+- [ ] setup database
+- [ ] matcha font ???
+- [ ] Compatible sur Firefox (>= 41) et Chrome (>= 46)
+- [ ] Responsive
+- [ ] Matcha  devra être sécurisé
+> - Tous vos formulaires doivent avoir des validations correctes, autant coté client que coté serveur.
+> - Avoir des mots de passe “en clair” dans une base de données.
+> - Pouvoir injecter du code HTML ou JavaScript “utilisateur” dans des variables mal protégées.
+> - Pouvoir uploader du contenu indésirable.
+> - Pouvoir modifier une requête SQL.
+
+### Registration and Signing-in ->
+- signup.php
+    - [ ] test signup
+    - [ ] test all error msg
+    - [ ] send mail
+- active_user.php
+    - [ ] test all error msg
+- forget_pwd.php
+    - [ ] test send mail
+    - [ ] test all error msg
+- forget_pwd_reset.php
+    - [ ] test all error msg
+- forget_pwd_verif.php
+    - why token ? "header("location:forget_pwd_reset.php?msg=".$token.""); " line 18
+    - [ ] test all error msg
+- signin.php
+    - [ ] test all error msg
+- signout.php
+    - [ ] test all error msg
+
+
+### User profile ->
+- profile.php
+    - [ ] check if profile completed -> once connection and in all pages -> test for new profile
+    - [ ] Test GPS in same city
+- profile_update.php
+    - [ ] Gender => if(isset($la_case[0]['gender'])) -> selected by default in output
+    - [ ] Sexual Preference => if(isset($la_case[0]['sex_pre'])) -> selected by default in output
+
+### Browsing ->
+
+### Research ->
+
+### Profile of other users ->
+
+### Chat ->
+
+### Notifications -> 

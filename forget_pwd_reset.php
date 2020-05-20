@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once("config/connection.php");
+require_once("include/libft.php");
+
 
 if(isset($_POST["reset"])) {
     if(empty($_POST["password1"]) || empty($_POST["password2"])) {
@@ -43,13 +45,8 @@ if(isset($_POST["reset"])) {
 
 <!-- start container -->
 <main role="main" class="container">
-    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
-        <img class="mr-3" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-outline.svg" alt="" width="48" height="48">
-        <div class="lh-100">
-        <h6 class="mb-0 text-white lh-100">Matcha</h6>
-        <small>Since 2020</small>
-        </div>
-    </div>
+    <?php include("include/title.php") ;?>
+
 
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">Reset Password</h6></br>

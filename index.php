@@ -1,3 +1,9 @@
+<?php session_start(); ?>
+
 <?php 
-    header("location:home.php");
+    if (isset($_SESSION['username']))  {
+        header("location:user/index.php");
+    } else {
+        header("location:home.php");
+    }
 ?>

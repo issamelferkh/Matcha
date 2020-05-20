@@ -2,88 +2,74 @@
 <?php require_once("../config/connection.php"); ?>
 <!-- session -->
 <?php require_once("../include/session.php"); ?>
-
-<?php
-// // validate birthday
-// function validateAge($birthday, $age = 18)
-// {
-//     // $birthday can be UNIX_TIMESTAMP or just a string-date.
-//     if(is_string($birthday)) {
-//         $birthday = strtotime($birthday);
-//     }
-
-//     // check
-//     // 31536000 is the number of seconds in a 365 days year.
-//     if(time() - $birthday < $age * 31536000)  {
-//         return false;
-//     }
-
-//     return true;
-// }
-?>
+<!-- libft -->
+<?php require_once("../include/libft.php"); ?>
 <!-- php update profile -->
 <?php
-if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) {
-	if(empty($_POST["fname"]) || empty($_POST["lname"]) || empty($_POST["email"]) || empty($_POST["username"]) || empty($_POST["age"]) 
-	|| empty($_POST["gender"]) || empty($_POST["sex_pre"]) || empty($_POST["tag1"]) || empty($_POST["bio"]) ) {
-        $message = 'All fields are required.';
-	} else {
-		if(isset($_POST['notification']) && $_POST['notification'] == 1) {
-            $notification = 1;
-        } else {
-            $notification = 0;
-        }
+if(isset($_POST['update_profile'])) {
+	if(isset($_POST["token"]) && ($_SESSION["token"] === $_POST["token"])) {
+		if(empty($_POST["fname"]) || empty($_POST["lname"]) || empty($_POST["email"]) || empty($_POST["username"]) || empty($_POST["age"]) 
+		|| empty($_POST["gender"]) || empty($_POST["sex_pre"]) || empty($_POST["tag1"]) || empty($_POST["bio"]) ) {
+			ft_putmsg('danger','All fields are required.','/user/profile_update.php');
+		} else {
+			if(isset($_POST['notification']) && $_POST['notification'] == 1) {
+				$notification = 1;
+			} else {
+				$notification = 0;
+			}
 
-        // affectations
-        $fname = htmlspecialchars(trim($_POST["fname"]));
-        $lname = htmlspecialchars(trim($_POST["lname"]));
-        $email = htmlspecialchars(trim($_POST["email"]));
-        $username = htmlspecialchars(trim($_POST["username"]));
-        $age = htmlspecialchars(trim($_POST["age"])); 
-        $gender = htmlspecialchars(trim($_POST["gender"])); 
-        $sex_pre = htmlspecialchars(trim($_POST["sex_pre"])); 
-        $tag1 = htmlspecialchars(trim($_POST["tag1"])); 
-        $tag2 = htmlspecialchars(trim($_POST["tag2"])); 
-        $tag3 = htmlspecialchars(trim($_POST["tag3"])); 
-		$bio = htmlspecialchars(trim($_POST["bio"]));
-		$lati = htmlspecialchars($_POST["lati"]);
-		$longi = htmlspecialchars($_POST["longi"]);
-		
-        // check email
-        $emailcheck = preg_match('(^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]*$)', $email); 
+			// affectations
+			$fname = htmlspecialchars(trim($_POST["fname"]));
+			$lname = htmlspecialchars(trim($_POST["lname"]));
+			$email = htmlspecialchars(trim($_POST["email"]));
+			$username = htmlspecialchars(trim($_POST["username"]));
+			$age = htmlspecialchars(trim($_POST["age"])); 
+			$gender = htmlspecialchars(trim($_POST["gender"])); 
+			$sex_pre = htmlspecialchars(trim($_POST["sex_pre"])); 
+			$tag1 = htmlspecialchars(trim($_POST["tag1"])); 
+			$tag2 = htmlspecialchars(trim($_POST["tag2"])); 
+			$tag3 = htmlspecialchars(trim($_POST["tag3"])); 
+			$bio = htmlspecialchars(trim($_POST["bio"]));
+			$lati = htmlspecialchars($_POST["lati"]);
+			$longi = htmlspecialchars($_POST["longi"]);
+			
+			// check email
+			$emailcheck = preg_match('(^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]*$)', $email); 
 
-        if ($age < 18) {
-        	$message = 'Your age is under 18 years !!!';
-        } else if ((strlen($fname) > 50) || (strlen($fname) < 3)){
-	        $message = 'Invalid First name. First name must be between 3 and 50 characters.';
-	    } else if ((strlen($lname) > 50) || (strlen($lname) < 3)){
-	        $message = 'Invalid Last name. Last name must be between 3 and 50 characters.';
-	    } else if (strlen($email) > 320){
-            $message = 'Invalid email. Email must be less than 320 characters.';
-        } else if (!($emailcheck)) {
-            $message = 'Invalid email format.';
-        } else if ((strlen($username) > 50) || (strlen($username) < 5)){
-            $message = 'Invalid username. Username must be between 5 and 50 characters.';
-        } else {
-        	$query = 'SELECT * FROM user WHERE username="'.$username.'" AND user_id !="'.$_SESSION['user_id'].'" OR email="'.$email.'" AND user_id !="'.$_SESSION['user_id'].'"';
-            $query = $db->prepare($query);
-            $query->execute();
-            $count = $query->rowCount();
-            if ($count > 0) {
-                $message = 'Username OR email is already taken!';
-            } else {
-            	// update profile query
-				$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `age`=?, `gender`=?, `sex_pre`=?, `tag1`=?, `tag2`=?, `tag3`=?, `bio`=?, `lati`=?, `longi`=?, `notification`=? WHERE `user_id`=?";
+			if ($age < 18) {
+				ft_putmsg('danger','Your age is under 18 years!','/user/profile_update.php');
+			} else if ((strlen($fname) > 50) || (strlen($fname) < 3)){
+				ft_putmsg('danger','Invalid First name. First name must be between 3 and 50 characters.','/user/profile_update.php');
+			} else if ((strlen($lname) > 50) || (strlen($lname) < 3)){
+				ft_putmsg('danger','Invalid Last name. Last name must be between 3 and 50 characters.','/user/profile_update.php');
+			} else if (strlen($email) > 320){
+				ft_putmsg('danger','Invalid email. Email must be less than 320 characters.','/user/profile_update.php');
+			} else if (!($emailcheck)) {
+				ft_putmsg('danger','Invalid email format.','/user/profile_update.php');
+			} else if ((strlen($username) > 50) || (strlen($username) < 5)){
+				ft_putmsg('danger','Invalid username. Username must be between 5 and 50 characters.','/user/profile_update.php');
+			} else {
+				$query = 'SELECT * FROM user WHERE username="'.$username.'" AND user_id !="'.$_SESSION['user_id'].'" OR email="'.$email.'" AND user_id !="'.$_SESSION['user_id'].'"';
 				$query = $db->prepare($query);
-				$query->execute([$fname,$lname,$email,$username,$age,$gender,$sex_pre,$tag1,$tag2,$tag3,$bio,$lati,$longi,$notification,$_SESSION['user_id']]);
-				// update SESSIONS
-				$_SESSION["username"] = $username;
-				$_SESSION['auth']['sex_pre'] = $sex_pre;
-				$msg = 'Your profile was successfully updated.';
-				header("location: profile.php?msg=$msg");
-            }
-        }
-    }
+				$query->execute();
+				$count = $query->rowCount();
+				if ($count > 0) {
+					ft_putmsg('warning','Username OR email is already taken!','/user/profile_update.php');
+				} else {
+					// update profile query
+					$query = "UPDATE `user` SET `fname`=?, `lname`=?, `email`=? ,`username`=?, `age`=?, `gender`=?, `sex_pre`=?, `tag1`=?, `tag2`=?, `tag3`=?, `bio`=?, `lati`=?, `longi`=?, `notification`=? WHERE `user_id`=?";
+					$query = $db->prepare($query);
+					$query->execute([$fname,$lname,$email,$username,$age,$gender,$sex_pre,$tag1,$tag2,$tag3,$bio,$lati,$longi,$notification,$_SESSION['user_id']]);
+					// update SESSIONS
+					$_SESSION["username"] = $username;
+					$_SESSION['auth']['sex_pre'] = $sex_pre;
+					ft_putmsg('success','Your profile was successfully updated.','/user/profile.php');
+				}
+			}
+		}
+	} else {
+		header("location: ../404.php");
+	}
 }
 ?>
 
@@ -147,8 +133,6 @@ if(isset($_POST["update_profile"]) && ($_SESSION["token"] === $_POST["token"])) 
 		    <!-- About profile -->
             <div class="col-md-8">
 				<div class="my-3 p-3 bg-white rounded box-shadow">
-				<?php if(isset($message)) {echo '<div class="alert alert-danger" role="alert">'.htmlspecialchars($message).'</div>';}?>
-
 					<form method="POST" action="profile_update.php">
 						<input type="hidden"    name="token"        value="<?php echo $_SESSION['token']; ?>">
 				        <h6 class="border-bottom border-gray pb-2 mb-0">Profile</h6>

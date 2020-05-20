@@ -1,59 +1,61 @@
-<!-- connection -->
 <?php require_once("../config/connection.php"); ?>
-<!-- session -->
 <?php require_once("../include/session.php"); ?>
+<?php require_once("../include/libft.php"); ?>
 
 <!-- php update profile pic -->
 <?php
+if(isset($_POST['profile_pic'])) {
+	if(isset($_POST["token"]) && ($_SESSION["token"] === $_POST["token"])) {
+		// Upload new picture
+		if(!($_FILES["imgUpload"]["tmp_name"] == '')){
+			// check 5 pic in MAX
+			$query = 'SELECT * FROM picture WHERE user_id="'.$_SESSION['user_id'].'"';
+			$query = $db->prepare($query);
+			$query->execute();
+			$count = $query->rowCount();
+			$la_case = $query->fetchAll(\PDO::FETCH_ASSOC); 
+			if ($count < 5) {
+				$imgName = $_SESSION['user_id']."_".date("Y_m_d_H_i_s")."_profile.png";
+				$imgURL = "../assets/img/".$imgName;
+				$imageFileType = strtolower(pathinfo($imgURL,PATHINFO_EXTENSION)); //holds the file extension of the file (in lower case)
 
-if(isset($_POST["submit"]) && ($_SESSION["token"] === $_POST["token"])) {
-	// Upload new picture
-	if(!($_FILES["imgUpload"]["tmp_name"] == '')){
-		// check 5 pic in MAX
-		$query = 'SELECT * FROM picture WHERE user_id="'.$_SESSION['user_id'].'"';
-        $query = $db->prepare($query);
-        $query->execute();
-        $count = $query->rowCount();
-        $la_case = $query->fetchAll(\PDO::FETCH_ASSOC); 
-        if ($count < 5) {
-        	$imgName = $_SESSION['user_id']."_".date("Y_m_d_H_i_s")."_profile.png";
-			$imgURL = "../assets/img/".$imgName;
-			$imageFileType = strtolower(pathinfo($imgURL,PATHINFO_EXTENSION)); //holds the file extension of the file (in lower case)
+				// Check if image file is a actual image or fake image
+				$check = getimagesize($_FILES["imgUpload"]["tmp_name"]);
+				if($check !== false) {
+					imagepng(imagecreatefromstring(file_get_contents($_FILES["imgUpload"]["tmp_name"])), $imgURL);
 
-			// Check if image file is a actual image or fake image
-			$check = getimagesize($_FILES["imgUpload"]["tmp_name"]);
-	        if($check !== false) {
-				imagepng(imagecreatefromstring(file_get_contents($_FILES["imgUpload"]["tmp_name"])), $imgURL);
+					$query = 'INSERT INTO `picture` (`user_id`, `username`, `imgName`, `imgURL`) VALUES (?,?,?,?)';
+					$query = $db->prepare($query);
+					$query->execute([$_SESSION['user_id'],$_SESSION['username'],$imgName,$imgURL]);
 
-				$query = 'INSERT INTO `picture` (`user_id`, `username`, `imgName`, `imgURL`) VALUES (?,?,?,?)';
-				$query = $db->prepare($query);
-				$query->execute([$_SESSION['user_id'],$_SESSION['username'],$imgName,$imgURL]);
-
-				header("location:profile_pic.php");
+					header("location:profile_pic.php");
+				}
+			} else {
+				ft_putmsg('danger','Sorry! 5 pictures in max.','/user/profile_pic.php');
 			}
-        } else {
-        	$message = 'Sorry! 5 pictures in max.';
-        }
-    }
+		}
 
-    // Update profile picture
-    if(isset($_POST["asProfile"])) {
-    	// resete all 
-    	$asProfile = 0;
-    	$query = "UPDATE `picture` SET `asProfile`=? WHERE `user_id`=?";
-		$query = $db->prepare($query);
-		$query->execute([$asProfile,$_SESSION["user_id"]]);
+		// Update profile picture
+		if(isset($_POST["asProfile"])) {
+			// resete all 
+			$asProfile = 0;
+			$query = "UPDATE `picture` SET `asProfile`=? WHERE `user_id`=?";
+			$query = $db->prepare($query);
+			$query->execute([$asProfile,$_SESSION["user_id"]]);
 
-    	// make as profile pic
-    	$asProfile = 1;
-    	$img_id = $_POST["asProfile"];
-    	$query = "UPDATE `picture` SET `asProfile`=? WHERE `img_id`=?";
-		$query = $db->prepare($query);
-		$query->execute([$asProfile,$img_id]);
-    }
+			// make as profile pic
+			$asProfile = 1;
+			$img_id = $_POST["asProfile"];
+			$query = "UPDATE `picture` SET `asProfile`=? WHERE `img_id`=?";
+			$query = $db->prepare($query);
+			$query->execute([$asProfile,$img_id]);
+		}
 
-    if(!isset($_POST["asProfile"]) && ($_FILES["imgUpload"]["tmp_name"] == '')) {
-        $message = 'Choose new profile pic or upload a new!';
+		if(!isset($_POST["asProfile"]) && ($_FILES["imgUpload"]["tmp_name"] == '')) {
+			ft_putmsg('danger','Choose new profile picture or upload a new!','/user/profile_pic.php');
+		}
+	} else {
+		header("location: ../404.php");
 	}
 } 
 ?>
@@ -154,7 +156,7 @@ if(isset($_POST["submit"]) && ($_SESSION["token"] === $_POST["token"])) {
 							</div>
 						</div></br>					    					
 						<!-- submit -->
-				        <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+				        <button name="profile_pic" type="submit" class="btn btn-primary">Submit</button>
 			        </form>
 			    </div>
             </div><!-- End About profile -->

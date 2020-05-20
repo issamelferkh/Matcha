@@ -36,8 +36,7 @@ if(isset($_POST["signin"])) {
                     $user_o_pic_profile = "/assets/img/avatar.png";
                 }
                 $_SESSION['profile_pic'] = $user_o_pic_profile;
-
-                header("location:user/index.php");
+				ft_putmsg('info','Welcome.','/user/index.php');
             } else {
                 ft_putmsg('warning','Your account is not activated yet!','/signin.php');
             }
@@ -48,9 +47,12 @@ if(isset($_POST["signin"])) {
 } 
 ?>
 
-<?php include 'include/header.php'; ?>
+<?php include('include/header.php'); ?>
 
-<?php include 'include/navbar.php'; ?>
+<?php include("include/navbar.php"); ?>
+
+<!-- if logged -> redirect to app -->
+<?php if (isset($_SESSION['username']))  { header("location:user/index.php");} ?>  
 
 <!-- start container -->
 <main role="main" class="container">
@@ -61,10 +63,10 @@ if(isset($_POST["signin"])) {
         <form method="post" action="signin.php">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <input class="form-control" type="text" name="username" value="<?php if (isset($_POST['username'])) echo htmlspecialchars(trim($_POST['username'])); ?>" placeholder="Username" required>
+                    <input class="form-control" type="text" name="username" placeholder="Username" required>
                 </div>
                 <div class="form-group col-md-6">
-                    <input class="form-control" type="password" name="password" value="<?php if (isset($_POST['password'])) echo htmlspecialchars(trim($_POST['password'])); ?>"    placeholder="Password" required>
+                    <input class="form-control" type="password" name="password" placeholder="Password" required>
                 </div>
             </div>
             <button name="signin" type="submit" class="btn btn-primary">Sign in</button>

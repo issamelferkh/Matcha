@@ -60,9 +60,12 @@ if(isset($_POST["signup"])) {
 } 
 ?>
 
-<?php include 'include/header.php'; ?>
+<?php include('include/header.php'); ?>
 
-<?php include 'include/navbar.php'; ?>
+<?php include("include/navbar.php"); ?>
+
+<!-- if logged -> redirect to app -->
+<?php if (isset($_SESSION['username']))  { header("location:user/index.php");} ?>  
 
 <!-- start container -->
 <main role="main" class="container">
@@ -73,24 +76,24 @@ if(isset($_POST["signup"])) {
         <form method="POST" action="signup.php">
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <input class="form-control" type="text" name="fname" value="<?php if (isset($_POST['fname'])) echo htmlspecialchars(trim($_POST['fname'])); ?>" placeholder="First Name" required>
+                    <input class="form-control" type="text" name="fname" placeholder="First Name" required>
                 </div>
 
                 <div class="form-group col-md-4">
-                    <input class="form-control" type="text" name="lname" value="<?php if (isset($_POST['lname'])) echo htmlspecialchars(trim($_POST['lname'])); ?>" placeholder="Last Name" required>
+                    <input class="form-control" type="text" name="lname" placeholder="Last Name" required>
                 </div>
 
 
                 <div class="form-group col-md-4">
-                    <input class="form-control" type="email" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars(trim($_POST['email'])); ?>"    placeholder="Email" required>
+                    <input class="form-control" type="email" name="email" placeholder="Email" required>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <input class="form-control" type="text" name="username" value="<?php if (isset($_POST['username'])) echo htmlspecialchars(trim($_POST['username'])); ?>" placeholder="Username" required>
+                    <input class="form-control" type="text" name="username" placeholder="Username" required>
                 </div>
                 
                 <div class="form-group col-md-6">
-                    <input class="form-control" type="password" name="password" value="<?php if (isset($_POST['password'])) echo htmlspecialchars(trim($_POST['password'])); ?>"    placeholder="Password" required>
+                    <input class="form-control" type="password" name="password" placeholder="Password" required>
                 </div>
             </div>
             <button name="signup" type="submit" class="btn btn-primary">Sign Up</button>

@@ -35,9 +35,41 @@ if (isset($_SESSION['username']))  { ?>
 
         </ul>
     
-        <a href="<?php echo $url; ?>/signout.php" class="btn btn-outline-danger my-2 my-sm-0" role="button">Sign Out</a>
+        <a href="<?php echo $url; ?>/signout.php?token=<?php echo $_SESSION['token']; ?>" class="btn btn-outline-danger my-2 my-sm-0" role="button">Sign Out</a>
     </div>
 </nav>
+
+<script>
+    $(document).ready(function(){
+        $("#noti_click").click(function() {
+            var noti_fetch = "noti_fetch";
+
+            $.ajax({
+                url:"../user/noti_fetch.php",
+                type: 'POST',
+                data: { noti_fetch:noti_fetch},
+                success: function(data) {
+                    $("#noti_fetch").html(data);
+                }
+            });
+        });
+	});
+
+    function get_noti_count() {
+        var noti_count = "noti_count";
+
+        $.ajax({
+                url:"../user/noti_fetch.php",
+                type: 'POST',
+                data: { noti_count:noti_count},
+                success: function(data) {
+                	$("#noti_click").html(data);
+                }
+            });
+	}
+	setInterval('get_noti_count()', 2000);
+</script>
+
 <?php }
 else { ?>
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
@@ -59,36 +91,3 @@ else { ?>
 </nav>
 <?php }
 ?>
-
-
-<script>
-    $(document).ready(function(){
-        $("#noti_click").click(function(){
-            var noti_fetch = "noti_fetch";
-
-            $.ajax({
-                url:"../user/noti_fetch.php",
-                type: 'POST',
-                data: { noti_fetch:noti_fetch},
-                success: function(data) {
-                    $("#noti_fetch").html(data);
-                }
-            });
-        });
-	});
-
-    function get_noti_count()
-	{
-        var noti_count = "noti_count";
-
-        $.ajax({
-                url:"../user/noti_fetch.php",
-                type: 'POST',
-                data: { noti_count:noti_count},
-                success: function(data) {
-                	$("#noti_click").html(data);
-                }
-            });
-	}
-	setInterval('get_noti_count()', 2000);
-</script>

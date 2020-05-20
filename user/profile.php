@@ -59,35 +59,15 @@
 				</div>
 ";
 ?>
-
-<!-- php calcul public rating -->
-<?php
-	// calcul total (likes + nopes)
-	$query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$_SESSION['user_id'].'"';
-	$query = $db->prepare($query);
-    $query->execute();
-	$total = $query->rowCount();
-	// Avoid Division by zero
-	$total == 0 ? $total = 1 : $total = $total;
-
-	// calcul likes
-    $query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$_SESSION['user_id'].'" AND `liked` = 1';
-	$query = $db->prepare($query);
-    $query->execute();
-    $likes = $query->rowCount();
-
-	$rating = $likes/$total*100;
-?>
-				<label>Popularity: <?php echo intval($rating); ?>%</label>
+				<label>Popularity: <?= intval($la_case[0]['popularity']); ?>%</label>
                 <div class="progress">	
-					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $rating;?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?= intval($la_case[0]['popularity']); ?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
             </div>
 
 		    <!-- About profile -->
             <div class="col-md-8">
 				<div class="my-3 p-3 bg-white rounded box-shadow">
-				<?php if(isset($_GET["msg"])) {echo '<div class="alert alert-success" role="alert">'.htmlspecialchars($_GET["msg"]).'</div>';}?>
 				        <h6 class="border-bottom border-gray pb-2 mb-0">Profile</h6>
 				        <!-- personelle infos -->
 				        <div class="media text-muted pt-3">

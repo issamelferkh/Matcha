@@ -34,6 +34,10 @@
 
         if ($flag) {
             ft_putmsg('danger','Please complete your profile!','/user/profile.php');
+        } else {
+            $query = "UPDATE `user` SET `complete_profile` = 1 WHERE `user_id`=".$_SESSION['user_id'] ;
+            $query = $db->prepare($query);
+            $query->execute();
         }
     }
 ?>

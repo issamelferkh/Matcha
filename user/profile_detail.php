@@ -8,18 +8,16 @@
 <?php
 	if(isset($_GET["id"])) {
 		$user_id = htmlspecialchars(trim($_GET["id"]));
-		$query = 'SELECT * FROM `user` WHERE `user_id`="'.$user_id.'"';
+		$query = "SELECT * FROM `user` WHERE `user_id`=".$user_id." AND `complete_profile`=1 ";
 		$query = $db->prepare($query);
 		$query->execute(); 
         $count = $query->rowCount();
 		$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
 		if ($count == 0) {
-			// / 404
-			echo "pas user";
+			header("location: ../404.php");
 		}
 	} else {
-		// 404
-		echo "pas user";
+		header("location: ../404.php");
 	}
 ?>
 

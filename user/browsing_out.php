@@ -40,6 +40,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
     			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
 				AND (popularity BETWEEN '$popularity_min' AND '$popularity_max')
 				AND (age BETWEEN '$age_min' AND '$age_max')
+				AND `complete_profile`=1
 				ORDER BY ((lati-$ulati)*(lati-$ulati)) + ((longi - $ulongi)*(longi - $ulongi)) ASC ";
 
 			$query1 = $db->prepare($query1);
@@ -61,6 +62,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
     			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
 				AND (popularity BETWEEN '$popularity_min' AND '$popularity_max')
 				AND (age BETWEEN '$age_min' AND '$age_max')
+				AND `complete_profile`=1
 				ORDER BY `age` ASC";
 
 			$query1 = $db->prepare($query1);
@@ -81,6 +83,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
     			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
 				AND (popularity BETWEEN '$popularity_min' AND '$popularity_max')
 				AND (age BETWEEN '$age_min' AND '$age_max')
+				AND `complete_profile`=1
 				ORDER BY popularity DESC";
 
 			$query1 = $db->prepare($query1);
@@ -101,6 +104,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
     			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
 				AND (popularity BETWEEN '$popularity_min' AND '$popularity_max')
 				AND (age BETWEEN '$age_min' AND '$age_max')
+				AND `complete_profile`=1
 				ORDER BY tag1 ASC, tag2 ASC, tag3 ASC";
 
 			$query1 = $db->prepare($query1);
@@ -120,6 +124,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
     			  OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
     			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
 				AND (popularity BETWEEN '$popularity_min' AND '$popularity_max')
+				AND `complete_profile`=1
 				AND (age BETWEEN '$age_min' AND '$age_max')
 				";
 

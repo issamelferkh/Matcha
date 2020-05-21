@@ -106,48 +106,62 @@
 A user must be able to see, from any page that a notification hasn’t been read
 
 ## To-Do All except Issues AND Secu Vuln #########################################################################################
-## Objectifs -> OK
-## Consignes générales
-- home page (content)
+SQL
+XSS
+CSRF
+Secure GET vars
+valide all form
+404
+title include
+ft_putmsg
+public "fame rating"
 
-### Registration and Signing-in
+## Objectifs -> OK
+## Consignes générales -> OK
+- home page (content)
+- send mail test it in 1337 !
+
+### Registration and Signing-in -> OK
 - [ ] Log-out -> avoid logout from unkown source
 - [ ] signin.php -> CSRF
 - [ ] signup.php  -> CSRF
 - [ ] forget_pwd.php  -> CSRF
 
-### User profile => OK
+### User profile -> OK
 - profile_pic.php
     - [ ] can't upload any picture
-    - check picture format
-    - limit sizeof pic
-    - limit types of pic
-    - avoid LFI 
-    - Vuln: if delete asprofile value from fronent -> add avatar pic as profile ?
-
-- index.php
-404
-SQL
-XSS
-CSRF
-ft_putmsg
-public "fame rating"
-
-- if Object not found! -> redirect to 404.php
+    - [ ] check picture format
+    - [ ] limit sizeof pic
+    - [ ] limit types of pic
+    - [ ] avoid LFI 
+    - [ ] Vuln: if delete asprofile value from fronent -> add avatar pic as profile ?
 
 ### Browsing -> NOK
-- from browsing_out.php to profile_detail.php
-404
-SQL
-XSS
-CSRF
-ft_putmsg
-public "fame rating"
+- Browsing: if "connected" display "disconnect" button
+- Browsing: Don't appear if
+    - blocked user
+    - reported
+    - Noped
+    - liked
 
+- The user must be able to easily get a list of suggestions that match his profile (if the profile is filled). in this list:
+> - propose only interesting profiles (for exe only men for a heterosexual girls)
+> - manage also the bisexuality
+> - if the orientation isn't specified -> user will considered bi-sexual.
+- the profiles are matched with:
+> - sexual orientation
+> - geographic area 
+> - max of common tags
+> - max of "fame rating"
+- You must show in priority people from the same geographical area.
+- The suggestion list must be sortable by age, location, “fame rating” and common tags.
+- The suggestion list must be filterable by age, location, “fame rating” and common tags.
+
+
+- from browsing_out.php to profile_detail.php
 - list tests
 - browsing_in.php
 - browsing_out.php
-- check subject
 
 ### Research -> NOK
 - [ ] The user must be able to run an advanced research selecting one or a few criterias such as:
@@ -159,62 +173,30 @@ public "fame rating"
 - [ ] The resulting list must be filterable by age, location, “fame rating” and common tags.
 
 ### Profile of other users -> NOK
-- [x] the user must be able to consult the profile of other users.
-- [x] Profiles must contain all the information available about them, except for the email address and the password.
-- The user must also be able to:
-> - If he has at least one picture he can “like” and "dislake" another user -> verif if profile completed
-> - If the current user does not have a picture, he/she cannot complete this action -> verif if profile completed
+- [ ] When two people “like” each other, we will say that they are “connected” and are now able to chat.
+- [ ] Block the user. A blocked user won’t appear anymore in the research results and won’t generate anymore notifications.
+- [ ] A user can clearly see if the consulted profile is connected or “like” his profile and must be able to “unlike” or be disconnected from that profile.
 
-> - [x] Check the “fame rating”
-> - [x] See if the user is online, and if not see the date and time of the last connection.
-> - When two people “like” each other, we will say that they are “connected” and are now able to chat.
-> - Report the user as a “fake account”
-> - Block the user. A blocked user won’t appear anymore in the research results and won’t generate anymore notifications.
-> - A user can clearly see if the consulted profile is connected or “like” his profile and must be able to “unlike” or be disconnected from that profile.
 
 ### Chat -> NOK
+- Chat: list contact (online or last connection)
+- Chat: Display by default the last msg in chat
+- Security: Chat sucure msg (if spaces, lenght ...)
+
+- The user must be able to see from any page if a new message is received.
+- When two users are connected (they like each other). they must be able to “chat” in real time (telerate a 10s).
+- How you will implement the chat is totally up to you.
 - The user must be able to see from any page if a new message is received.
 
 
 ### Notifications -> NOK
-
-> - Profile -> The user must be able to check who looked at his profile and “liked” him.
-
+-  A user must be notified in real time (telerate a 10s) of the following events:
 > - The user received a “like”.
-L’utilisateur a reçu un “like”.
-
-#Notifications-> user’s profile has been checked
-The user must be able to check who looked at his profile and “liked” him.
-
+> - The user’s profile has been checked.
 > - The user received a message.
-L’utilisateur a reçu un message.
-
 > - A “liked” user “liked” back.
-Un utilisateur “liké” a “liké” en retour.
-
 > - A connected user “unliked” you.
-Un utilisateur matché ne vous “like” plus.
-
 A user must be able to see, from any page that a notification hasn’t been read
-
-
-### Consignes générales -> NOK
-
-### Code Optimization -> NOK
-
-### Security -> NOK
-
-### Issues -> NOK
-- send mail: error in localhost ?!
-- Browsing: if "connected" display "disconnect" button
-- Chat: list contact (online or last connection)
-- Browsing: Don't appear if
-    - blocked user
-    - reported
-    - Noped
-    - liked
-- Chat: Display by default the last msg in chat
-- Security: Chat sucure msg (if spaces, lenght ...)
 
 ### Template -> NOK
 * navbar_user: logout,profile...
@@ -224,6 +206,10 @@ A user must be able to see, from any page that a notification hasn’t been read
 * finish home page: about us and blabla teamoiniage in english
 * prob scrol profiles in one page with php -> carousel in bootstrap
 
+### Optimization
+One Query -> Join queries
+
+### Security
 
 ### Doc and Help
 - https://cdn.intra.42.fr/pdf/pdf/4832/matcha.en.pdf
@@ -234,6 +220,7 @@ A user must be able to see, from any page that a notification hasn’t been read
 ## To-Do in 1337 ################################################################################################################
 
 ## Consignes générales ->
+- [ ] logo
 - [ ] ft_putmsg -> test in all pages
 - [ ] auteur 
 - [ ] Error , Warning or notice => server side or client side -> in console

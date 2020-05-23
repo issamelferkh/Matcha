@@ -24,6 +24,7 @@ if (isset($_POST["action"])) {
 		$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
 		if ($la_case[0]['lati'] === NULL || $la_case[0]['longi'] === NULL) {
 			$json = json_decode(file_get_contents('http://ip-api.com/json'));
+			print_r($json);
 			$lati = $json->lat;
 			$longi =$json->lon;
 			$query = "UPDATE `user` SET `lati` = ".$lati.", `longi`=".$longi." WHERE `user_id` =".$_SESSION['user_id'];

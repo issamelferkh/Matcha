@@ -84,7 +84,9 @@
 			url:"loc_gps_script.php",
 			method:"POST",
 			data:{action:action},
-			success:function(data) {}
+			success:function(data) {
+				console.log(data);
+			}
 		});
 	}
 

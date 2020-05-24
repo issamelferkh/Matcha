@@ -32,9 +32,22 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 	$sex_pre = $_SESSION['auth']['sex_pre'];
 	$user_current = $_SESSION['user_id'];
 
+	// define sexual preference
+	if ($_SESSION['auth']['sex_pre'] === 'Other'){
+		$sex_pre = "`user`.`sex_pre` = 'Other'";
+	} else if ($_SESSION['auth']['gender'] === 'Men' && $_SESSION['auth']['sex_pre'] === 'Men'){
+		$sex_pre = "(`user`.`gender` = 'Men' AND `user`.`sex_pre` = 'Men')";
+	} else if ($_SESSION['auth']['gender'] === 'Women' && $_SESSION['auth']['sex_pre'] === 'Women'){
+		$sex_pre = "(`user`.`gender` = 'Women' AND `user`.`sex_pre` = 'Women')";
+	} else if($_SESSION['auth']['gender'] === 'Men' && $_SESSION['auth']['sex_pre'] === 'Women') {
+		$sex_pre = "(`user`.`gender` = 'Women' AND `user`.`sex_pre` = 'Men')";
+	} else if ($_SESSION['auth']['gender'] === 'Women' && $_SESSION['auth']['sex_pre'] === 'Men'){
+		$sex_pre = "(`user`.`gender` = 'Men' AND `user`.`sex_pre` = 'Women')";
+	}  
+	
 	// select profiles by sorting and filtering
 		if ($sort === "distance") { // sort by location
-			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' AND `user_id` NOT LIKE '$user_current'
+			$query = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' AND `user_id` NOT LIKE '$user_current'
 				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
     			  OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
     			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
@@ -42,21 +55,8 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 				AND (age BETWEEN '$age_min' AND '$age_max')
 				AND `complete_profile`=1
 				ORDER BY ((lati-$ulati)*(lati-$ulati)) + ((longi - $ulongi)*(longi - $ulongi)) ASC ";
-
-			$query1 = $db->prepare($query1);
-			$query1->execute();
-			$count1 = $query1->rowCount();
-			if ($count1 > 0) {
-				$la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
-				$i = 0;
-			} else {
-				// if not found result
-				// header 404 or not result finding
-				header('Location: index.php');
-				// echo "aaa";
-			} 
 		} else if ($sort == "age") { // sort by age
-			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' AND `user_id` NOT LIKE '$user_current' 
+			$query = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' AND `user_id` NOT LIKE '$user_current' 
 				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
     			  OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
     			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
@@ -64,20 +64,8 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 				AND (age BETWEEN '$age_min' AND '$age_max')
 				AND `complete_profile`=1
 				ORDER BY `age` ASC";
-
-			$query1 = $db->prepare($query1);
-			$query1->execute();
-			$count1 = $query1->rowCount();
-			if ($count1 > 0) {
-				$la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
-				$i = 0;
-			} else {
-				// if not found result
-				// header 404 or not result finding
-				header('Location: index.php');
-			}
 		} else if ($sort == "popularity") { // sort by popularity
-			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' AND `user_id` NOT LIKE '$user_current' 
+			$query = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' AND `user_id` NOT LIKE '$user_current' 
 				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
     			  OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
     			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
@@ -85,20 +73,8 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 				AND (age BETWEEN '$age_min' AND '$age_max')
 				AND `complete_profile`=1
 				ORDER BY popularity DESC";
-
-			$query1 = $db->prepare($query1);
-			$query1->execute();
-			$count1 = $query1->rowCount();
-			if ($count1 > 0) {
-				$la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
-				$i = 0;
-			} else {
-				// if not found result
-				// header 404 or not result finding
-				header('Location: index.php');  
-			}
 		} else if ($sort == "tags") { // sort by tags
-			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' AND `user_id` NOT LIKE '$user_current' 
+			$query = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' AND `user_id` NOT LIKE '$user_current' 
 				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
     			  OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
     			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
@@ -106,43 +82,34 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 				AND (age BETWEEN '$age_min' AND '$age_max')
 				AND `complete_profile`=1
 				ORDER BY tag1 ASC, tag2 ASC, tag3 ASC";
-
-			$query1 = $db->prepare($query1);
-			$query1->execute();
-			$count1 = $query1->rowCount();
-			if ($count1 > 0) {
-				$la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
-				$i = 0;
-			} else {
-				// if not found result
-				// header 404 or not result finding
-				header('Location: index.php');
-			}
 		} else { // default sort
-			$query1 = "	SELECT * FROM `user` WHERE `gender` = '$sex_pre' AND `user_id` NOT LIKE '$user_current' 
+			$query = "	SELECT * FROM `user` , `picture` WHERE $sex_pre AND `user`.`user_id` NOT LIKE '$user_current' 
 				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
-    			  OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
-    			  OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
+    				OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
+    				OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
 				AND (popularity BETWEEN '$popularity_min' AND '$popularity_max')
-				AND `complete_profile`=1
+				AND `complete_profile` = 1
 				AND (age BETWEEN '$age_min' AND '$age_max')
-				";
-
-			$query1 = $db->prepare($query1);
-			$query1->execute();
-			$count1 = $query1->rowCount();
-			if ($count1 > 0) {
-				$la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
-				$i = 0;
-			} else {
-				// if not found result
-				// header 404 or not result finding
-				// header('Location: index.php');
-				echo "aa";
-			}
+				AND `user`.`user_id` = `picture`.`user_id`
+				AND  `picture`.`asProfile` = 1 ";
+		}
+		$query = $db->prepare($query);
+		print_r($query);
+		$query->execute();
+		$count = $query->rowCount();
+		if ($count > 0) {
+			$la_case1 = $query->fetchAll(\PDO::FETCH_ASSOC);
+			$i = 0;
+			$distance = ft_getDistance($la_case1[$i]['lati'], $la_case1[$i]['longi']);
+			
+		} else {
+			// if not found result
+			// header 404 or not result finding
+			// header('Location: index.php');
+			echo "wlh makayan";
 		}
 	// get next user by identify $i
-	if (isset($_GET["i"]) && $count1 > $_GET["i"]) {
+	if (isset($_GET["i"]) && $count > $_GET["i"]) {
 		$i = $_GET["i"];
 	}
 } else {
@@ -153,44 +120,10 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 ?>
 
 
-<?php
-	// filter by distance
-	$distance = ft_getDistance($la_case1[$i]['lati'], $la_case1[$i]['longi']);
+<?php	
 	// verif if $count1 > $_GET["i"] && if user in Distance range
-	if ($count1 > $_GET["i"]) {
-		// check if user complete here profile
-			// check profile informations
-			$q_checkprofile = 'SELECT * FROM `user` WHERE `user_id`="'.$la_case1[$i]['user_id'].'"';
-			$q_checkprofile = $db->prepare($q_checkprofile);
-			$q_checkprofile->execute(); 
-			$count1 = $q_checkprofile->rowCount();
-			$profile = $q_checkprofile->fetchAll(\PDO::FETCH_ASSOC);
-			$flag = 0;
-			if ($count1 > 0) {
-				if ($profile[0]['username'] === NULL) $flag = 1 ;
-				if ($profile[0]['password'] === NULL) $flag = 1 ;
-				if ($profile[0]['fname']    === NULL) $flag = 1 ;
-				if ($profile[0]['lname']    === NULL) $flag = 1 ;
-				if ($profile[0]['email']    === NULL) $flag = 1 ;
-				if ($profile[0]['gender']   === NULL) $flag = 1 ;
-				if ($profile[0]['sex_pre']  === NULL) $flag = 1 ;
-				if ($profile[0]['tag1']     === NULL) $flag = 1 ;
-				if ($profile[0]['bio']      === NULL) $flag = 1 ;
-				if ($profile[0]['age']      === NULL) $flag = 1 ;
-			} else {
-				$flag = 1;
-			}
-
-			// check profile picture
-			$query7 = 'SELECT * FROM `picture` WHERE `user_id`="'.$_SESSION['user_id'].'" AND `asProfile` = 1';
-			$query7 = $db->prepare($query7);
-			$query7->execute();
-			$pic7 = $query7->fetchAll(\PDO::FETCH_ASSOC);
-			if (!(isset($pic7[0]['imgURL']))) {
-				$flag = 1;
-			} 
-
-	if (($distance >= $distance_min && $distance <= $distance_max) && ($flag === 0)){
+	if ($count > $_GET["i"]) {
+	if ($distance >= $distance_min && $distance <= $distance_max){
 	// popularity to int
 	$popularity = intval($la_case1[$i]['popularity']);
 ?> 
@@ -203,24 +136,9 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
         <div class="row">
 		    <!-- Photo profile -->
             <div class="col-md-4">
-				<!-- php profile picture -->
-				<?php
-					$query = 'SELECT * FROM `picture` WHERE `user_id`="'.$la_case1[$i]['user_id'].'" AND `asProfile` = 1';
-					$query = $db->prepare($query);
-					$query->execute();
-					$pic = $query->fetchAll(\PDO::FETCH_ASSOC);
-					// check if is set user_o profile profile
-					if (isset($pic[0]['imgURL'])) {
-						$user_o_pic_profile = $pic[0]['imgURL'];
-					} else {
-						$user_o_pic_profile = "/assets/img/avatar.png";
-					}
-					echo "
-						<div class='my-3 p-3 bg-white rounded box-shadow'>
-							<img class='card-img-top rounded' src='".$url.$user_o_pic_profile."'>
-						</div>
-					";
-				?>
+				<div class='my-3 p-3 bg-white rounded box-shadow'>
+					<img class='card-img-top rounded' src='<?= $url.$la_case1[$i]['imgURL']; ?>'>
+				</div>
 				<label>Popularity: <?=$popularity;?>%</label>
                 <div class="progress">	
 					<div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?=$popularity;?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>

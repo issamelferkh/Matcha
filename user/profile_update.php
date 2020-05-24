@@ -61,8 +61,15 @@ if(isset($_POST['update_profile'])) {
 					$query = $db->prepare($query);
 					$query->execute([$fname,$lname,$email,$username,$age,$gender,$sex_pre,$tag1,$tag2,$tag3,$bio,$lati,$longi,$notification,$_SESSION['user_id']]);
 					// update SESSIONS
-					$_SESSION["username"] = $username;
-					$_SESSION['auth']['sex_pre'] = $sex_pre;
+					$query = "SELECT * FROM `user` WHERE `user_id`=".$_SESSION['user_id'];
+					$query = $db->prepare($query);
+					$query->execute();
+					$count = $query->rowCount();
+					$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
+					if ($count > 0) {						
+						$_SESSION["username"] = $username;
+						$_SESSION['auth'] = $la_case[0];
+					}
 					ft_putmsg('success','Your profile was successfully updated.','/user/profile.php');
 				}
 			}

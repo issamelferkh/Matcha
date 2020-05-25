@@ -138,30 +138,10 @@ public "fame rating"
 
 ### Browsing -> NOK
 - Browsing: if "connected" display "disconnect" button
-- Browsing: Don't appear if
-    - blocked user
-    - reported
-    - Noped
-    - liked
-
-- The user must be able to easily get a list of suggestions that match his profile (if the profile is filled). in this list:
-> - propose only interesting profiles (for exe only men for a heterosexual girls)
-> - manage also the bisexuality
-> - if the orientation isn't specified -> user will considered bi-sexual.
-- the profiles are matched with:
-> - sexual orientation
-> - geographic area 
-> - max of common tags
-> - max of "fame rating"
-- You must show in priority people from the same geographical area.
-- The suggestion list must be sortable by age, location, “fame rating” and common tags.
-- The suggestion list must be filterable by age, location, “fame rating” and common tags.
 
 
 - from browsing_out.php to profile_detail.php
 - list tests
-- browsing_in.php
-- browsing_out.php
 
 ### Research -> NOK
 - [ ] The user must be able to run an advanced research selecting one or a few criterias such as:

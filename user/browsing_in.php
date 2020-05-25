@@ -30,7 +30,6 @@
 		    <!-- About Browsing inputs -->
             <div class="col-md-12">
 				<div class="my-3 p-3 bg-white rounded box-shadow">
-				<?php if(isset($message)) {echo '<div class="alert alert-danger" role="alert">'.htmlspecialchars($message).'</div>';}?>
 					<form method="GET" action="browsing_out.php">
 						<input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
 						<input type="hidden" name="i" value="0">
@@ -98,7 +97,7 @@
 							</div>
 				        </div>						
 						<!-- submit -->
-				        <button name="browsing" type="submit" class="btn btn-primary">Submit</button>
+				        <button name="browsing" value="browsing" type="submit" class="btn btn-primary">Submit</button>
 			        </form>
 			    </div>
             </div><!-- End About Browsing inputs -->

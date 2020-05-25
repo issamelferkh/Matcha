@@ -259,13 +259,9 @@ $query7 = "SELECT * FROM like_table WHERE user_p=".$_SESSION["user_id"]." AND us
     </div>
 </main>
 
-<!-- confirmation -->
-
 <!-- script to check if user is online -->
 <script>
 $(document).ready(function(){
-
-<?php //if($_SESSION["username"]) { ?>
 	// update user lastonline
 	function update_user_activity() {
 		var action = 'update_time';
@@ -277,19 +273,17 @@ $(document).ready(function(){
 		});
 	}
 
+	// fetch user online
 	setInterval(function(){ 
 		update_user_activity();
 	}, 3000);
-
-<?php //} else { ?>
 
 	fetch_user_login_data();
 
 	setInterval(function(){
 		fetch_user_login_data();
 	}, 3000);
-
-	// fetch user online
+	
 	function fetch_user_login_data() {
 		var action = "fetch_data";
 		var user_o = "<?php echo $user_id; ?>";
@@ -303,9 +297,6 @@ $(document).ready(function(){
 			}
 		});
 	}
-
-<?php //} ?>
-
 });
 </script>
 

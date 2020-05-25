@@ -56,20 +56,22 @@ if(isset($_GET["user"]) && isset($_GET["action"]) && ($_SESSION["token"] === $_G
 		$r_noti = $db->prepare($r_noti);
 		$r_noti->execute([$sender_id,$sender_name,$receiver_id,$receiver_name,$noti_text]);
 
-	// update contact list
+	// update contact list - check connected
 		// check if user_p like user_o
 		$query = "SELECT * FROM like_table WHERE user_p=".$user_p." AND user_o = ".$user_o;
 		$query = $db->prepare($query);
 		$query->execute();
 		$count = $query->rowCount();
 		$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
+		$flag1 = 0;
+		$flag2 = 0;
 		if ($count > 0) {
-			$la_case[0]["liked"] == 1 ? $flag1 = 1 : $flag1 = 0;
-			$la_case[0]["noped"] == 0 ? $flag1 = 1 : $flag1 = 0;
-			$la_case[0]["reported"] == 0 ? $flag1 = 1 : $flag1 = 0;
-			$la_case[0]["blocked"] == 0 ? $flag1 = 1 : $flag1 = 0;
+			if ($la_case[0]["liked"] == 0) $flag1++;
+			if ($la_case[0]["noped"] == 1) $flag1++;
+			if ($la_case[0]["reported"] == 1) $flag1++;
+			if ($la_case[0]["blocked"] == 1) $flag1++;
 		} else {
-			$flag1 = 0;
+			$flag1++;
 		}
 		// check if user_o like user_p
 		$query = "SELECT * FROM like_table WHERE user_o=".$user_p." AND user_p = ".$user_o;
@@ -78,15 +80,15 @@ if(isset($_GET["user"]) && isset($_GET["action"]) && ($_SESSION["token"] === $_G
 		$count = $query->rowCount();
 		$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
 		if ($count > 0) {
-			$la_case[0]["liked"] == 1 ? $flag2 = 1 : $flag2 = 0;
-			$la_case[0]["noped"] == 0 ? $flag2 = 1 : $flag2 = 0;
-			$la_case[0]["reported"] == 0 ? $flag2 = 1 : $flag2 = 0;
-			$la_case[0]["blocked"] == 0 ? $flag2 = 1 : $flag2 = 0;
+			if ($la_case[0]["liked"] == 0) $flag2++;
+			if ($la_case[0]["noped"] == 1) $flag2++;
+			if ($la_case[0]["reported"] == 1) $flag2++;
+			if ($la_case[0]["blocked"] == 1) $flag2++;
 		} else {
-			$flag2 = 0;
+			$flag2++;
 		}
 		// update connected if user_p and user_o like each other
-		if ($flag1 == 1 && $flag2 == 1) {
+		if ($flag1 === 0 && $flag2 === 0) {
 			$connected = 1;
 		} else {
 			$connected = 0;
@@ -119,7 +121,7 @@ if(isset($_GET["user"]) && isset($_GET["action"]) && ($_SESSION["token"] === $_G
 		header("Location: profile_detail.php?id=".$user_o);
 		// header("Location: browsing_in.php");
 	} else if (isset($_GET["link"]) && strpos($_GET["link"], 'browsing_out.php') !== false) {
-		isset($_GET["i"]) && !empty($_GET["i"]) ? $i = htmlspecialchars(trim($_GET["i"])) : $i = 0; 
+		isset($_GET["i"]) && $_GET["i"] !== NULL ? $i = htmlspecialchars(trim(intval($_GET["i"]+1))) : $i = 10; 
 		isset($_GET["sort"]) && !empty($_GET["sort"]) ? $sort = htmlspecialchars(trim($_GET["sort"])) : $sort = "default"; 
 		isset($_GET["age_min"]) && !empty($_GET["age_min"]) ? $age_min = htmlspecialchars(trim($_GET["age_min"])) : $age_min = 0; 
 		isset($_GET["age_max"]) && !empty($_GET["age_max"]) ? $age_max = htmlspecialchars(trim($_GET["age_max"])) : $age_max = 999; 

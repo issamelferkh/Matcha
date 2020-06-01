@@ -9,16 +9,17 @@
         $profile = $q_checkprofile->fetchAll(\PDO::FETCH_ASSOC);
         $flag = 0;
         if ($count1 > 0) {
-            if ($profile[0]['username'] === NULL) $flag = 1 ;
-            if ($profile[0]['password'] === NULL) $flag = 1 ;
-            if ($profile[0]['fname']    === NULL) $flag = 1 ;
-            if ($profile[0]['lname']    === NULL) $flag = 1 ;
-            if ($profile[0]['email']    === NULL) $flag = 1 ;
-            if ($profile[0]['gender']   === NULL) $flag = 1 ;
-            if ($profile[0]['sex_pre']  === NULL) $flag = 1 ;
-            if ($profile[0]['tag1']     === NULL) $flag = 1 ;
-            if ($profile[0]['bio']      === NULL) $flag = 1 ;
-            if ($profile[0]['age']      === NULL) $flag = 1 ;
+            if ($profile[0]['username'] === NULL) ft_putmsg('danger','Please complete your profile! Add Username','/user/profile.php');
+            if ($profile[0]['password'] === NULL) ft_putmsg('danger','Please complete your profile! Add Password','/user/profile.php');
+            if ($profile[0]['fname']    === NULL) ft_putmsg('danger','Please complete your profile! Add First Name','/user/profile.php');
+            if ($profile[0]['lname']    === NULL) ft_putmsg('danger','Please complete your profile! Add Last Name','/user/profile.php');
+            if ($profile[0]['email']    === NULL) ft_putmsg('danger','Please complete your profile! Add Email','/user/profile.php');
+            if ($profile[0]['gender']   === NULL) ft_putmsg('danger','Please complete your profile! Add Gender','/user/profile.php');
+            if ($profile[0]['sex_pre']  === NULL) ft_putmsg('danger','Please complete your profile! Add Sexual Preference','/user/profile.php');
+            if ($profile[0]['tag1']     === NULL) ft_putmsg('danger','Please complete your profile! Add Interest Tag','/user/profile.php');
+            if ($profile[0]['bio']      === NULL) ft_putmsg('danger','Please complete your profile! Add Biography','/user/profile.php');
+            if ($profile[0]['lati']      === NULL) ft_putmsg('danger','Please complete your profile! Add Location','/user/profile.php');
+            if ($profile[0]['longi']      === NULL) ft_putmsg('danger','Please complete your profile! Add Location','/user/profile.php');
         } else {
             $flag = 1;
         }
@@ -29,7 +30,7 @@
         $query->execute();
         $pic = $query->fetchAll(\PDO::FETCH_ASSOC);
         if (!(isset($pic[0]['imgURL']))) {
-            $flag = 1;
+            ft_putmsg('danger','Please complete your profile! Add Profile Picture','/user/profile.php');
         } 
 
         if ($flag) {

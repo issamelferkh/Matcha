@@ -259,6 +259,20 @@ $query7 = "SELECT * FROM like_table WHERE user_p=".$_SESSION["user_id"]." AND us
     </div>
 </main>
 
+<?php
+// Add look at your profile notification
+	// recorver 'sender_name'
+	$sender_id = $_SESSION['user_id'];
+	$sender_name = $_SESSION['fname']." ".$_SESSION['lname'];
+	$receiver_id = $la_case[0]['user_id'];
+	$receiver_name = $la_case[0]['fname']." ".$la_case[0]['lname'];
+	$noti_text = "Look at your profile";
+
+	$r_noti = "INSERT INTO `noti` (`sender_id`, `sender_name`, `receiver_id`, `receiver_name`, `noti_text`) VALUES (?,?,?,?,?) ";
+	$r_noti = $db->prepare($r_noti);
+	$r_noti->execute([$sender_id,$sender_name,$receiver_id,$receiver_name,$noti_text]);
+
+?>
 <!-- script to check if user is online -->
 <script>
 $(document).ready(function(){
@@ -283,7 +297,7 @@ $(document).ready(function(){
 	setInterval(function(){
 		fetch_user_login_data();
 	}, 3000);
-	
+
 	function fetch_user_login_data() {
 		var action = "fetch_data";
 		var user_o = "<?php echo $user_id; ?>";

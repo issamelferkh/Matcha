@@ -26,7 +26,15 @@ if (isset($_SESSION['username']))  { ?>
                 <a class="nav-link" href="<?php echo $url; ?>/user/chat.php">Chat</a>
             </li>
 
-            <!-- noti test -->
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo $url; ?>/user/matche.php">Matches</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo $url; ?>/user/history.php">Personal History</a>
+            </li>
+            
+            <!-- noti -->
             <!-- source : https://www.cloudways.com/blog/real-time-php-notification-system/ -->
             <li class="nav-item dropdown" style=" position: relative; top: 8px">
                 <a href="#" id="noti_click" data-toggle="dropdown"></a>

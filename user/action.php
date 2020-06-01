@@ -16,6 +16,7 @@ if(isset($_GET["user"]) && isset($_GET["action"]) && ($_SESSION["token"] === $_G
 	$_GET["action"] === "reported" ? $reported = 1 : $reported = 0;
 	$_GET["action"] === "blocked" ? $blocked = 1 : $blocked = 0;
 
+// Add (like/nope/report/block) actions /////////////////////////////////////////////////////////////
 	// verif if user_p and user_o already exist -> yes update -> no insert
 	$query = "SELECT * FROM like_table WHERE user_p=".$user_p." AND user_o = ".$user_o;
 	$query = $db->prepare($query);
@@ -37,26 +38,39 @@ if(isset($_GET["user"]) && isset($_GET["action"]) && ($_SESSION["token"] === $_G
 		$query2 = $db->prepare($query2);
 		$query2->execute([$user_p,$user_o,$liked,$noped,$reported,$blocked]);
 	}
-	// Add like notification
-		// recorver 'sender_name'
-		$sql = 'SELECT * FROM `user` WHERE `user_id`="'.$user_o.'"';
-		$sql = $db->prepare($sql);
-		$sql->execute(); 
-        $k = $sql->rowCount();
-		$case = $sql->fetchAll(\PDO::FETCH_ASSOC);
-		if ($k > 0) {
-			$sender_id = $_SESSION['user_id'];
-			$sender_name = $_SESSION['fname']." ".$_SESSION['lname'];
-			$receiver_id = $case[0]['user_id'];
-			$receiver_name = $case[0]['fname']." ".$case[0]['lname'];
-			$noti_text = "Like your profile";
-		}
 
-		$r_noti = "INSERT INTO `noti` (`sender_id`, `sender_name`, `receiver_id`, `receiver_name`, `noti_text`) VALUES (?,?,?,?,?) ";
-		$r_noti = $db->prepare($r_noti);
-		$r_noti->execute([$sender_id,$sender_name,$receiver_id,$receiver_name,$noti_text]);
+// Add Like AND Like-Back notification /////////////////////////////////////////////////////////////
+		// verif if action == like
+		if ($liked === 1) {
+			$query = "SELECT * FROM like_table WHERE user_p=".$user_o." AND user_o = ".$user_p." AND liked = 1";
+			$query = $db->prepare($query);
+			$query->execute();
+			$count = $query->rowCount();
+			$la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
+			// verif if user_o already like user_p
+			if ($liked ===1 && $count > 0) {
+				$noti_text = "Like back your profile";
+			} else {
+				$noti_text = "Like your profile";
+			}
+			// recorver 'reciver_name'
+			$sql = 'SELECT * FROM `user` WHERE `user_id`="'.$user_o.'"';
+			$sql = $db->prepare($sql);
+			$sql->execute(); 
+			$k = $sql->rowCount();
+			$case = $sql->fetchAll(\PDO::FETCH_ASSOC);
+			if ($k > 0) {
+				$sender_id = $_SESSION['user_id'];
+				$sender_name = $_SESSION['fname']." ".$_SESSION['lname'];
+				$receiver_id = $case[0]['user_id'];
+				$receiver_name = $case[0]['fname']." ".$case[0]['lname'];
+			}
+			$r_noti = "INSERT INTO `noti` (`sender_id`, `sender_name`, `receiver_id`, `receiver_name`, `noti_text`) VALUES (?,?,?,?,?) ";
+			$r_noti = $db->prepare($r_noti);
+			$r_noti->execute([$sender_id,$sender_name,$receiver_id,$receiver_name,$noti_text]);
+		} 
 
-	// update contact list - check connected
+// update contact list - check connected /////////////////////////////////////////////////////////////
 		// check if user_p like user_o
 		$query = "SELECT * FROM like_table WHERE user_p=".$user_p." AND user_o = ".$user_o;
 		$query = $db->prepare($query);
@@ -97,7 +111,7 @@ if(isset($_GET["user"]) && isset($_GET["action"]) && ($_SESSION["token"] === $_G
 		$query = $db->prepare($query);
 		$query->execute([$connected,$user_p,$user_o,$user_o,$user_p]);
 
-	// update popularity
+// update popularity /////////////////////////////////////////////////////////////
 		// calcul total (likes + nopes)
 		$query = 'SELECT * FROM `like_table` WHERE `user_o`="'.$user_o.'"';
 		$query = $db->prepare($query);
@@ -115,11 +129,9 @@ if(isset($_GET["user"]) && isset($_GET["action"]) && ($_SESSION["token"] === $_G
 	// update popularity in user table
 		$update_popularity = $db->query("UPDATE `user` SET `popularity` = $popularity WHERE `user_id` =".$user_o);
 
-
-	// verif if request from profile_detail.php or browsing_out.php
+// verif if request from profile_detail.php or browsing_out.php /////////////////////////////////////////////////////////////
 	if (isset($_GET["link"]) && strpos($_GET["link"], 'profile_detail.php') !== false) {
 		header("Location: profile_detail.php?id=".$user_o);
-		// header("Location: browsing_in.php");
 	} else if (isset($_GET["link"]) && strpos($_GET["link"], 'browsing_out.php') !== false) {
 		isset($_GET["i"]) && $_GET["i"] !== NULL ? $i = htmlspecialchars(trim(intval($_GET["i"]+1))) : $i = 10; 
 		isset($_GET["sort"]) && !empty($_GET["sort"]) ? $sort = htmlspecialchars(trim($_GET["sort"])) : $sort = "default"; 
@@ -136,10 +148,7 @@ if(isset($_GET["user"]) && isset($_GET["action"]) && ($_SESSION["token"] === $_G
 		header("Location: browsing_out.php?i=".$i."&sort=".$sort."&distance_min=".$distance_min."&distance_max=".$distance_max."&age_min=".$age_min."&age_max=".$age_max."&popularity_min=".$popularity_min."&popularity_max=".$popularity_max."&tag1=".$tag1."&tag2=".$tag2."&tag3=".$tag3."&token=".$_SESSION['token']);
 	}
 } else {
-	// 404
-	// msg csrf detected !
-	echo "test";
-	// header('Location: indlex.php');
+	header('Location: ../404.php');
 }
 
 ?>

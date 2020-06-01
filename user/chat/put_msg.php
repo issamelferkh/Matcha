@@ -23,5 +23,13 @@
         VALUES (?,?,?,?,?,?,?)';
 		$query = $db->prepare($query);
         $query->execute([$sender_id,$sender_name,$sender_pic,$receiver_id,$receiver_name,$receiver_pic,$msg_text,]);
+
+        // Add New message notification
+            $noti_text = "Send you a new message";
+
+            $r_noti = "INSERT INTO `noti` (`sender_id`, `sender_name`, `receiver_id`, `receiver_name`, `noti_text`) VALUES (?,?,?,?,?) ";
+            $r_noti = $db->prepare($r_noti);
+            $r_noti->execute([$sender_id,$sender_name,$receiver_id,$receiver_name,$noti_text]);
+            
     }
 ?>

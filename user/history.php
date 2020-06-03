@@ -27,81 +27,54 @@
     <div class="my-1 p-1 bg-white rounded box-shadow">
     <!-- Content wrapper start -->
     <div class="content-wrapper">
-
         <!-- Row start -->
         <div class="row gutters">
-
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
                 <div class="card m-0">
-
-                    <!-- Row start -->
                     <div class="row no-gutters">
-                        <!-- contact list -->
 <?php
-    // check if is connected or not
-    $query1 = " SELECT * FROM `like_table` WHERE `user_p`=".$_SESSION['user_id']." AND `connected` = 1 AND `reported` = 0 AND `blocked` = 0 ";
-    $query1 = $db->prepare($query1);
-    $query1->execute();
-    $count1 = $query1->rowCount();
-    $la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
+    $sql = " SELECT * FROM `noti` WHERE `receiver_id`=".$_SESSION['user_id']." ORDER BY `created_at` DESC ";
+    $sql = $db->prepare($sql);
+    $sql->execute();
+    $count = $sql->rowCount();
+    $history = $sql->fetchAll(\PDO::FETCH_ASSOC);
     $i = 0;
-    while ($count1 > $i) {
-        // list contacts
-        $query2 = " SELECT * FROM `user` WHERE `user_id`=".$la_case1[$i]['user_o']." ";
-        $query2 = $db->prepare($query2);
-        $query2->execute(); 
-        $count2 = $query2->rowCount();
-        $la_case2 = $query2->fetchAll(\PDO::FETCH_ASSOC);
-
-        // profile pic of the user
-        $query3 = 'SELECT * FROM `picture` WHERE `user_id`="'.$la_case1[$i]['user_o'].'" AND `asProfile` = 1';
-        $query3 = $db->prepare($query3);
-        $query3->execute();
-        $pic = $query3->fetchAll(\PDO::FETCH_ASSOC);
-        // check if is set user_o profile profile
-        if (isset($pic[0]['imgURL'])) {
-            $user_o_pic_profile = $pic[0]['imgURL'];
-        } else {
-            $user_o_pic_profile = "/assets/img/avatar.png";
-        }
-
+    while ($count > $i) {
+        $sql2 = " SELECT * FROM `user`, `picture` WHERE `user`.`user_id`=".$history[$i]['sender_id']." 
+        AND `picture`.`user_id`=".$history[$i]['sender_id']." AND `picture`.`asProfile` = 1 ";
+        $sql2 = $db->prepare($sql2);
+        $sql2->execute();
+        $count2 = $sql2->rowCount();
+        $history2 = $sql2->fetchAll(\PDO::FETCH_ASSOC);
         if ($count2 > 0) {
             echo "
-    <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>
-            <ul class='users'>
-                <li class='person'>
-<a href='".$url."/user/profile_detail.php?id=".$la_case2[0]['user_id']."'>
-                        <div class='user'>
-                            <img src='".$url.$user_o_pic_profile."'>
-                            <span class='status busy'></span>
-                        </div>
-                        <p class='name-time'>
-                            <span class='name'>".$la_case2[0]['fname']." ".$la_case2[0]['lname']."</span>
-                            <span class='time'>15/02/2019</span>
-                        </p>
-                    </a>
-                </li>
-            </ul>
-    </div>
+                <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>
+                    <ul class='users'>
+                        <li class='person'>
+                            <a href='".$url."/user/profile_detail.php?id=".$history[$i]['sender_id']."'>
+                                <div class='user'>
+                                    <img src='".$history2[0]['imgURL']."'>
+                                    <span class='status busy'></span>
+                                </div>
+                                <p class='name-time'>
+                                    <span class='name'>".$history2[0]['fname']." ".$history2[0]['lname']."</span>
+                                    <span class='time'><strong>".$history[$i]['noti_text']."</strong> at: ".$history[$i]['created_at']."</span>
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             ";
-
-        }
+            }
         $i++;
     }
 ?>
 
-                                
-
                     </div>
-                    <!-- Row end -->
                 </div>
-
             </div>
-
         </div>
         <!-- Row end -->
-
     </div>
     <!-- Content wrapper end -->
     </div>

@@ -14,11 +14,7 @@
 ### Notifications -> NOK
 - A connected user “unliked” you.
 
-### Historique
-- consulter user visiter your profile
-- users you like
-- users like you
-
+### Historique > OK
 ### Matches page -> OK
 ### Template -> OK
 ### Doc and Help

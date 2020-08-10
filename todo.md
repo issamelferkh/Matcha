@@ -1,92 +1,10 @@
-## Fonctionalities #########################################################################################
-diffrence between brows and search ?+++
+# Matcha
+## To-Do in 1337
 
-## Objectifs -> OK
-## Consignes générales -> OK
-### Registration and Signing-in -> OK
-### User profile
-- [ ] issue GPS: init lang and lat in update of profile. kay ecrasi dakchi li kayen
+### General:
+diffrence between browsing and search ?+++
 
-### Browsing -> OK
-- Browsing: if "connected" display "disconnect" button
-
-### Profile of other users -> NOK
-- [ ] When two people “like” each other, we will say that they are “connected” and are now able to chat.
-- [ ] A user can clearly see if the consulted profile is connected or “like” his profile and must be able to “unlike” or be disconnected from that profile.
-
-### Chat -> OK
-### Notifications -> NOK
-- A connected user “unliked” you.
-
-### Historique > OK
-### Matches page -> OK
-### Template -> OK
-### Doc and Help
-- https://cdn.intra.42.fr/pdf/pdf/4832/matcha.en.pdf
-- https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
-- for send id using get => 	<?php if (isset($la_case[0]['user_id'])) $user_id = hash('whirlpool',htmlspecialchars(trim($la_case[0]['user_id']))); ?>
-- UPDATE `like_table` SET `liked`=0,`noped`=0 ,`reported`=0,`blocked`=0,`connected`=0 WHERE 1
-
-
-
-
-## Issues, Opt AND Sec #########################################################################################
-## Objectifs -> OK
-## Consignes générales -> OK
-### Registration and Signing-in -> OK
-- [ ] Log-out -> avoid logout from unkown source
-- [ ] signin.php -> CSRF
-- [ ] signup.php  -> CSRF
-- [ ] forget_pwd.php  -> CSRF
-
-### User profile -> OK
-- profile_pic.php
-    - [ ] can't upload any picture
-    - [ ] check picture format
-    - [ ] limit sizeof pic
-    - [ ] limit types of pic
-    - [ ] avoid LFI 
-    - [ ] Vuln: if delete asprofile value from fronent -> add avatar pic as profile ?
-
-### Browsing -> OK
-
-### Profile of other users -> NOK
-
-### Chat -> OK
-- Chat: list contact (online or last connection)
-- Chat: Display by default the last msg in chat
-
-### Notifications -> NOK
-
-### Optimization
-- One Query -> Join queries
-- update all $_SESSION -> $_SESSION['auth]
-- list all pages to optimize =>
-    - asstes
-    - config
-    - include
-    - user
-        - chat
-            - get_msg.php
-            - put_msg.php
-        - action.php
-        - online.php
-        - browing_in.php
-        - ...
-
-### Security
-- in all pages
-    - SQL
-    - XSS
-    - CSRF
-    - Secure GET vars
-    - valide all form
-- Chat
-    - Chat sucure msg (if spaces, lenght ...)
-
-## To-Do in 1337 ################################################################################################################
-
-## Consignes générales ->
+### Consignes générales ->
 - [ ] logo
 - [ ] ft_putmsg -> test in all pages
 - [ ] auteur 
@@ -123,6 +41,7 @@ diffrence between brows and search ?+++
 - signout.php
     - [ ] test all error msg
 
+- [ ] Log-out -> avoid logout from unkown source
 
 ### User profile ->
 - profile.php
@@ -132,7 +51,18 @@ diffrence between brows and search ?+++
     - [ ] Gender => if(isset($la_case[0]['gender'])) -> selected by default in output
     - [ ] Sexual Preference => if(isset($la_case[0]['sex_pre'])) -> selected by default in output
 
+- [ ] issue GPS: init lang and lat in update of profile. kay ecrasi dakchi li kayen
+
+- profile_pic.php
+    - [ ] can't upload any picture
+    - [ ] check picture format
+    - [ ] limit sizeof pic
+    - [ ] limit types of pic
+    - [ ] avoid LFI 
+    - [ ] Vuln: if delete asprofile value from fronent -> add avatar pic as profile ?
+
 ### Browsing ->
+- Browsing: if "connected" display "disconnect" button
 
 ### Research -> NOK
 - [ ] The user must be able to run an advanced research selecting one or a few criterias such as:
@@ -144,10 +74,54 @@ diffrence between brows and search ?+++
 - [ ] The resulting list must be filterable by age, location, “fame rating” and common tags.
 
 ### Profile of other users ->
+- [ ] When two people “like” each other, we will say that they are “connected” and are now able to chat.
+- [ ] A user can clearly see if the consulted profile is connected or “like” his profile and must be able to “unlike” or be disconnected from that profile.
 
 ### Chat ->
+- Chat: list contact (online or last connection)
+- Chat: Display by default the last msg in chat
 
 ### Notifications -> 
+- A connected user “unliked” you.
 
+### Historique > OK
 
+### Matches page -> OK
 
+### Template -> OK
+
+### Security
+- in all pages
+    - SQL
+    - XSS
+    - CSRF
+    - Secure GET vars
+    - valide all form
+- Chat
+    - Chat sucure msg (if spaces, lenght ...)
+
+- [ ] signin.php -> CSRF
+- [ ] signup.php  -> CSRF
+- [ ] forget_pwd.php  -> CSRF
+
+### Optimization
+- One Query -> Join queries
+- update all $_SESSION -> $_SESSION['auth]
+- list all pages to optimize =>
+    - asstes
+    - config
+    - include
+    - user
+        - chat
+            - get_msg.php
+            - put_msg.php
+        - action.php
+        - online.php
+        - browing_in.php
+        - ...
+
+### Doc and Help
+- https://cdn.intra.42.fr/pdf/pdf/4832/matcha.en.pdf
+- https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
+- for send id using get => 	<?php if (isset($la_case[0]['user_id'])) $user_id = hash('whirlpool',htmlspecialchars(trim($la_case[0]['user_id']))); ?>
+- UPDATE `like_table` SET `liked`=0,`noped`=0 ,`reported`=0,`blocked`=0,`connected`=0 WHERE 1

@@ -5,7 +5,7 @@
 <!-- header -->
 <?php include("include/header.php"); ?>   
 <!-- nav -->
-<?php include("include/navbar_visitor.php"); ?>
+<?php include("include/navbar.php"); ?>
 <!-- if logged -> redirect to app -->
 <?php if (isset($_SESSION['username']))  { header("location:user/index.php");} ?>  
 

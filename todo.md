@@ -1,8 +1,12 @@
 ## Fonctionalities #########################################################################################
+diffrence between brows and search ?+++
+
 ## Objectifs -> OK
 ## Consignes générales -> OK
 ### Registration and Signing-in -> OK
-### User profile -> OK
+### User profile
+- [ ] issue GPS: init lang and lat in update of profile. kay ecrasi dakchi li kayen
+
 ### Browsing -> OK
 - Browsing: if "connected" display "disconnect" button
 

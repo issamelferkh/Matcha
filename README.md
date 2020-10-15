@@ -86,3 +86,6 @@ the profile of other users, like them, chat with those that “liked” back.\
 - To be able to inject HTML of “user” Javascript code in unprotected variables.
 - To be able to upload unwanted content.
 - To be able to alter a SQL request.
+
+## Help
+- phpmyadmin config file: /opt/lampp/etc/extra/httpd-xampp.conf

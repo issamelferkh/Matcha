@@ -44,7 +44,7 @@ function ft_putmsg($type, $message, $path) {
 
 }
 
-// send mail function
+// send mail verification function
 function ft_send_email_verification($username,$email,$hash){
 
     $to      = $email; // email of user
@@ -63,6 +63,25 @@ function ft_send_email_verification($username,$email,$hash){
                          
     $headers = 'From:no-reply@matcha.com' . "\r\n"; // set from headers
     mail($to, $subject, $message, $headers); // send email
+}
+
+// send mail reset pwd function
+function ft_send_email_reset_pwd($username,$email,$hash){
+
+$to      = $email;
+$subject = 'Matcha | Reset Password';
+$message = '
+ 
+Hi "'.$username.'",
+ 
+Please click this link to Reset your password:
+https://10.12.100.163/matcha/forget_pwd_verif.php?email='.$email.'&hash='.$hash.'
+ 
+Thanks for using Matcha!
+';
+                     
+$headers = 'From:no-reply@matcha.com' . "\r\n"; 
+mail($to, $subject, $message, $headers);
 }
 
 ?>

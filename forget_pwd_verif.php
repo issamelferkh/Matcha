@@ -15,7 +15,7 @@ else{
     $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
     if($count > 0) {
         $token = md5(rand(0,1000));
-        header("location:forget_pwd_reset.php?msg=".$token."");        
+        header("location:forget_pwd_reset.php?email=".$_GET['email']."&hash=".$_GET['hash']."");        
     } else{
         ft_putmsg('warning','You don\'t have an account yet in Matcha!','/signin.php');
     }

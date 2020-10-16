@@ -5,7 +5,7 @@ require_once("include/libft.php");
 
 
 if(empty($_GET['email']) || empty($_GET['hash'])) {
-    ft_putmsg('danger','All fields are required.','signin.php');
+    ft_putmsg('danger','All fields are required.','/signin.php');
 }
 else{        
     $query = 'SELECT * FROM user WHERE email="'.$_GET['email'].'" AND hash="'.$_GET['hash'].'"';
@@ -18,12 +18,12 @@ else{
             $active = 1;
             $sql = 'UPDATE user SET active=? WHERE email="'.$_GET['email'].'" AND hash="'.$_GET['hash'].'"';
             $db->prepare($sql)->execute([$active]);
-            ft_putmsg('primary','Your account is active now.','signin.php');
+            ft_putmsg('primary','Your account is active now.','/signin.php');
         } else if($la_case[0]['active'] == 1) {
-            ft_putmsg('warning','Your account is already activated!','signin.php');
+            ft_putmsg('warning','Your account is already activated!','/signin.php');
         }
     } else{
-        ft_putmsg('warning','You don\'t have an account yet in Matcha!','signin.php');
+        ft_putmsg('warning','You don\'t have an account yet in Matcha!','/signin.php');
     }
 }
 ?>

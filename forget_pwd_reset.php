@@ -5,7 +5,7 @@ require_once("include/libft.php");
 
 
 if(isset($_POST["reset"])) {
-    if(empty($_POST["password1"]) || empty($_POST["password2"])) {
+    if(empty($_POST["password1"]) || empty($_POST["password2"]) || empty($_POST["email"]) || empty($_POST["hash"])) {
         ft_putmsg('danger','All fields are required.','/forget_pwd_reset.php');
     } else if(($_POST["password1"]) !== ($_POST["password2"])) {
         ft_putmsg('danger','Password does not match!','/forget_pwd_reset.php');
@@ -22,21 +22,27 @@ if(isset($_POST["reset"])) {
         } else if(!$uppercase || !$lowercase || !$number || !$specialChars) {
             ft_putmsg('danger','Password should be include at least one upper case letter, one number, and one special character.','/forget_pwd_reset.php');
         } else {
-            $query = 'SELECT * FROM user WHERE username="'.$_POST['username'].'"';
+            $query = 'SELECT * FROM user WHERE email="'.$_POST['email'].'" AND hash="'.$_POST['hash'].'"';
             $query = $db->prepare($query);
             $query->execute();
             $count = $query->rowCount();
             $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
             if ($count > 0) {
-                ft_putmsg('danger','Username is already taken!','/forget_pwd_reset.php');
-            } else {
-                $sql = "UPDATE user SET `password`=?";
-                $db->prepare($sql)->execute([$password]);
+                echo "mzn";
+                $sql = "UPDATE user SET `password`=? WHERE `user_id`=?";
+                $db->prepare($sql)->execute([$password,$la_case[0]['user_id']]);
                 ft_putmsg('success','Your password has been reset successfully!','/signin.php');
+            } else {
+                ft_putmsg('danger','Sorry, something is wrong!','/forget_pwd.php');
             }
         } 
     }
-} 
+} else if(empty($_GET['email']) || empty($_GET["hash"])) { // check source
+    ft_putmsg('danger','Sorry, something is wrong!','/forget_pwd.php');
+} else {
+    $email = $_GET['email'];
+    $hash = $_GET['hash'];
+}
 ?>
 
 <?php include 'include/header.php'; ?>
@@ -52,6 +58,9 @@ if(isset($_POST["reset"])) {
         <h6 class="border-bottom border-gray pb-2 mb-0">Reset Password</h6></br>
         <form method="post" action="forget_pwd_reset.php">
             <div class="form-row">
+                <input type="hidden" name="email" value="<?= $email; ?>">
+                <input type="hidden" name="hash" value="<?= $hash; ?>">
+
                 <div class="form-group col-md-6">
                     <input class="form-control" type="password" name="password1" value="<?php if (isset($_POST['password'])) echo htmlspecialchars(trim($_POST['password'])); ?>" placeholder="Password" required>
                 </div>

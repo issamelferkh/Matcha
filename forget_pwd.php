@@ -3,23 +3,7 @@ session_start();
 require_once("config/connection.php");
 require_once("include/libft.php");
 
-function ft_send_email($username,$email,$hash){
 
-    $to      = $email;
-    $subject = 'Matcha | Reset Password';
-    $message = '
-     
-    Hi "'.$username.'",
-     
-    Please click this link to Reset your password:
-    https://10.12.100.163/matcha/forget_pwd_verif.php?email='.$email.'&hash='.$hash.'
-     
-    Thanks for using Matcha!
-    ';
-                         
-    $headers = 'From:no-reply@matcha.com' . "\r\n"; 
-    mail($to, $subject, $message, $headers);
-}
 
 if(isset($_POST["reset_pwd"])) {
     if(empty($_POST["username"]) || empty($_POST["email"])) {
@@ -32,7 +16,7 @@ if(isset($_POST["reset_pwd"])) {
         $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
         if ($count > 0) {
             $hash = $la_case[0]['hash'];
-            // ft_send_email($_POST['username'], $_POST['email'], $hash);
+            ft_send_email_reset_pwd($_POST['username'], $_POST['email'], $hash);
             ft_putmsg('primary','The magic link for reset your password has been sent to your email.','/signin.php');
         } else {
             ft_putmsg('danger','Sorry your Username or Email are incorrect!','/signin.php');            

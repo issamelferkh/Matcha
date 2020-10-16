@@ -22,6 +22,24 @@ diffrence between browsing and search ?+++
 - [ ] send mail test it in 1337 !
 
 ### Registration and Signing-in ->
+- check todo in Registration and Signing-in
+- check logique of reset pwd +++ rah dakchi machi howa hadak
+- pictures error !!!
+
+- error in profile
+
+
+
+
+
+
+- The app must allow a user to register asking at least an email address, a username, a last name, a first name and a password that is somehow protected. 
+- After the registration, an e-mail with an unique link must be sent to the registered user to verify his account.
+- The user must then be able to connect with his/her username and password. 
+- The user must be able to receive an email allowing him/her to re-initialize his/her password should the first one be forgotten and disconnect with 1 click from any pages on the site.
+
+
+
 - signup.php
     - [ ] test signup
     - [ ] test all error msg

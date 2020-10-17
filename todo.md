@@ -22,46 +22,22 @@ diffrence between browsing and search ?+++
 - [ ] send mail test it in 1337 !
 
 ### Registration and Signing-in ->
-- check todo in Registration and Signing-in
-- check logique of reset pwd +++ rah dakchi machi howa hadak
-- pictures error !!!
-
-- error in profile
-
-
-
-
-
-
-- The app must allow a user to register asking at least an email address, a username, a last name, a first name and a password that is somehow protected. 
-- After the registration, an e-mail with an unique link must be sent to the registered user to verify his account.
-- The user must then be able to connect with his/her username and password. 
-- The user must be able to receive an email allowing him/her to re-initialize his/her password should the first one be forgotten and disconnect with 1 click from any pages on the site.
-
-
-
-- signup.php
-    - [ ] test signup
-    - [ ] test all error msg
-    - [ ] send mail
-- active_user.php
-    - [ ] test all error msg
 - forget_pwd.php
     - [ ] test send mail
     - [ ] test all error msg
+    - [ ] send mail with 1 click if 2 click => msg deja fait
+    - [ ] check logique of reset pwd +++ rah dakchi machi howa hadak
+    - [ ] The user must be able to receive an email allowing him/her to re-initialize his/her password should the first one be forgotten and disconnect with 1 click from any pages on the site.
+
 - forget_pwd_reset.php
     - [ ] test all error msg
 - forget_pwd_verif.php
-    - why token ? "header("location:forget_pwd_reset.php?msg=".$token.""); " line 18
+    - [ ] why token ? "header("location:forget_pwd_reset.php?msg=".$token.""); " line 18
     - [ ] test all error msg
-- signin.php
-    - [ ] test all error msg
-- signout.php
-    - [ ] test all error msg
-
-- [ ] Log-out -> avoid logout from unkown source
 
 ### User profile ->
+- pictures error !!!
+- error in profile
 - profile.php
     - [ ] check if profile completed -> once connection and in all pages -> test for new profile
     - [ ] Test GPS in same city
@@ -121,6 +97,7 @@ diffrence between browsing and search ?+++
 - [ ] signin.php -> CSRF
 - [ ] signup.php  -> CSRF
 - [ ] forget_pwd.php  -> CSRF
+- [ ] signout.php   -> CSRF avoid logout from unkown source
 
 ### Optimization
 - One Query -> Join queries

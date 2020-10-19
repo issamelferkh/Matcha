@@ -9,7 +9,10 @@ if(isset($_POST["reset_pwd"])) {
     if(empty($_POST["username"]) || empty($_POST["email"])) {
         ft_putmsg('danger','All fields are required.','/forget_pwd.php');
     } else {
-        $query = 'SELECT * FROM user WHERE username="'.$_POST['username'].'" AND email="'.$_POST['email'].'"';
+        $email = htmlspecialchars(trim($_POST["email"]));
+        $username = htmlspecialchars(trim($_POST["username"]));
+
+        $query = 'SELECT * FROM user WHERE username="'.$username.'" AND email="'.$email.'"';
         $query = $db->prepare($query);
         $query->execute();
         $count = $query->rowCount();

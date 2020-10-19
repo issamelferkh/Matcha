@@ -6,9 +6,9 @@ require_once("include/libft.php");
 
 if(isset($_POST["reset"])) {
     if(empty($_POST["password1"]) || empty($_POST["password2"]) || empty($_POST["email"]) || empty($_POST["hash"])) {
-        ft_putmsg('danger','All fields are required.','/forget_pwd_reset.php');
+        ft_putmsg('danger','All fields are required.','/forget_pwd.php');
     } else if(($_POST["password1"]) !== ($_POST["password2"])) {
-        ft_putmsg('danger','Password does not match!','/forget_pwd_reset.php');
+        ft_putmsg('danger','Password does not match!','/forget_pwd.php');
     } else {
         $password = hash('whirlpool', $_POST['password1']);
         $pwdlen = strlen($_POST['password1']);
@@ -16,19 +16,21 @@ if(isset($_POST["reset"])) {
         $lowercase = preg_match('@[a-z]@', $_POST['password1']);
         $number    = preg_match('@[0-9]@', $_POST['password1']);
         $specialChars = preg_match('@[^\w]@', $_POST['password1']);
+        $email = htmlspecialchars(trim($_POST["email"]));
+        $hash = htmlspecialchars(trim($_POST["hash"])); 
+
 
         if($pwdlen < 8) {
-            ft_putmsg('danger','Invalid password. Password must be at least 8 characters.','/forget_pwd_reset.php');
+            ft_putmsg('danger','Invalid password. Password must be at least 8 characters.','/forget_pwd.php');
         } else if(!$uppercase || !$lowercase || !$number || !$specialChars) {
-            ft_putmsg('danger','Password should be include at least one upper case letter, one number, and one special character.','/forget_pwd_reset.php');
+            ft_putmsg('danger','Password should be include at least one upper case letter, one number, and one special character.','/forget_pwd.php');
         } else {
-            $query = 'SELECT * FROM user WHERE email="'.$_POST['email'].'" AND hash="'.$_POST['hash'].'"';
+            $query = 'SELECT * FROM user WHERE email="'.$email.'" AND hash="'.$hash.'"';
             $query = $db->prepare($query);
             $query->execute();
             $count = $query->rowCount();
             $la_case = $query->fetchAll(\PDO::FETCH_ASSOC);
             if ($count > 0) {
-                echo "mzn";
                 $sql = "UPDATE user SET `password`=? WHERE `user_id`=?";
                 $db->prepare($sql)->execute([$password,$la_case[0]['user_id']]);
                 ft_putmsg('success','Your password has been reset successfully!','/signin.php');
@@ -40,8 +42,8 @@ if(isset($_POST["reset"])) {
 } else if(empty($_GET['email']) || empty($_GET["hash"])) { // check source
     ft_putmsg('danger','Sorry, something is wrong!','/forget_pwd.php');
 } else {
-    $email = $_GET['email'];
-    $hash = $_GET['hash'];
+    $email = htmlspecialchars(trim($_GET["email"]));
+    $hash = htmlspecialchars(trim($_GET["hash"]));
 }
 ?>
 

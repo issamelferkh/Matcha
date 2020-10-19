@@ -9,8 +9,11 @@ if(isset($_POST["signin"])) {
     if(empty($_POST["username"]) || empty($_POST["password"])) {
         ft_putmsg('dark','All fields are required!','/signin.php');
     }
-    else {        
-        $query = 'SELECT * FROM user WHERE username="'.$_POST['username'].'" AND password="'.hash('whirlpool', $_POST['password']).'"';
+    else {   
+        $username = htmlspecialchars(trim($_POST["username"]));
+        $password = htmlspecialchars(trim($_POST["password"])); 
+
+        $query = 'SELECT * FROM user WHERE username="'.$username.'" AND password="'.hash('whirlpool', $password).'"';
         $query = $db->prepare($query);
         $query->execute();
         $count = $query->rowCount();

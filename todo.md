@@ -21,21 +21,13 @@ diffrence between browsing and search ?+++
 > - Pouvoir modifier une requête SQL.
 - [ ] send mail test it in 1337 !
 
-### Registration and Signing-in ->
-- forget_pwd.php
-    - [ ] test send mail
-    - [ ] test all error msg
-    - [ ] send mail with 1 click if 2 click => msg deja fait
-    - [ ] check logique of reset pwd +++ rah dakchi machi howa hadak
-    - [ ] The user must be able to receive an email allowing him/her to re-initialize his/her password should the first one be forgotten and disconnect with 1 click from any pages on the site.
-
-- forget_pwd_reset.php
-    - [ ] test all error msg
-- forget_pwd_verif.php
-    - [ ] why token ? "header("location:forget_pwd_reset.php?msg=".$token.""); " line 18
-    - [ ] test all error msg
+### Registration and Signing-in -> OK
 
 ### User profile ->
+- update pwd
+- upload pic
+- update profile
+
 - pictures error !!!
 - error in profile
 - profile.php
@@ -96,7 +88,10 @@ diffrence between browsing and search ?+++
 
 - [ ] signin.php -> CSRF
 - [ ] signup.php  -> CSRF
-- [ ] forget_pwd.php  -> CSRF
+- [ ] forget_pwd.php
+    - CSRF
+    - reset pwd timeout
+    - send mail te reset pwd with 1 click if 2 click => msg deja fait
 - [ ] signout.php   -> CSRF avoid logout from unkown source
 
 ### Optimization

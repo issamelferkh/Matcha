@@ -1,3 +1,3 @@
 # Disable directory browsing 
 Options -Indexes
-ErrorDocument 404 http://localhost/matcha/404.php
+ErrorDocument 404 https://10.12.100.163/matcha/404.php

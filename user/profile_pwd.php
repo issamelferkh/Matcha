@@ -12,6 +12,7 @@ if(isset($_POST['update_pwd'])) {
 			$password2		= htmlspecialchars(trim($_POST['password2']));
 			$password_old = htmlspecialchars(trim( $_POST["password_old"]));
 			$password_old	= hash('whirlpool', $password_old);
+			
 			$query = 'SELECT * FROM user WHERE `user_id`="'.$_SESSION['user_id'].'" ';
 			$query = $db->prepare($query);
 			$query->execute();

@@ -16,19 +16,19 @@ if(isset($_POST['profile_pic'])) {
 			$la_case = $query->fetchAll(\PDO::FETCH_ASSOC); 
 			if ($count < 5) {
 				$imgName = $_SESSION['user_id']."_".date("Y_m_d_H_i_s")."_profile.png";
-				$imgURL = "../assets/img/".$imgName;
+				$imgURL = "/assets/img/".$imgName;
 				$imageFileType = strtolower(pathinfo($imgURL,PATHINFO_EXTENSION)); //holds the file extension of the file (in lower case)
 
-				// Check if image file is a actual image or fake image
+				// Check if image file is a actual image or fake imagavatardsdsde
 				$check = getimagesize($_FILES["imgUpload"]["tmp_name"]);
 				if($check !== false) {
-					imagepng(imagecreatefromstring(file_get_contents($_FILES["imgUpload"]["tmp_name"])), $imgURL);
+					imagepng(imagecreatefromstring(file_get_contents($_FILES["imgUpload"]["tmp_name"])), "..".$imgURL);
 
 					$query = 'INSERT INTO `picture` (`user_id`, `username`, `imgName`, `imgURL`) VALUES (?,?,?,?)';
 					$query = $db->prepare($query);
 					$query->execute([$_SESSION['user_id'],$_SESSION['username'],$imgName,$imgURL]);
 
-					header("location:profile_pic.php");
+					// header("location:profile_pic.php");
 				}
 			} else {
 				ft_putmsg('danger','Sorry! 5 pictures in max.','/user/profile_pic.php');

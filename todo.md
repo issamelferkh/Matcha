@@ -24,28 +24,24 @@ diffrence between browsing and search ?+++
 ### Registration and Signing-in -> OK
 
 ### User profile ->
-- update pwd
-- upload pic
-- update profile
+- in tag: fix this error => No search results.
 
-- pictures error !!!
-- error in profile
+
 - profile.php
+    - error in profile
     - [ ] check if profile completed -> once connection and in all pages -> test for new profile
     - [ ] Test GPS in same city
+
 - profile_update.php
     - [ ] Gender => if(isset($la_case[0]['gender'])) -> selected by default in output
     - [ ] Sexual Preference => if(isset($la_case[0]['sex_pre'])) -> selected by default in output
 
-- [ ] issue GPS: init lang and lat in update of profile. kay ecrasi dakchi li kayen
+- GPS
+    - if not allow location -> get location with IP automatically +++ is the third
+    - if allow location get it by gps is the second
+    - if add it manual is the first
 
-- profile_pic.php
-    - [ ] can't upload any picture
-    - [ ] check picture format
-    - [ ] limit sizeof pic
-    - [ ] limit types of pic
-    - [ ] avoid LFI 
-    - [ ] Vuln: if delete asprofile value from fronent -> add avatar pic as profile ?
+
 
 ### Browsing ->
 - Browsing: if "connected" display "disconnect" button
@@ -94,6 +90,21 @@ diffrence between browsing and search ?+++
     - send mail te reset pwd with 1 click if 2 click => msg deja fait
 - [ ] signout.php   -> CSRF avoid logout from unkown source
 
+#### User profile ->
+- profile_pic.php
+    - [ ] check picture format
+    - [ ] limit sizeof pic
+    - [ ] limit types of pic
+    - [ ] avoid LFI 
+    - [ ] Vuln: if delete asprofile value from fronent -> add avatar pic as profile ?
+- profile_update.php
+    - XSS + SQLi
+
+### Errors
+- DevTools failed to load SourceMap: Could not load content for https://10.12.100.163/matcha/assets/js/bootstrap/popper.min.js.map: Certificate error: net::ERR_CERT_AUTHORITY_INVALID
+
+- DevTools failed to load SourceMap: Could not load content for https://10.12.100.163/matcha/assets/js/bootstrap/bootstrap.min.js.map: Certificate error: net::ERR_CERT_AUTHORITY_INVALID
+
 ### Optimization
 - One Query -> Join queries
 - update all $_SESSION -> $_SESSION['auth]
@@ -115,3 +126,6 @@ diffrence between browsing and search ?+++
 - https://cdn.intra.42.fr/pdf/pdf/3667/matcha.fr.pdf
 - for send id using get => 	<?php if (isset($la_case[0]['user_id'])) $user_id = hash('whirlpool',htmlspecialchars(trim($la_case[0]['user_id']))); ?>
 - UPDATE `like_table` SET `liked`=0,`noped`=0 ,`reported`=0,`blocked`=0,`connected`=0 WHERE 1
+- default gps
+    lati : 32.8821039
+    lang : -6.8978120999999994

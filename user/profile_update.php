@@ -93,13 +93,13 @@ if(isset($_POST['update_profile'])) {
 <?php include("../include/navbar.php"); ?>
 
 <!-- autocompete tags -->
-<script>
+<!-- <script>
         $(document).ready(function(){ 
         	$("#tag1").autocomplete({source: "tag_autocomplete.php"}); 
         	$("#tag2").autocomplete({source: "tag_autocomplete.php"}); 
         	$("#tag3").autocomplete({source: "tag_autocomplete.php"}); 
         });
-</script>
+</script> -->
 
 <!-- start container -->
 <main role="main" class="container">   

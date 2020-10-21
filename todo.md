@@ -25,7 +25,7 @@ diffrence between browsing and search ?+++
 
 ### User profile ->
 - in tag: fix this error => No search results.
-
+    - error in ajax and jquery CNDs
 
 - profile.php
     - error in profile

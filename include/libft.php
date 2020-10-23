@@ -5,8 +5,8 @@
 function ft_getDistance($latitude2, $longitude2) {
     $earth_radius = 6371;
 
-    $latitude1 = $_SESSION['auth']['lati'];
-    $longitude1 = $_SESSION['auth']['longi'];
+    $latitude1 = floatval($_SESSION['auth']['lati']);
+    $longitude1 = floatval($_SESSION['auth']['longi']);
 
     $dLat = deg2rad($latitude2 - $latitude1);
     $dLon = deg2rad($longitude2 - $longitude1);

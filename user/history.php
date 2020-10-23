@@ -53,7 +53,7 @@
                         <li class='person'>
                             <a href='".$url."/user/profile_detail.php?id=".$history[$i]['sender_id']."'>
                                 <div class='user'>
-                                    <img src='".$history2[0]['imgURL']."'>
+                                    <img src='/matcha/".$history2[0]['imgURL']."'>
                                     <span class='status busy'></span>
                                 </div>
                                 <p class='name-time'>

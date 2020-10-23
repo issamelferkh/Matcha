@@ -13,9 +13,11 @@
 
 <!-- select other profile -->
 <?php
-// if isset($_GET["browsing"]) -> form from browsing_in.php | orisset($_GET["i"]) from browsing_out.php by(like or nope)
-if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === $_GET["token"])){
-	// affectations sort or filter variables from browsing_in.php
+// if isset($_GET["browsing"]) -> form from research_in.php | orisset($_GET["i"]) from browsing_out.php by(like or nope)
+if ((isset($_GET["research"]) || isset($_GET["i"])) && ( $_SESSION["token"] === $_GET["token"])){
+	// affectations sort or filter variables from research_in.php
+
+	isset($_GET["username"]) && !empty($_GET["username"]) ? $username = htmlspecialchars(trim($_GET["username"])) : $username = ""; 
 	isset($_GET["sort"]) && !empty($_GET["sort"]) ? $sort = htmlspecialchars(trim($_GET["sort"])) : $sort = "default"; 
 	isset($_GET["age_min"]) && !empty($_GET["age_min"]) ? $age_min = htmlspecialchars(trim($_GET["age_min"])) : $age_min = 0; 
 	isset($_GET["age_max"]) && !empty($_GET["age_max"]) ? $age_max = htmlspecialchars(trim($_GET["age_max"])) : $age_max = 999; 
@@ -47,7 +49,8 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 	
 	// select profiles by sorting and filtering
 		if ($sort === "distance") { // sort by location
-			$query = "	SELECT * FROM `user` , `picture` WHERE $sex_pre AND `user`.`user_id` NOT LIKE '$user_current' 
+			$query = "	SELECT * FROM `user` , `picture` WHERE $sex_pre AND `user`.`user_id` NOT LIKE '$user_current'
+				AND `username` LIKE '%".$username."%'
 				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
 					OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
 					OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
@@ -59,6 +62,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 				ORDER BY ((lati-$ulati)*(lati-$ulati)) + ((longi - $ulongi)*(longi - $ulongi)) ASC ";
 		} else if ($sort == "age") { // sort by age
 			$query = "	SELECT * FROM `user` , `picture` WHERE $sex_pre AND `user`.`user_id` NOT LIKE '$user_current' 
+				AND `username` LIKE '%".$username."%'
 				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
 					OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
 					OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
@@ -70,6 +74,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 				ORDER BY `age` ASC";
 		} else if ($sort == "popularity") { // sort by popularity
 			$query = "	SELECT * FROM `user` , `picture` WHERE $sex_pre AND `user`.`user_id` NOT LIKE '$user_current' 
+				AND `username` LIKE '%".$username."%'
 				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
 					OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
 					OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
@@ -81,6 +86,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 				ORDER BY popularity DESC";
 		} else if ($sort == "tags") { // sort by tags
 			$query = "	SELECT * FROM `user` , `picture` WHERE $sex_pre AND `user`.`user_id` NOT LIKE '$user_current' 
+				AND `username` LIKE '%".$username."%'
 				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
 					OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
 					OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
@@ -92,6 +98,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 				ORDER BY tag1 ASC, tag2 ASC, tag3 ASC";
 		} else { // default sort
 			$query = "	SELECT * FROM `user` , `picture` WHERE $sex_pre AND `user`.`user_id` NOT LIKE '$user_current' 
+				AND `user`.`username` LIKE '%".$username."%'
 				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
 					OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
 					OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
@@ -109,7 +116,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 			$la_case1 = $query->fetchAll(\PDO::FETCH_ASSOC);
 			$i = 0;				         
 		} else {
-			ft_putmsg('info','Sorry, User not found! Try other filters.','/user/browsing_in.php');
+			ft_putmsg('info','Sorry, User not found! Try other filters.','/user/research_in.php');
 		}
 	// get next user by identify $i
 	if (isset($_GET["i"]) && $count > $_GET["i"]) {
@@ -231,7 +238,7 @@ if ($count > $_GET["i"]) {
 		ob_end_flush(); //Flush (send) the output buffer and turn off output buffering - avoid Cannot modify header information - headers already sent Error
 	}
 } else { // finish all users founded in the distance range OR filters
-	ft_putmsg('info','Sorry, User not found! Try other filters.','/user/browsing_in.php');
+	ft_putmsg('info','Sorry, User not found! Try other filters.','/user/research_in.php');
 }
 ?>
         </div>

@@ -19,7 +19,7 @@ if (isset($_SESSION['username']))  { ?>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo $url; ?>/user/research.php">Research</a>
+                <a class="nav-link" href="<?php echo $url; ?>/user/research_in.php">Research</a>
             </li>
 
             <li class="nav-item">

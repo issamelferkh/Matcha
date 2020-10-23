@@ -44,16 +44,11 @@ diffrence between browsing and search ?+++
 
 
 ### Browsing ->
+- check if blocked after all queries
 - Browsing: if "connected" display "disconnect" button
 
 ### Research -> NOK
-- [ ] The user must be able to run an advanced research selecting one or a few criterias such as:
-> - [ ] A age gap.
-> - [ ] A location.
-> - [ ] One or multiple interests tags.
-> - [ ] A “fame rating” gap.
-- [ ] The resulting list must be sortable by age, location, “fame rating” and common tags.
-- [ ] The resulting list must be filterable by age, location, “fame rating” and common tags.
+- research by username: in action.php and other locations in research in and out
 
 ### Profile of other users ->
 - [ ] When two people “like” each other, we will say that they are “connected” and are now able to chat.
@@ -62,11 +57,13 @@ diffrence between browsing and search ?+++
 ### Chat ->
 - Chat: list contact (online or last connection)
 - Chat: Display by default the last msg in chat
+- 
 
 ### Notifications -> 
 - A connected user “unliked” you.
 
-### Historique > OK
+### Historique ->
+- Not responsive
 
 ### Matches page -> OK
 
@@ -129,3 +126,48 @@ diffrence between browsing and search ?+++
 - default gps
     lati : 32.8821039
     lang : -6.8978120999999994
+
+
+
+
+
+SELECT * FROM `like_table` WHERE 
+`user_o`="'.$_SESSION['user_id'].'"
+AND `like_table`.`reported` = 1 
+AND `like_table`.`blocked` = 1 
+AND `like_table`.`connected` = 1 
+
+
+
+
+SELECT * FROM `user` , `picture` WHERE 
+(`user`.`gender` = 'Men' AND `user`.`sex_pre` = 'Men') 
+AND `user`.`user_id` NOT LIKE '33' 
+AND (tag1 LIKE '%%%' OR tag1 LIKE '%default%' OR tag1 LIKE '%default%' 
+    OR tag2 LIKE '%%%' OR tag2 LIKE '%default%' OR tag2 LIKE '%default%' 
+    OR tag3 LIKE '%%%' OR tag3 LIKE '%default%' OR tag3 LIKE '%default%') 
+AND (popularity BETWEEN '0' AND '100') 
+AND `complete_profile` = 1 
+AND (age BETWEEN '0' AND '999') 
+AND `user`.`user_id` = `picture`.`user_id` 
+AND `picture`.`asProfile` = 1 
+
+
+
+
+
+
+Old query
+SELECT * FROM `user` , `picture`, `like_table` WHERE $sex_pre AND `user`.`user_id` NOT LIKE '$user_current' 
+				AND (tag1 LIKE '%".$tag1."%' OR tag1 LIKE '%".$tag2."%' OR tag1 LIKE '%".$tag3."%' 
+    				OR tag2 LIKE '%".$tag1."%' OR tag2 LIKE '%".$tag2."%' OR tag2 LIKE '%".$tag3."%' 
+    				OR tag3 LIKE '%".$tag1."%' OR tag3 LIKE '%".$tag2."%' OR tag3 LIKE '%".$tag3."%')
+				AND (popularity BETWEEN '$popularity_min' AND '$popularity_max')
+				AND `complete_profile` = 1
+				AND (age BETWEEN '$age_min' AND '$age_max')
+				AND `user`.`user_id` = `picture`.`user_id`
+				AND `picture`.`asProfile` = 1
+				AND `user`.`user_id` = `like_table`.`user_o` 
+				AND `like_table`.`reported` = 0
+				AND `like_table`.`blocked` = 0
+				AND `like_table`.`connected` = 0

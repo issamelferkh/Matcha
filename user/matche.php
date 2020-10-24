@@ -46,6 +46,9 @@
     $count1 = $query1->rowCount();
     $la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
     $i = 0;
+    if ($count1 <= 0) {
+        ft_putmsg('info','Sorry, No Match found!','/user/index.php');
+    }
     while ($count1 > $i) {
         // list contacts
         $query2 = " SELECT * FROM `user` WHERE `user_id`=".$la_case1[$i]['user_o']." ";

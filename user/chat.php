@@ -53,6 +53,9 @@
     $count1 = $query1->rowCount();
     $la_case1 = $query1->fetchAll(\PDO::FETCH_ASSOC);
     $i = 0;
+    if ($count1 <= 0) {
+        ft_putmsg('info','Sorry, No Match found!','/user/index.php');
+    }
     while ($count1 > $i) {
         // list contacts
         $query2 = " SELECT * FROM `user` WHERE `user_id`=".$la_case1[$i]['user_o']." ";
@@ -66,7 +69,7 @@
         $query3 = $db->prepare($query3);
         $query3->execute();
         $pic = $query3->fetchAll(\PDO::FETCH_ASSOC);
-        // check if is set user_o profile profile
+        // check if is set user_o pic profile
         if (isset($pic[0]['imgURL'])) {
             $user_o_pic_profile = $pic[0]['imgURL'];
         } else {

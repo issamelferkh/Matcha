@@ -245,8 +245,7 @@ $(document).ready(function(){
             $('#msg_text').val('');
         });
 	});
-	function get_msg()
-	{
+	function get_msg() {
         var sender_id = $("#sender_id").val();
         	var sender_name = $("#sender_name").val();
             var sender_pic = $("#sender_pic").val();
@@ -272,7 +271,17 @@ $(document).ready(function(){
                 }
             });
 	}
-	setInterval('get_msg()', 1000);
+    setInterval('get_msg()', 1000);
+    
+    // Scrol Top script
+    // function ft_scrollTop() {
+    //     const box = document.getElementById("msg");
+    //     box.scrollTop = box.scrollHeight;
+
+    // }
+    // setInterval('ft_scrollTop()', 1000);
+
+
 </script>
 
 

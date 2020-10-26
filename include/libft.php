@@ -8,6 +8,9 @@ function ft_getDistance($latitude2, $longitude2) {
     $latitude1 = floatval($_SESSION['auth']['lati']);
     $longitude1 = floatval($_SESSION['auth']['longi']);
 
+    $latitude2 = floatval($latitude2);
+    $longitude2 = floatval($longitude2);
+
     $dLat = deg2rad($latitude2 - $latitude1);
     $dLon = deg2rad($longitude2 - $longitude1);
 

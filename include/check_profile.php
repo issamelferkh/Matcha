@@ -18,8 +18,6 @@
             if ($profile[0]['sex_pre']  === NULL) ft_putmsg('danger','Please complete your profile! Add Sexual Preference','/user/profile.php');
             if ($profile[0]['tag1']     === NULL) ft_putmsg('danger','Please complete your profile! Add Interest Tag','/user/profile.php');
             if ($profile[0]['bio']      === NULL) ft_putmsg('danger','Please complete your profile! Add Biography','/user/profile.php');
-            if ($profile[0]['lati']      === NULL) ft_putmsg('danger','Please complete your profile! Add Location','/user/profile.php');
-            if ($profile[0]['longi']      === NULL) ft_putmsg('danger','Please complete your profile! Add Location','/user/profile.php');
         } else {
             $flag = 1;
         }

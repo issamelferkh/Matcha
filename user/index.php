@@ -76,6 +76,7 @@
 				  longi:longi1},
 			success:function(data) {}
 		});
+		console.log("With GPS")
 	}
 
 	function iploc() {
@@ -84,9 +85,7 @@
 			url:"loc_gps_script.php",
 			method:"POST",
 			data:{action:action},
-			success:function(data) {
-				console.log(data);
-			}
+			success:function(data) {}
 		});
 	}
 

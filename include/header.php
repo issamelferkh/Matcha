@@ -31,11 +31,11 @@
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
         
 
-        <!-- Jquery
+        <!-- Jquery -->
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
     </head>
     <body class="bg-light">

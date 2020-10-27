@@ -1,5 +1,8 @@
 # Matcha
 ## To-Do in 1337
+- generate user pic
+- test setup of the DB
+- test all fonctionalities
 
 ### Consignes générales ->
 - [ ] logo

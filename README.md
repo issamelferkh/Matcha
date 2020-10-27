@@ -88,4 +88,19 @@ the profile of other users, like them, chat with those that “liked” back.\
 - To be able to alter a SQL request.
 
 ## Help
-- phpmyadmin config file: /opt/lampp/etc/extra/httpd-xampp.conf
+
+### Create new VM
+- matcha -> linux -> 64bits -> use an existing VHD file
+- config net -> bridged
+
+### Config SSH Access
+- Allow @IP in /etc/hosts.allow
+
+### Config DB Access
+- Allow @IP in /opt/lampp/etc/extra/httpd-xampp.conf
+
+### Delete matcha and clone new version
+
+### Config ssh via vscode with SSH FILE SYSTEMS plugin
+
+### delete the old DB and import the new

@@ -6,8 +6,6 @@
 <?php include("../include/header.php"); ?>   
 <!-- nav -->
 <?php include("../include/navbar.php"); ?> 
-<!-- check profile is completed -->
-<?php include("../include/check_profile.php"); ?> 
 
 <!-- start container -->
 <main role="main" class="container">   

@@ -35,7 +35,6 @@ if (isset($_SESSION['username']))  { ?>
             </li>
             
             <!-- noti -->
-            <!-- source : https://www.cloudways.com/blog/real-time-php-notification-system/ -->
             <li class="nav-item dropdown" style=" position: relative; top: 8px">
                 <a href="#" id="noti_click" data-toggle="dropdown"></a>
                 <ul id="noti_fetch" class="dropdown-menu" style="height:300px; overflow-y: scroll;"></ul>

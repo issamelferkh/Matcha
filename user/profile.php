@@ -229,7 +229,7 @@ $(document).ready(function(){
 
 	setInterval(function(){ 
 		update_user_activity();
-	}, 3000);
+	}, 1000);
 
 <?php //} else { ?>
 

@@ -109,8 +109,7 @@ if ((isset($_GET["browsing"]) || isset($_GET["i"])) && ( $_SESSION["token"] === 
 			$la_case1 = $query->fetchAll(\PDO::FETCH_ASSOC);
 			$i = 0;				         
 		} else {
-			print_r($query);
-			// ft_putmsg('info','Sorry, User not found! Try other filters.','/user/browsing_in.php');
+			ft_putmsg('info','Sorry, User not found! Try other filters.','/user/browsing_in.php');
 		}
 	// get next user by identify $i
 	if (isset($_GET["i"]) && $count > $_GET["i"]) {
@@ -232,7 +231,7 @@ if ($count > $_GET["i"]) {
 		ob_end_flush(); //Flush (send) the output buffer and turn off output buffering - avoid Cannot modify header information - headers already sent Error
 	}
 } else { // finish all users founded in the distance range OR filters
-	// ft_putmsg('info','Sorry, User not found! Try other filters.','/user/browsing_in.php');
+	ft_putmsg('info','Sorry, User not found! Try other filters.','/user/browsing_in.php');
 }
 ?>
         </div>
